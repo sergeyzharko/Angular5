@@ -13,7 +13,9 @@
       public isAvailable: boolean,
       public ingredients: Array<string>,
       public equivalents: Array<string>,
+      public bought: boolean
     ) {
       this.isAvailable = isAvailable || true;
+      this.bought = bought || false;
     }
   }  

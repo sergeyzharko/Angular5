@@ -8,6 +8,7 @@ import { Product, Category } from './../models/product.model';
 })
 export class OneProductComponent {
     @Input() product: Product;
+    @Output() buy: EventEmitter<Product> = new EventEmitter<Product>();
 
     @HostBinding('class') class = 'product';
 
@@ -15,5 +16,6 @@ export class OneProductComponent {
 
     onBuy() {
       console.log(`Item bought`);
+      this.buy.emit(this.product);
   }
 }
