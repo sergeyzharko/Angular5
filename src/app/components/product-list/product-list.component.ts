@@ -11,6 +11,8 @@ import { CartService } from './../../cart/';
 export class ProductListComponent implements OnInit {
   products: Array<Product>;
   @Output() buy: EventEmitter<Product> = new EventEmitter();
+
+  selectedName: string;
   
   constructor(
     public productsService: ProductsService,
@@ -25,6 +27,13 @@ export class ProductListComponent implements OnInit {
     console.log('product-list component, buy method', product);
     product.bought = true;
     this.cartService.addBoughtProduct(product);
+  }
+
+  onSelect(product) {
+  //  if (this.selectedName) {this.selectedName = undefined} else {
+      this.selectedName = product.name;
+      console.log(`${this.selectedName} was selected`);
+  //  }
   }
 
 }

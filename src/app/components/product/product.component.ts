@@ -17,5 +17,6 @@ export class ProductComponent {
     onBuy() {
       console.log(`Item bought`);
       this.buy.emit(this.product);
-  }
+    }
+
 }
