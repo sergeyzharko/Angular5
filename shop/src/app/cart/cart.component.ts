@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { CartService } from './services/cart.service';
+
+import { Customer } from './cart.model';
+import { CartService } from './cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,10 +12,17 @@ import { CartService } from './services/cart.service';
 export class CartComponent implements OnInit {
   names: Array<string>;
 
+  customer = new Customer();
+
   constructor( public cartService: CartService ) {}
 
   ngOnInit() {
     this.names = this.cartService.getBoughtProducts();
+  }
+
+  onRemove(name) {
+    this.names.splice(this.names.indexOf(name), 1);
+    console.log('Removed: ' + name);
   }
 
 }

@@ -3,6 +3,18 @@ Cart:<br>
 <ul>
   <li *ngFor="let name of names">
       {{name}}
+      <button class="btn btn-primary" (click)="onRemove(name)" >Remove</button>
   </li>
 </ul>
+<div>
+  <br><br><label>Name:</label><br>
+    <input [(ngModel)]="customer.name">
+  <br><br><label>City:</label><br>
+    <input [(ngModel)]="customer.city">
+  <br><br><label>Adress:</label><br>
+    <input [(ngModel)]="customer.address">
+</div>
+<p *ngIf="customer.name.length && customer.city.length && customer.address.length">
+  Delivery address: {{customer.name}}, {{customer.city}}, {{customer.address}}
+</p>
 </div>

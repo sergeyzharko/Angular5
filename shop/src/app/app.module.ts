@@ -7,21 +7,27 @@ import { AppComponent } from './app.component';
 
 // Modules
 
-import { productComponent } from './components/product/product.component';
-import { OneProductComponent, ProductListComponent, ProductsService } from './components/product-list';
+import { ProductComponent } from './components/product/product.component';
+import { ProductListComponent, ProductsService } from './components/product-list';
 import { CartService, CartComponent } from './cart';
+import { Product, Category } from './components/product/';
 
 @NgModule({
   declarations: [
     AppComponent,
-    productComponent,
-    OneProductComponent,
+    ProductComponent,
     ProductListComponent,
     CartComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+  ],
+  exports: [
+    AppComponent,
+    ProductComponent,
+    ProductListComponent,
+    CartComponent
   ],
   providers: [
     ProductsService,

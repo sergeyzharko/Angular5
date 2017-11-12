@@ -1,23 +1,28 @@
-<ul>
-  <li>Name: {{name}}</li>
-  <li>Description: {{description}}</li>
-  <li>Price: {{price}}</li>
-  <li>Category: {{category}}</li>
-  <li>Is Available: {{isAvailable}}</li>
-  <li>Ingredients:
-    <ul>
-      <li *ngFor="let ingredient of ingredients">
-        {{ingredient}}
-      </li>
-    </ul>
-  </li>
-  <li>Equivalents:
-    <ul>
-      <li *ngFor="let equivalent of equivalents">
-        {{equivalent}}
-      </li>
-    </ul>
-  </li>
-  <br>
-  <button class="btn btn-primary" (click)="onBuy()" >Buy</button>
-</ul>
+<div class="panel panel-default">
+  <div class="panel-heading">{{product.name}}</div>
+  <div class="panel-body">
+      <ul>
+          <li>Description: {{product.description}}</li>
+          <li>Price: {{product.price}}</li>
+          <li>Category: {{product.category}}</li>
+          <li>Is Available: {{product.isAvailable}}</li>
+          <li>Ingredients:
+              <ul>
+                  <li *ngFor="let ingredient of product.ingredients">
+                    {{ingredient}}
+                  </li>
+              </ul>
+          </li>
+          <li>Equivalents:
+              <ul>
+                  <li *ngFor="let equivalent of product.equivalents">
+                    {{equivalent}}
+                  </li>
+              </ul>
+          </li>
+          <li>Bought: {{product.bought}}</li>
+          <br>
+          <button class="btn btn-primary" (click)="onBuy()" >Buy</button>
+      </ul>
+  </div>
+</div>

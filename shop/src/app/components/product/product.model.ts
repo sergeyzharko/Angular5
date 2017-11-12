@@ -1,7 +1,3 @@
-/**
-  * Task Model
-  */
-
   export enum Category { A = 'food', B = 'drink', C = 'other' };
 
   export class Product {

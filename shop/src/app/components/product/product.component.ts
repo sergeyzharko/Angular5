@@ -1,37 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, HostBinding, HostListener } from '@angular/core';
 
-enum Category { A = 'food', B = 'drink', C = 'other' };
+import { Product, Category } from './product.model';
 
 @Component({
   selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  templateUrl: './product.component.html'
 })
-export class productComponent implements OnInit {
-  
-  name: string;
-  description: string;
-  price: number;
-  category: Category;
-  isAvailable: boolean;
-  ingredients: Array<string>;
-  equivalents: Array<string>;
+export class ProductComponent {
+    @Input() product: Product;
+    @Output() buy: EventEmitter<Product> = new EventEmitter<Product>();
 
-  constructor(
-  ) { }
+    @HostBinding('class') class = 'product';
 
-  ngOnInit() {
-    this.name = `Pizza`;
-    this.description = `This is my first pizza`;
-    this.price = 10;
-    this.category = Category.A;
-    this.isAvailable = true;
-    this.ingredients = ['flour', 'water', 'tomatoes', 'sausage'];
-    this.equivalents = ['hot dog', 'hamburger'];
-  }
+    constructor() {}
 
-  onBuy() {
+    onBuy() {
       console.log(`Item bought`);
+      this.buy.emit(this.product);
   }
-
 }
