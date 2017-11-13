@@ -30,10 +30,10 @@ export class ProductListComponent implements OnInit {
   }
 
   onSelect(product) {
-  //  if (this.selectedName) {this.selectedName = undefined} else {
+    if (this.selectedName === product.name) {this.selectedName = undefined} else {
       this.selectedName = product.name;
       console.log(`${this.selectedName} was selected`);
-  //  }
+    }
   }
 
 }
