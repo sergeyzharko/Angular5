@@ -14,12 +14,16 @@ export class ProductListComponent implements OnInit {
 
   selectedName: string;
   
-  constructor(
+  constructor( // Reserve the constructor for simple initialization such as wiring constructor parameters to properties.
     public productsService: ProductsService,
     public cartService: CartService
   ) { }
 
   ngOnInit() {
+    this.getProducts();
+  }
+
+  getProducts(): void {
     this.products = this.productsService.getProducts();
   }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Product, Category } from '../product/product.model';
 
-@Injectable()
+@Injectable() // decorator tells Angular that this service might itself have injected dependencies
 export class ProductsService {
 
   constructor() { }

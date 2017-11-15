@@ -3,7 +3,7 @@
     <app-product
       *ngIf="selectedName == product.name"
       [product]="product"
-      (buy)="onBuy($event)">
+      (buy)="onBuy($event)"> <!-- [product] Input parameter of app-product, property binding -->
     </app-product>
   </div>
 </div>
