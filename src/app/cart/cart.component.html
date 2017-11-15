@@ -1,11 +1,17 @@
-<div class="block" *ngIf="names.length">
+<div class="block" *ngIf="items.length">
 <h5 class="list-group-item list-group-item-dark col-sm-6 width">Cart:</h5>
 <ul class="list-group col-sm-6">
-  <li *ngFor="let name of names" class="list-group-item list-group-item-warning">
-      {{name}}
-      <button class="btn btn-primary left" (click)="onRemove(name)" >Remove</button>
+  <li *ngFor="let item of items" class="list-group-item list-group-item-warning">
+    <cart-item
+      [item] = "item"
+      (remove)="onRemove($event)"
+      (increment)="onIncrement($event)"
+      (decrement)="onDecrement($event)">
+    </cart-item>
   </li>
 </ul>
+Total quantity: {{values.totalQuantity}}
+Total amount: {{values.amount}}
 <div class="form-group">
   <label>Name:</label>
   <input [(ngModel)]="customer.name" class="form-control">

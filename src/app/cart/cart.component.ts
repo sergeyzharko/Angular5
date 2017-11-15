@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { Customer } from './cart.model';
 import { CartService } from './cart.service';
+import { Item } from './../components/cart-item/cart-item.model';
 
 @Component({
   selector: 'app-cart',
@@ -10,19 +11,28 @@ import { CartService } from './cart.service';
   encapsulation: ViewEncapsulation.None
 })
 export class CartComponent implements OnInit {
-  names: Array<string>;
+  items: Array<Item> = [];
+  values;
 
   customer = new Customer();
 
   constructor( public cartService: CartService ) {}
 
   ngOnInit() {
-    this.names = this.cartService.getBoughtProducts();
+    this.items = this.cartService.boughtProducts;
+    this.values = this.cartService.values;
   }
 
-  onRemove(name) {
-    this.names.splice(this.names.indexOf(name), 1);
-    console.log('Removed: ' + name);
+  onRemove(item) {
+    this.cartService.onRemove(item);
+  }
+
+  onIncrement(item) {
+    this.cartService.onIncrement(item);
+  }
+
+  onDecrement(item) {
+    this.cartService.onDecrement(item);
   }
 
 }

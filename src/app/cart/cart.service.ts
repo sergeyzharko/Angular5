@@ -1,31 +1,63 @@
 import { Injectable } from '@angular/core';
 
 import { Product, Category } from './../components/product';
-import { ProductsService } from './../components/product-list';
+import { Item } from './../components/cart-item/cart-item.model';
 
 @Injectable()
 export class CartService {
 
-  constructor(
-    public productsService: ProductsService
-  ) { }
+  constructor( ) { }
 
-  boughtProducts: Array<string>;
-
-  getBoughtProducts(): Array<string> {
-    this.boughtProducts = [];
-    let allProducts: Array<Product>;
-    allProducts = this.productsService.getProducts();
-
-    for (let i = 0; i < allProducts.length; i++) {
-        if (allProducts[i].bought) this.boughtProducts.push(allProducts[i].name);
-    }
-    
-    return this.boughtProducts;
+  boughtProducts: Array<Item> = [];
+  values = {
+    totalQuantity: 0,
+    amount: 0
   }
 
   addBoughtProduct(product): void {
-    this.boughtProducts.push(product.name)
+    for (let item of this.boughtProducts) {
+      if (item.name === product.name) {
+        item.quantity++;
+        this.values.totalQuantity++;
+        return;
+      }
+    }
+    this.boughtProducts.push({
+      name: product.name,
+      quantity: 1,
+      price: product.price
+    });
+    this.totalAmount();
+    console.log('Done');
+  }
+
+  onRemove(item) {
+    this.boughtProducts.splice(this.boughtProducts.indexOf(item), 1);
+    this.totalAmount();
+    console.log('Removed: ' + item.name);
+  }
+
+  onIncrement(item) {
+    this.boughtProducts[this.boughtProducts.indexOf(item)].quantity++;
+    this.totalAmount();
+  }
+
+  onDecrement(item) {
+    if ( this.boughtProducts[this.boughtProducts.indexOf(item)].quantity > 1 ) {
+      this.boughtProducts[this.boughtProducts.indexOf(item)].quantity--;
+      this.totalAmount();
+    } else this.onRemove(item);
+  }
+
+  totalAmount() {
+    let sum: number = 0;
+    let quantity: number = 0;
+    for (let item of this.boughtProducts) {
+      sum = sum + item.quantity * item.price;
+      quantity = quantity + item.quantity;
+    }
+    this.values.amount = sum;
+    this.values.totalQuantity = quantity;
   }
 
 }
