@@ -6,7 +6,8 @@ import { CartService } from './../../cart/';
 
 @Component({
   selector: 'product-list',
-  templateUrl: './product-list.component.html'
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
   products: Array<Product>;
@@ -36,7 +37,26 @@ export class ProductListComponent implements OnInit {
   onSelect(product) {
     if (this.selectedName === product.name) {this.selectedName = undefined} else {
       this.selectedName = product.name;
-      console.log(`${this.selectedName} was selected`);
+      // console.log(`${this.selectedName} was selected`);
+    }
+  }
+
+  setClasses(product) {
+    let classes = {
+      "panel-heading": true,
+      notavailable: !product.isAvailable,
+      new: !product.bought && product.isAvailable,
+      selected: this.selectedName === product.name,
+      added: product.bought
+    }
+    return classes;
+  }
+
+  outOfStock(product) {
+    if (!product.isAvailable) {
+      return {
+        border: "4px solid red"
+      }
     }
   }
 

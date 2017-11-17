@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, HostBinding, HostListener } from '@angular/core';
+import { Component, EventEmitter, Input, Output, HostBinding, HostListener, SimpleChanges } from '@angular/core';
 
 import { Product, Category } from './product.model';
 
@@ -18,6 +18,10 @@ export class ProductComponent {
     onBuy() {
       console.log(`Item bought`);
       this.buy.emit(this.product);
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        console.log(`Selected Product: ${changes.product.currentValue.name}`);
     }
 
 }

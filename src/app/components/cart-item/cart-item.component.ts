@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, HostBinding, HostListener } from '@angular/core';
+import { Component, EventEmitter, Input, Output, HostBinding, HostListener, Renderer2, ElementRef } from '@angular/core';
 
 import { Item } from './cart-item.model';
 
@@ -14,7 +14,16 @@ export class CartItemComponent {
 
     @HostBinding('class') class = 'Item';
 
-    constructor() {}
+    @HostListener("mouseenter") onMouseEnter() {
+        this.setBackgroundColor("blue");
+        console.log('enter');
+    }
+ 
+    @HostListener("mouseleave") onMouseLeave() {
+        this.setBackgroundColor("gray");
+    }
+
+    constructor(private element: ElementRef, private renderer: Renderer2) {}
 
     onRemove() {
       console.log(`Item removed`);
@@ -30,5 +39,11 @@ export class CartItemComponent {
       console.log(`Item decremented`);
       this.decrement.emit(this.item);
     }
+
+    private setBackgroundColor(val: string) {
+      this.renderer.setStyle(this.element.nativeElement, "background-color", val);
+    }
+
+    ngOnDestroy() { console.log(`CartItem was destroyed`); }
 
 }

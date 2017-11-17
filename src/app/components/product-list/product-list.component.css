@@ -1,0 +1,12 @@
+.new {
+    background-color: yellow;
+  }
+.selected {
+    background-color: green;
+}
+.added {
+    background-color: rgb(0, 255, 200);
+}
+.notavailable {
+    background-color: red;
+}

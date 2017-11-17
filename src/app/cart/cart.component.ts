@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 
 import { Customer } from './cart.model';
 import { CartService } from './cart.service';
 import { Item } from './../components/cart-item/cart-item.model';
+import { CartItemComponent } from './../components/cart-item';
 
 @Component({
   selector: 'app-cart',
@@ -15,6 +16,9 @@ export class CartComponent implements OnInit {
   values;
 
   customer = new Customer();
+
+  @ViewChild(CartItemComponent)
+  private item: CartItemComponent;
 
   constructor( public cartService: CartService ) {}
 
@@ -33,6 +37,17 @@ export class CartComponent implements OnInit {
 
   onDecrement(item) {
     this.cartService.onDecrement(item);
+  }
+
+  buy(name: string, city: string, adress: string) {
+    alert("Congratulations! Your order is formed!");
+  }
+
+  clear() {
+    while(this.items.length) {
+      this.item.onRemove();
+    }
+    console.log('Cart is clear');
   }
 
 }

@@ -34,7 +34,6 @@ export class CartService {
   onRemove(item) {
     this.boughtProducts.splice(this.boughtProducts.indexOf(item), 1);
     this.totalAmount();
-    console.log('Removed: ' + item.name);
   }
 
   onIncrement(item) {
