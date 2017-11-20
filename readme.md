@@ -12,7 +12,7 @@ Task1:
 
 Task2:
 
-Функциональность:
+Дополнительная функциональность:
 
 1. В product-list применён [ngClass] и [ngStyle]
 2. #variable в cart.component.html: сначала вводим адрес, затем нажимаем buy

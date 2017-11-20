@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'hello',
-    template: `
-      Please enter your name: <input #box
+    template: `<div style="margin: 40px 0px 0px 20px;"><label>
+      Please enter your name:</label><div class="input-group"> <input #box
         (keyup.enter)="update(box.value)"
         (blur)="update(box.value)">
-      <p>Hello {{value}}!</p>
+      <p>Hello {{value}}!</p></div>
     `
   })
   export class Hello {

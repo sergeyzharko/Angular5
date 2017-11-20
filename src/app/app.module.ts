@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 
 import { ProductComponent } from './components/product/product.component';
 import { ProductListComponent, ProductsService } from './components/product-list';
-import { CartService, CartComponent } from './cart';
+import { CartService, CartComponent } from './components/cart';
 import { Product, Category } from './components/product/';
 import { Item, CartItemComponent} from './components/cart-item/';
 import { Hello } from './components/hello/hello.component';

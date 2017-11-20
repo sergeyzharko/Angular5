@@ -24,4 +24,8 @@ export class ProductComponent {
         console.log(`Selected Product: ${changes.product.currentValue.name}`);
     }
 
+    outOfStock() {
+        alert("Sorry, product is out of stock...");
+    }
+
 }

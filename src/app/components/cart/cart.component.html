@@ -1,5 +1,5 @@
 <div class="block" *ngIf="items.length">
-<h5 class="list-group-item list-group-item-dark col-sm-6 width">Cart:</h5>
+<h4 class="list-group-item list-group-item-dark col-sm-6 width">Cart:</h4>
 <ul class="list-group col-sm-6">
   <li *ngFor="let item of items" class="list-group-item list-group-item-warning">
     <cart-item
@@ -10,9 +10,9 @@
     </cart-item>
   </li>
 </ul>
-<button (click)="clear()">Clear</button>
-Total quantity: {{values.totalQuantity}}
-Total amount: {{values.amount}}
+<button class="btn btn-primary" (click)="clear()">Clear</button>
+<p class="information">Total quantity: {{values.totalQuantity}}</p>
+<p class="information">Total amount: {{values.amount}}</p>
 <div class="form-group">
   <label>Name:</label>
   <input [(ngModel)]="customer.name" class="form-control" #name>

@@ -16,11 +16,12 @@ export class CartItemComponent {
 
     @HostListener("mouseenter") onMouseEnter() {
         this.setBackgroundColor("blue");
+        console.log(this);
         console.log('enter');
     }
  
     @HostListener("mouseleave") onMouseLeave() {
-        this.setBackgroundColor("gray");
+        this.setBackgroundColor("green");
     }
 
     constructor(private element: ElementRef, private renderer: Renderer2) {}

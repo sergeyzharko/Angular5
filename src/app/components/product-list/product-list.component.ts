@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Product, Category } from '../product/';
 import { ProductsService } from './product-list.service';
-import { CartService } from './../../cart/';
+import { CartService } from './../cart/';
 
 @Component({
   selector: 'product-list',
@@ -11,7 +11,6 @@ import { CartService } from './../../cart/';
 })
 export class ProductListComponent implements OnInit {
   products: Array<Product>;
-  @Output() buy: EventEmitter<Product> = new EventEmitter();
 
   selectedName: string;
   
@@ -55,7 +54,8 @@ export class ProductListComponent implements OnInit {
   outOfStock(product) {
     if (!product.isAvailable) {
       return {
-        border: "4px solid red"
+        border: "4px solid red",
+        margin: "0px 0px 0px 10px"
       }
     }
   }
