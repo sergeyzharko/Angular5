@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'hello',
+    selector: 'app-hello',
     template: `<div style="margin: 40px 0px 0px 20px;"><label>
       Please enter your name:</label><div class="input-group"> <input #box
         (keyup.enter)="update(box.value)"
@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
       <p>Hello {{value}}!</p></div>
     `
   })
-  export class Hello {
+  export class HelloComponent {
     value = '';
     update(value: string) { this.value = value; }
   }

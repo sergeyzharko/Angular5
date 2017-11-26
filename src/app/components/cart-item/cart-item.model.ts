@@ -4,4 +4,4 @@
       public quantity: number,
       public price: number
     ) {}
-  }  
+  }

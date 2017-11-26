@@ -12,10 +12,10 @@ export class CartService {
   values = {
     totalQuantity: 0,
     amount: 0
-  }
+  };
 
   addBoughtProduct(product): void {
-    for (let item of this.boughtProducts) {
+    for (const item of this.boughtProducts) {
       if (item.name === product.name) {
         item.quantity++;
         this.values.totalQuantity++;
@@ -45,13 +45,13 @@ export class CartService {
     if ( this.boughtProducts[this.boughtProducts.indexOf(item)].quantity > 1 ) {
       this.boughtProducts[this.boughtProducts.indexOf(item)].quantity--;
       this.totalAmount();
-    } else this.onRemove(item);
+    } else { this.onRemove(item); }
   }
 
   totalAmount() {
-    let sum: number = 0;
-    let quantity: number = 0;
-    for (let item of this.boughtProducts) {
+    let sum = 0;
+    let quantity = 0;
+    for (const item of this.boughtProducts) {
       sum = sum + item.quantity * item.price;
       quantity = quantity + item.quantity;
     }

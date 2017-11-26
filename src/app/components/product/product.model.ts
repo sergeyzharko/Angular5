@@ -11,7 +11,7 @@
       public equivalents: Array<string>,
       public bought: boolean
     ) {
-      this.isAvailable = (this.isAvailable == undefined) ? true : this.isAvailable;
-      this.bought = (this.bought == undefined) ? true : this.bought;
+      this.isAvailable = (this.isAvailable === undefined) ? true : this.isAvailable;
+      this.bought = (this.bought === undefined) ? true : this.bought;
     }
-  }  
+  }
