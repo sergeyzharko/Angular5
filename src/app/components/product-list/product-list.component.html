@@ -1,4 +1,13 @@
 <div class="panel panel-default">
+  <form #myForm="ngForm">
+    <label>Sort Field: </label>
+    <input type="radio" id="name" name="field" value="name" [(ngModel)]="orderField" (ngModelChange)="onOrder()"><label for="name">Name</label>
+    <input type="radio" id="price" name="field" value="price" [(ngModel)]="orderField" (ngModelChange)="onOrder()"><label for="price">Price</label>
+    <br>
+    <label>Sort Order: </label>
+    <input type="radio" id="ascending" name="order" value="1" [(ngModel)]="direction" (ngModelChange)="onOrder()"><label for="ascending">Ascending</label>
+    <input type="radio" id="descending" name="order" value="" [(ngModel)]="direction" (ngModelChange)="onOrder()"><label for="descending">Descending</label>
+  </form>
   <div *ngFor="let product of products"><div [ngClass]="setClasses(product)" (click)="onSelect(product)">{{product.name}}</div>
     <div [ngStyle]="outOfStock(product)">
       <app-product
