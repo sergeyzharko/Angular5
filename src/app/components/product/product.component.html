@@ -1,8 +1,8 @@
   <div class="panel-body">
       <ul class="list-group col-sm-6">
           <li class="list-group-item list-group-item-warning">Description: {{product.description}}</li>
-          <li class="list-group-item list-group-item-info">Price: {{product.price}}</li>
-          <li class="list-group-item list-group-item-success">Category: {{product.category}}</li>
+          <li class="list-group-item list-group-item-info">Price: {{product.price | currency:'USD':'symbol':'1.2-2'}}</li>
+          <li class="list-group-item list-group-item-success">Category: {{product.category | uppercase}}</li>
           <li class="list-group-item list-group-item-danger">Is Available: {{product.isAvailable}}</li>
           <li class="list-group-item list-group-item-warning">Ingredients:
               <ul>
@@ -19,6 +19,7 @@
               </ul>
           </li>
           <li class="list-group-item list-group-item-success">Bought: {{product.bought}}</li>
+          <li class="list-group-item list-group-item-warning">Update Date: {{product.updateDate | date}}</li>
           <br>
           <button *ngIf="product.isAvailable" class="btn btn-primary" (click)="onBuy()" >Add to cart</button>
           <button *ngIf="!product.isAvailable" class="btn btn-primary" (click)="outOfStock()" >Out of stock</button>

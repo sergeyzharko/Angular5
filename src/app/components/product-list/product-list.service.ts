@@ -9,9 +9,9 @@ export class ProductsService {
 
   getProducts(): Array<Product> {
     return [
-      new Product('Bread', 'This is my first bread', 3, Category.A, true, ['flour', 'water'], ['bun', 'sandwich'], false),
-      new Product('Milk', 'Very tasty milk', 6, Category.B, true, ['cow'], ['kefir', 'ryazhenka'], false),
-      new Product('Candies', 'Sweet candies', 6, Category.A, false, ['chocolate', 'milk'], ['marshmallows', 'wafers'], false)
+      new Product('Bread', 'This is my first bread', 0.32, Category.A, true, ['flour', 'water'], ['bun', 'sandwich'], false),
+      new Product('Milk', 'Very tasty milk', 0.51, Category.B, true, ['cow'], ['kefir', 'ryazhenka'], false),
+      new Product('Candies', 'Sweet candies', 2, Category.A, false, ['chocolate', 'milk'], ['marshmallows', 'wafers'], false)
     ];
   }
 
