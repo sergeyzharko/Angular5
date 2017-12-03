@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Product, Category } from '../product/product.model';
+import { Product, Category } from '../models/product.model';
 
 const productList = [
   new Product(1, 'Bread', 'This is my first bread', 0.32, Category.A, true, ['flour', 'water'], ['bun', 'sandwich'], false),

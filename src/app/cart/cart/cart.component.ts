@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 
-import { CartService } from './cart.service';
-import { Item, CartItemComponent } from './../cart-item';
+import { CartService } from '../services/cart.service';
+import { Item } from '../models/cart-item.model';
+import { CartItemComponent } from '../cart-item/cart-item.component';
 
 @Component({
   selector: 'app-cart',

@@ -4,14 +4,10 @@ import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppRoutingModule, appRouterComponents } from './app.routing.module';
+import { ProductsModule } from './products/products.module';
+import { CartModule } from './cart/cart.module';
 
 import { AppComponent } from './app.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductListComponent, ProductsService } from './components/product-list';
-import { CartService, CartComponent } from './components/cart';
-import { OrderComponent } from './components/order';
-import { Product, Category } from './components/product/';
-import { Item, CartItemComponent} from './components/cart-item/';
 import { HelloComponent } from './components/hello/hello.component';
 import { GeneratorService, LocalStorageService, ConfigOptionsService, ConstantsService, Random5, RandomN } from './services/';
 import { ConfigOptionsComponent } from './components/config-options/config-options.component';
@@ -25,11 +21,6 @@ const TaskManager = new ConstantsService();
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
-    ProductListComponent,
-    CartComponent,
-    OrderComponent,
-    CartItemComponent,
     HelloComponent,
     ConfigOptionsComponent,
     ConstantsComponent,
@@ -41,17 +32,14 @@ const TaskManager = new ConstantsService();
   imports: [
     BrowserModule,
     FormsModule,
+    ProductsModule,
+    CartModule,
     AppRoutingModule
   ],
   exports: [
-    AppComponent,
-    ProductComponent,
-    ProductListComponent,
-    CartComponent
+    AppComponent
   ],
   providers: [
-    ProductsService,
-    CartService,
     LocalStorageService,
     ConfigOptionsService,
     { provide: ConstantsService, useValue: TaskManager },

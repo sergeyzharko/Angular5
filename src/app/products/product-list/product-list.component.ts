@@ -1,15 +1,15 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
-import { Product, Category } from '../product/';
-import { ProductsService } from './product-list.service';
-import { CartService } from './../cart/';
-import { OrderPipe } from './order-by.pipe';
+import { Product, Category } from '../models/product.model';
+import { ProductsService } from '../services/product-list.service';
+import { OrderPipe } from '../pipes/order-by.pipe';
+import { CartService } from './../../cart';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  providers: [OrderPipe]
+  providers: [OrderPipe, CartService]
 })
 export class ProductListComponent implements OnInit {
   products: Array<Product>;
@@ -25,12 +25,14 @@ export class ProductListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getProducts();
+    this.cartService.getProducts().then(() => this.getProducts());
   }
 
   getProducts(): void {
     this.productsService.getProducts()
-    .then(products => { this.products = products; this.onOrder(); })
+    .then(products => {
+      this.products = products; this.onOrder();
+    })
     .catch(() => Promise.reject('Error in getProducts method'));
   }
 

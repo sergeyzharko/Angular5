@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Product, Category } from './../product';
-import { Item } from './../cart-item/cart-item.model';
+import { Product, Category } from '../../products/';
+import { Item } from '../models/cart-item.model';
 import { LocalStorageService } from './../../services';
 
 @Injectable()

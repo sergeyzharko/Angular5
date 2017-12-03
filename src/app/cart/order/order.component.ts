@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 
-import { Customer } from './order.model';
-import { CartService } from './../cart/cart.service';
+import { Customer } from '../models/order.model';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-order',

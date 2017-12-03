@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, HostBinding, HostListener, SimpleChanges, OnChanges } from '@angular/core';
 
-import { Product, Category } from './product.model';
+import { Product, Category } from '../models/product.model';
 
 @Component({
   selector: 'app-product',
