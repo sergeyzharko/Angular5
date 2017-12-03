@@ -1,10 +1,51 @@
-<app-local-storage></app-local-storage>
+<!-- <app-local-storage></app-local-storage>
 <app-config-options></app-config-options>
 <app-constants></app-constants>
-<app-generator></app-generator>
+<app-generator></app-generator> -->
 
-<h1 class="h1">{{title}}</h1>
-<app-hello></app-hello>
-<h4 class="h4">Products</h4>
-<app-product-list></app-product-list>
-<app-cart></app-cart>
+<!-- <h1 class="h1">{{title}}</h1> -->
+<!-- <app-hello></app-hello> -->
+<!-- <h4 class="h4">Products</h4> -->
+<!-- <app-product-list></app-product-list> -->
+<!-- <app-cart></app-cart> -->
+
+
+<div>
+        <div>
+            <nav class="navbar navbar-default">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" routerLink="/home">Shop</a>
+                </div>
+    
+                <div>
+                  <ul class="nav navbar-nav">
+                    <li routerLinkActive="active">
+                        <a routerLink="/products">Products</a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="/cart">Cart</a>
+                    </li>
+                    <li routerLinkActive="active">
+                        <a routerLink="/about">About</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+    
+            <div class="container">
+              <router-outlet
+                (activate)='onActivate($event)'
+                (deactivate)='onDeactivate($event)'>
+              </router-outlet>
+              <!-- Routed views go here -->
+            </div>
+        </div>
+    </div>

@@ -2,17 +2,22 @@ import { Injectable } from '@angular/core';
 
 import { Product, Category } from './../product';
 import { Item } from './../cart-item/cart-item.model';
+import { LocalStorageService } from './../../services';
 
 @Injectable()
 export class CartService {
 
-  constructor( ) { }
+  constructor( public localStorageService: LocalStorageService ) { }
 
   boughtProducts: Array<Item> = [];
   values = {
     totalQuantity: 0,
     amount: 0
   };
+
+  async getProducts() {
+    this.boughtProducts = await JSON.parse(this.localStorageService.getItem('Bought Products'));
+  }
 
   addBoughtProduct(product): void {
     for (const item of this.boughtProducts) {
@@ -27,28 +32,29 @@ export class CartService {
       quantity: 1,
       price: product.price
     });
-    this.totalAmount();
-    console.log('Done');
+    this.update();
   }
 
   onRemove(item) {
     this.boughtProducts.splice(this.boughtProducts.indexOf(item), 1);
-    this.totalAmount();
+    this.update();
   }
 
   onIncrement(item) {
     this.boughtProducts[this.boughtProducts.indexOf(item)].quantity++;
-    this.totalAmount();
+    this.update();
   }
 
   onDecrement(item) {
     if ( this.boughtProducts[this.boughtProducts.indexOf(item)].quantity > 1 ) {
       this.boughtProducts[this.boughtProducts.indexOf(item)].quantity--;
-      this.totalAmount();
+      this.update();
     } else { this.onRemove(item); }
   }
 
-  totalAmount() {
+  update() {
+    this.localStorageService.setItem('Bought Products', JSON.stringify(this.boughtProducts));
+
     let sum = 0;
     let quantity = 0;
     for (const item of this.boughtProducts) {

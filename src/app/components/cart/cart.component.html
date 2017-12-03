@@ -11,5 +11,6 @@
   </li>
 </ul>
 <button class="btn btn-primary" (click)="clear()">Clear</button>
-<app-order></app-order>
+<button class="btn btn-primary" routerLink="/order">Order</button>
 </div>
+<div class="block" *ngIf="!items.length">Cart is empty</div>

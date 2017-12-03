@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { AppRoutingModule, appRouterComponents } from './app.routing.module';
 
 import { AppComponent } from './app.component';
-
 import { ProductComponent } from './components/product/product.component';
 import { ProductListComponent, ProductsService } from './components/product-list';
 import { CartService, CartComponent } from './components/cart';
@@ -34,11 +35,13 @@ const TaskManager = new ConstantsService();
     ConstantsComponent,
     GeneratorComponent,
     LocalStorageComponent,
-    HighlightDirective
+    HighlightDirective,
+    appRouterComponents
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    AppRoutingModule
   ],
   exports: [
     AppComponent,
@@ -57,4 +60,9 @@ const TaskManager = new ConstantsService();
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(router: Router) {
+    // Отображение структуры роутинга:
+    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+  }
+}

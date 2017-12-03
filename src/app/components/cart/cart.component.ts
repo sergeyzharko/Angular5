@@ -19,8 +19,10 @@ export class CartComponent implements OnInit {
   constructor( public cartService: CartService ) {}
 
   ngOnInit() {
-    this.items = this.cartService.boughtProducts;
-    this.values = this.cartService.values;
+    this.cartService.getProducts().then(() => {
+      this.items = this.cartService.boughtProducts;
+      this.values = this.cartService.values;
+    });
   }
 
   onRemove(item) {
@@ -39,7 +41,6 @@ export class CartComponent implements OnInit {
     while (this.items.length) {
       this.item.onRemove();
     }
-    console.log('Cart is clear');
   }
 
 }

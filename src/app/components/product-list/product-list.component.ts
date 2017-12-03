@@ -26,11 +26,12 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
-    this.onOrder();
   }
 
   getProducts(): void {
-    this.products = this.productsService.getProducts();
+    this.productsService.getProducts()
+    .then(products => { this.products = products; this.onOrder(); })
+    .catch(() => Promise.reject('Error in getProducts method'));
   }
 
   onBuy(product: Product): void {
