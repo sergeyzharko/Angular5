@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AppRoutingModule, appRouterComponents } from './app.routing.module';
 import { ProductsModule } from './products/products.module';
 import { CartModule } from './cart/cart.module';
+import { AdminModule } from './admin/admin.module';
 
 import { AppComponent } from './app.component';
 import { HelloComponent } from './components/hello/hello.component';
@@ -34,6 +35,7 @@ const TaskManager = new ConstantsService();
     FormsModule,
     ProductsModule,
     CartModule,
+    AdminModule,
     AppRoutingModule
   ],
   exports: [

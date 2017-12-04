@@ -6,6 +6,7 @@
       public name: string,
       public description: string,
       public price: number,
+      public quantity: number,
       public category: Category,
       public isAvailable: boolean,
       public ingredients: Array<string>,

@@ -16,4 +16,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class ProductsRoutingModule { }
+export class ProductsRoutingModule {}
