@@ -16,6 +16,9 @@ import { ConstantsComponent } from './components/constants/constants.component';
 import { GeneratorComponent } from './components/generator/generator.component';
 import { LocalStorageComponent } from './components/local-storage/local-storage.component';
 import { HighlightDirective } from './directives/highlight.directive';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthService } from './services/auth.service';
+import { DialogService } from './services/dialog.service';
 
 const TaskManager = new ConstantsService();
 
@@ -42,6 +45,9 @@ const TaskManager = new ConstantsService();
     AppComponent
   ],
   providers: [
+    AuthGuard,
+    AuthService,
+    DialogService,
     LocalStorageService,
     ConfigOptionsService,
     { provide: ConstantsService, useValue: TaskManager },
