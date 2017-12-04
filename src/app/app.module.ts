@@ -53,6 +53,6 @@ const TaskManager = new ConstantsService();
 export class AppModule {
   constructor(router: Router) {
     // Отображение структуры роутинга:
-    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+    // console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
   }
 }

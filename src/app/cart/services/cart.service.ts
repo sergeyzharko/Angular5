@@ -14,19 +14,17 @@ export class CartService {
     totalQuantity: 0,
     amount: 0
   };
+  isDisplayed = false;
 
   async getProducts() {
     this.boughtProducts = await JSON.parse(this.localStorageService.getItem('Bought Products'));
   }
 
   addBoughtProduct(product): void {
-    for (const item of this.boughtProducts) {
-      if (item.name === product.name) {
-        item.quantity++;
-        this.values.totalQuantity++;
-        return;
-      }
+    for (let i = 0; i < this.boughtProducts.length; i++) {
+      if (this.boughtProducts[i].name === product.name) { this.boughtProducts[i].quantity++; this.update(); return; }
     }
+
     this.boughtProducts.push({
       name: product.name,
       quantity: 1,

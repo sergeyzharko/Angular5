@@ -9,7 +9,7 @@ import { CartService } from './../../cart';
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  providers: [OrderPipe, CartService]
+  providers: [OrderPipe]
 })
 export class ProductListComponent implements OnInit {
   products: Array<Product>;
@@ -37,7 +37,6 @@ export class ProductListComponent implements OnInit {
   }
 
   onBuy(product: Product): void {
-    console.log('product-list component, buy method', product);
     product.bought = true;
     this.cartService.addBoughtProduct(product);
   }
@@ -45,7 +44,6 @@ export class ProductListComponent implements OnInit {
   onSelect(product) {
     if (this.selectedName === product.name) {this.selectedName = undefined; } else {
       this.selectedName = product.name;
-      // console.log(`${this.selectedName} was selected`);
     }
   }
 

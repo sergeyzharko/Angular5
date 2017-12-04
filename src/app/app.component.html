@@ -30,9 +30,6 @@
                         <a routerLink="/products">Products</a>
                     </li>
                     <li routerLinkActive="active">
-                        <a routerLink="/cart">Cart</a>
-                    </li>
-                    <li routerLinkActive="active">
                         <a routerLink="/admin">Admin</a>
                     </li>
                     <li routerLinkActive="active">
@@ -44,11 +41,24 @@
             </nav>
     
             <div class="container">
-              <router-outlet
-                (activate)='onActivate($event)'
-                (deactivate)='onDeactivate($event)'>
-              </router-outlet>
-              <!-- Routed views go here -->
-            </div>
+                <div class="col-md-8">
+                     <router-outlet
+                         (activate)='onActivate($event)'
+                         (deactivate)='onDeactivate($event)'>
+                     </router-outlet>
+                     <!-- Routed views go here -->
+                </div>
+                <div class="col-md-4">
+                  <div [ngClass]="setClasses(0)">Your cart is empty</div>
+                  <div [ngClass]="setClasses(1)">
+                    <button class="btn btn-success"
+                      *ngIf="!cartService.isDisplayed"
+                      (click)="displayCart()">Show Cart
+                    </button>
+                    <router-outlet name="popup"></router-outlet>
+                  </div>
+                  <router-outlet name="popup" [ngClass]="setClasses(1)"></router-outlet>
+                </div>
+            </div>           
         </div>
     </div>

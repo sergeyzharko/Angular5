@@ -16,7 +16,6 @@ export class ProductComponent implements OnChanges {
     constructor() {}
 
     onBuy() {
-      console.log(`Item bought`);
       this.buy.emit(this.product);
     }
 

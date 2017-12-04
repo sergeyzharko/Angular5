@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CartService } from '../services/cart.service';
 import { Item } from '../models/cart-item.model';
@@ -7,8 +8,7 @@ import { CartItemComponent } from '../cart-item/cart-item.component';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
   items: Array<Item> = [];
@@ -17,7 +17,10 @@ export class CartComponent implements OnInit {
   @ViewChild(CartItemComponent)
   private item: CartItemComponent;
 
-  constructor( public cartService: CartService ) {}
+  constructor(
+    public cartService: CartService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.cartService.getProducts().then(() => {
@@ -43,5 +46,11 @@ export class CartComponent implements OnInit {
       this.item.onRemove();
     }
   }
+
+  close() {
+    this.router.navigate([{ outlets: { popup: null } }]);
+    this.cartService.isDisplayed = false;
+  }
+
 
 }
