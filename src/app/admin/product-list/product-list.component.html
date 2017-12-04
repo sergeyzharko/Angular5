@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody *ngFor="let product of products">
-          <tr>
+          <tr [class.edited]="isEdited(product)">
             <td>{{product.id}}</td>
             <td>{{product.name}}</td>
             <td>{{product.price}}</td>

@@ -36,10 +36,11 @@ export class ProductComponent implements OnInit {
     this.product.updateDate = new Date();
     if (this.product.id) {
       this.productsService.updateProduct(this.product);
+      this.router.navigate(['/admin/products', {id: this.product.id}]);
     } else {
       this.productsService.addProduct(this.product);
+      this.goBack();
     }
-    this.goBack();
   }
 
   goBack() {

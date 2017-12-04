@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-import { AdminRoutingModule } from './admin.routing.module';
-import { AdminComponent, OrdersComponent, ProductListComponent, ProductComponent } from '.';
+import { AdminRoutingModule, adminRouterComponents } from './admin.routing.module';
+import { AdminComponent } from '.';
 
 @NgModule({
   imports: [
@@ -17,9 +17,7 @@ import { AdminComponent, OrdersComponent, ProductListComponent, ProductComponent
   ],
   declarations: [
     AdminComponent,
-    OrdersComponent,
-    ProductListComponent,
-    ProductComponent
+    adminRouterComponents
   ]
 })
 export class AdminModule { }

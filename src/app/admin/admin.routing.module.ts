@@ -7,44 +7,29 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-
-  },
-    {
-      path: 'admin/orders',
-      component: OrdersComponent
-    },
-    {
-      path: 'admin/products/:id',
-      component: ProductComponent
-    },
-    {
-      path: 'admin/products',
-      component: ProductListComponent
-
-    // children: [
-    //   {
-    //     path: 'orders',
-    //     component: OrdersComponent,
-    //     outlet: 'admin'
-    //   },
-    //   {
-    //     path: 'products/:id',
-    //     component: ProductComponent,
-    //     outlet: 'admin'
-    //   },
-    //   {
-    //     path: 'products',
-    //     component: ProductListComponent,
-    //     outlet: 'admin'
-    //   },
-    //   {
-    //     path: '',
-    //     redirectTo: 'products',
-    //     pathMatch: 'full'
-    //   }
-    // ]
+    children: [
+      {
+        path: 'orders',
+        component: OrdersComponent
+      },
+      {
+        path: 'products/edit/:id',
+        component: ProductComponent
+      },
+      {
+        path: 'products',
+        component: ProductListComponent
+      },
+      {
+        path: '',
+        redirectTo: 'products',
+        pathMatch: 'full'
+      }
+    ]
   }
 ];
+
+export let adminRouterComponents = [OrdersComponent, ProductComponent, ProductListComponent];
 
 @NgModule({
   imports: [
