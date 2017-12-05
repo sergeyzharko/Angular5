@@ -68,7 +68,7 @@ export class ProductListComponent implements OnInit {
   }
 
   onOrder() {
-    this.products = this.orderPipe.transform(this.products, this.orderField, Boolean(this.direction));
+    this.products = this.orderPipe.transform(this.products, this.orderField, this.direction);
   }
 
 }
