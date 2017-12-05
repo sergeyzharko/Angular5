@@ -8,3 +8,4 @@ export * from './product-list.service';
 export * from './auth.service';
 export * from './dialog.service';
 export * from './rxjs-extensions';
+export * from './custom-preloading-strategy.service';

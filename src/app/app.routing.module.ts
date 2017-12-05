@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules, ExtraOptions } from '@angular/router';
 
+import { CustomPreloadingStrategyService } from './services';
 import { AboutComponent, HomeComponent, LoginComponent, PageNotFoundComponent } from './components';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -14,10 +16,12 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    data: { preload: true }
   },
   {
     path: 'admin',
+    canLoad: [AuthGuard],
     loadChildren: 'app/admin/admin.module#AdminModule' // Lazy-Loading  (Asynchronous Routing)
   },
   {
@@ -43,9 +47,17 @@ const routes: Routes = [
 
 export let appRouterComponents = [AboutComponent, HomeComponent, LoginComponent, PageNotFoundComponent];
 
+const extraOptions: ExtraOptions = {
+  preloadingStrategy: PreloadAllModules // PreloadAllModules, // Загружать все модули сразу
+  // enableTracing: true // Makes the router log all its internal events to the console.
+};
+
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, extraOptions)
+  ],
+  providers: [
+    CustomPreloadingStrategyService
   ],
   exports: [RouterModule]
 })
