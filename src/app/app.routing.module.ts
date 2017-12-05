@@ -17,6 +17,18 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'admin',
+    loadChildren: 'app/admin/admin.module#AdminModule' // Lazy-Loading  (Asynchronous Routing)
+  },
+  {
+    path: 'products',
+    loadChildren: 'app/products/products.module#ProductsModule' // Lazy-Loading  (Asynchronous Routing)
+  },
+  {
+    path: 'cart',
+    loadChildren: 'app/cart/cart.module#CartModule' // Lazy-Loading  (Asynchronous Routing)
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'

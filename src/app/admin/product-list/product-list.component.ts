@@ -2,8 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
-import { Product, Category } from '../../products/models/product.model';
-import { ProductsService } from '../../products/services/product-list.service';
+import { Product, Category } from '../../models/';
+import { ProductsService } from '../../services/';
 import { OrderPipe } from '../../products/pipes/order-by.pipe';
 
 @Component({

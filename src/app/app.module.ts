@@ -4,9 +4,6 @@ import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AppRoutingModule, appRouterComponents } from './app.routing.module';
-import { ProductsModule } from './products/products.module';
-import { CartModule } from './cart/cart.module';
-import { AdminModule } from './admin/admin.module';
 
 import { AppComponent } from './app.component';
 import { HelloComponent } from './components/hello/hello.component';
@@ -17,8 +14,9 @@ import { GeneratorComponent } from './components/generator/generator.component';
 import { LocalStorageComponent } from './components/local-storage/local-storage.component';
 import { HighlightDirective } from './directives/highlight.directive';
 import { AuthGuard } from './guards/auth.guard';
-import { AuthService } from './services/auth.service';
-import { DialogService } from './services/dialog.service';
+import { AuthService, CartService, ProductsService, DialogService } from './services';
+import { CartModule } from './cart/cart.module';
+
 
 const TaskManager = new ConstantsService();
 
@@ -36,10 +34,8 @@ const TaskManager = new ConstantsService();
   imports: [
     BrowserModule,
     FormsModule,
-    ProductsModule,
-    CartModule,
-    AdminModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CartModule
   ],
   exports: [
     AppComponent
@@ -49,6 +45,8 @@ const TaskManager = new ConstantsService();
     AuthService,
     DialogService,
     LocalStorageService,
+    CartService,
+    ProductsService,
     ConfigOptionsService,
     { provide: ConstantsService, useValue: TaskManager },
     GeneratorService,

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CartService } from '../services/cart.service';
-import { Item } from '../models/cart-item.model';
+import { CartService } from '../../services/';
+import { Item } from '../../models/';
 import { CartItemComponent } from '../cart-item/cart-item.component';
 
 @Component({

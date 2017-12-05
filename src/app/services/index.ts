@@ -3,3 +3,8 @@ export * from './config-options.service';
 export * from './constants.service';
 export * from './generator.service';
 export * from './generator.factory';
+export * from './cart.service';
+export * from './product-list.service';
+export * from './auth.service';
+export * from './dialog.service';
+export * from './rxjs-extensions';

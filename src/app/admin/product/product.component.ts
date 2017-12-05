@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { DialogService } from './../../services/dialog.service';
 
 import { CanComponentDeactivate } from './../../guards/can-component-deactivate.interface';
-import { Product, Category } from '../../products/models/product.model';
-import { ProductsService } from '../../products/services/product-list.service';
+import { Product, Category } from '../../models/';
+import { ProductsService } from '../../services/';
 
 @Component({
   selector: 'app-product',

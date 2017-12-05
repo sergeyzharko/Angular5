@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { CartComponent, CartItemComponent, CartService, OrderComponent } from '.';
+import { CartComponent, CartItemComponent, OrderComponent } from '.';
 import { CartRoutingModule } from './cart.routing.module';
 
 @NgModule({
@@ -13,9 +13,6 @@ import { CartRoutingModule } from './cart.routing.module';
   ],
   exports: [
     CartComponent
-  ],
-  providers: [
-    CartService
   ],
   declarations: [
     CartComponent,

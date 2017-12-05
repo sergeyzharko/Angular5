@@ -8,7 +8,7 @@ import { ProductResolveGuard } from './../guards/product-resolve.guard';
 
 const routes: Routes = [
   {
-    path: 'admin',
+    path: '',
     component: AdminComponent,
     canActivate: [AuthGuard],
     children: [

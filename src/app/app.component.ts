@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CartService } from './cart/services/cart.service';
+import { CartService } from './services/';
 
 @Component({
   selector: 'app-root',
