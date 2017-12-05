@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminComponent, OrdersComponent, ProductComponent, ProductListComponent } from '.';
-import { AuthGuard } from './../guards/auth.guard';
-import { CanDeactivateGuard } from './../guards/can-deactivate.guard';
-import { ProductResolveGuard } from './../guards/product-resolve.guard';
+import { AdminComponent, OrdersComponent, ProductComponent, ProductListComponent, UsersModule } from '.';
+import { AuthGuard, CanDeactivateGuard, ProductResolveGuard } from './../guards';
 
 const routes: Routes = [
   {

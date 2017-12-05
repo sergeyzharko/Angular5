@@ -7,7 +7,8 @@ import { AppRoutingModule, appRouterComponents } from './app.routing.module';
 
 import { AppComponent } from './app.component';
 import { HelloComponent } from './components/hello/hello.component';
-import { GeneratorService, LocalStorageService, ConfigOptionsService, ConstantsService, Random5, RandomN } from './services/';
+import { GeneratorService, LocalStorageService, ConfigOptionsService, ConstantsService,
+  Random5, RandomN, UserArrayService } from './services/';
 import { ConfigOptionsComponent } from './components/config-options/config-options.component';
 import { ConstantsComponent } from './components/constants/constants.component';
 import { GeneratorComponent } from './components/generator/generator.component';
@@ -50,7 +51,8 @@ const TaskManager = new ConstantsService();
     ConfigOptionsService,
     { provide: ConstantsService, useValue: TaskManager },
     GeneratorService,
-    { provide: Random5, useFactory:  RandomN(5), deps: [ GeneratorService ] }
+    { provide: Random5, useFactory:  RandomN(5), deps: [ GeneratorService ] },
+    UserArrayService
   ],
   bootstrap: [AppComponent]
 })
