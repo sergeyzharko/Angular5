@@ -12,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: 'order',
-    component: OrderComponent
+    component: OrderComponent,
+    data: { title: 'Cart' }
   }
 ];
 

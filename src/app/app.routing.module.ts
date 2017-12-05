@@ -12,25 +12,29 @@ const routes: Routes = [
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
+    data: { title: 'About' }
   },
   {
     path: 'login',
     component: LoginComponent,
-    data: { preload: true }
+    data: { preload: true, title: 'Login' }
   },
   {
     path: 'admin',
     canLoad: [AuthGuard],
-    loadChildren: 'app/admin/admin.module#AdminModule' // Lazy-Loading  (Asynchronous Routing)
+    loadChildren: 'app/admin/admin.module#AdminModule', // Lazy-Loading  (Asynchronous Routing)
+    data: { title: 'Admin' }
   },
   {
     path: 'products',
-    loadChildren: 'app/products/products.module#ProductsModule' // Lazy-Loading  (Asynchronous Routing)
+    loadChildren: 'app/products/products.module#ProductsModule', // Lazy-Loading  (Asynchronous Routing)
+    data: { title: 'Products' }
   },
   {
     path: 'cart',
-    loadChildren: 'app/cart/cart.module#CartModule' // Lazy-Loading  (Asynchronous Routing)
+    loadChildren: 'app/cart/cart.module#CartModule', // Lazy-Loading  (Asynchronous Routing)
+    data: { title: 'Cart' }
   },
   {
     path: '',
@@ -41,7 +45,8 @@ const routes: Routes = [
     // The router will match this route if the URL requested
     // doesn't match any paths for routes defined in our configuration
     path: '**',
-    component: PageNotFoundComponent
+    component: PageNotFoundComponent,
+    data: { title: 'Page Not Found' }
   }
 ];
 

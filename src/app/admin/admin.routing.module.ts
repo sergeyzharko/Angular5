@@ -18,7 +18,8 @@ const routes: Routes = [
         children: [
           {
             path: 'orders',
-            component: OrdersComponent
+            component: OrdersComponent,
+            data: { title: 'Orders' }
           },
           {
             path: 'products/edit/:id',
@@ -26,11 +27,13 @@ const routes: Routes = [
             canDeactivate: [CanDeactivateGuard],
             resolve: {
               product: ProductResolveGuard
-            }
+            },
+            data: { title: 'Edit Product' }
           },
           {
             path: 'products',
-            component: ProductListComponent
+            component: ProductListComponent,
+            data: { title: 'Products' }
           },
           {
             path: '',
