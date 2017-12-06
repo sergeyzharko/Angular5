@@ -31,10 +31,10 @@ export class AuthService {
               }
               self.isLoggedIn = true;
               self.currentUser = correctUser;
+              console.log(`Login: ${self.currentUser.login}, isAdmin: ${self.isAdmin}`);
             } else {
               console.log('incorrect login/password');
             }
-            console.log('Done');
           }
         );
   }

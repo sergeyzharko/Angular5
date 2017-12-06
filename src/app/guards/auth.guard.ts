@@ -20,13 +20,12 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     console.log('canActivateChild Guard is called');
     const url: string = state.url;
-
     return this.checkLogin(url);
   }
 
 
   private checkLogin(url: string): boolean {
-    if (this.authService.isLoggedIn) { return true; }
+    if (this.authService.isLoggedIn && this.authService.isAdmin) { return true; }
 
     // Store the attempted URL for redirecting
     this.authService.redirectUrl = url;

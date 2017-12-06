@@ -38,6 +38,11 @@ export class CartService {
     this.update();
   }
 
+  onClear() {
+    this.boughtProducts.length = 0;
+    this.update();
+  }
+
   onIncrement(item) {
     this.boughtProducts[this.boughtProducts.indexOf(item)].quantity++;
     this.update();
@@ -52,6 +57,7 @@ export class CartService {
 
   update() {
     this.localStorageService.setItem('Bought Products', JSON.stringify(this.boughtProducts));
+    if (!this.boughtProducts.length) { this.isDisplayed = false; }
 
     let sum = 0;
     let quantity = 0;

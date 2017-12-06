@@ -1,0 +1,5 @@
+<order 
+  *ngFor="let order of orders" 
+  [order]="order"
+  [class.edited]="isEdited(order)">
+</order>

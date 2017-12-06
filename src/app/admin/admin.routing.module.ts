@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminComponent, OrdersComponent, ProductComponent, ProductListComponent, UsersModule } from '.';
+import { AdminComponent, OrdersModule, ProductComponent, ProductListComponent, UsersModule } from '.';
 import { AuthGuard, CanDeactivateGuard, ProductResolveGuard } from './../guards';
 
 const routes: Routes = [
@@ -14,11 +14,6 @@ const routes: Routes = [
         path: '', // для группировки и приминения Guard
         canActivateChild: [AuthGuard],
         children: [
-          {
-            path: 'orders',
-            component: OrdersComponent,
-            data: { title: 'Orders' }
-          },
           {
             path: 'products/edit/:id',
             component: ProductComponent,
@@ -44,7 +39,7 @@ const routes: Routes = [
   }
 ];
 
-export let adminRouterComponents = [OrdersComponent, ProductComponent, ProductListComponent];
+export let adminRouterComponents = [ProductComponent, ProductListComponent];
 
 @NgModule({
   imports: [

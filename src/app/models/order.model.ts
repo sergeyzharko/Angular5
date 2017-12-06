@@ -1,9 +1,12 @@
-export class Customer {
+import { Item } from './cart-item.model';
+import { OrderStatus } from './order-status.model';
+
+export class Order {
     constructor(
-      public name: string = '',
-      public city: string = '',
-      public address: string = ''
-    ) {
-      this.city = 'Minsk';
-    }
-  }
+        public id: number,
+        public userId: number,
+        public createDate: string,
+        public status: Array<OrderStatus>,
+        public boughtProducts: Array<Item>
+    ) {}
+}

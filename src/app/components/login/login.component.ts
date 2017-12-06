@@ -27,19 +27,19 @@ export class LoginComponent implements OnInit {
     this.message = 'Trying to log in ...';
     this.setMessage();
     this.authService.login(this.user).then(() => {
+      let redirect = '/login';
       if (this.authService.isLoggedIn && this.authService.isAdmin) {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
-        console.log('Login: User');
-        const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
-        // Redirect the user
-        this.router.navigate([redirect]);
+        console.log('Login: Admin');
+        redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
       } else if (this.authService.isLoggedIn) {
-        console.log('2');
-        const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/products';
-        this.router.navigate([redirect]);
+        console.log('Login: User');
+        redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/products';
+      } else {
+        alert('Incorrect login/password');
       }
-      console.log('Login: Admin');
+      this.router.navigate([redirect]);
     }
     );
 

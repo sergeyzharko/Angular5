@@ -5,7 +5,7 @@
     </span>
 </div>
   
-<div class="block" *ngIf="items.length">
+<div class="block">
 <h4 class="list-group-item list-group-item-dark col-sm-6 width">Cart:</h4>
 <ul class="list-group col-sm-6">
   <li *ngFor="let item of items" class="list-group-item list-group-item-warning">
@@ -18,6 +18,5 @@
   </li>
 </ul>
 <button class="btn btn-primary" (click)="clear()">Clear</button>
-<button class="btn btn-primary" routerLink="/order">Order</button>
+<button class="btn btn-primary" routerLink="/cart/order">Order</button>
 </div>
-<div class="block" *ngIf="!items.length">Cart is empty</div>

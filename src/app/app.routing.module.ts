@@ -37,6 +37,11 @@ const routes: Routes = [
     data: { title: 'Cart' }
   },
   {
+    path: 'myorders',
+    loadChildren: 'app/my-orders/my-orders.module#MyOrdersModule', // Lazy-Loading  (Asynchronous Routing)
+    data: { title: 'My Orders' }
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'

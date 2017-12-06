@@ -10,3 +10,4 @@ export * from './dialog.service';
 export * from './rxjs-extensions';
 export * from './custom-preloading-strategy.service';
 export * from './user-array.service';
+export * from './order-array.service';

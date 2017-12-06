@@ -42,9 +42,7 @@ export class CartComponent implements OnInit {
   }
 
   clear() {
-    while (this.items.length) {
-      this.item.onRemove();
-    }
+    this.cartService.onClear();
   }
 
   close() {

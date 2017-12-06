@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from './../models';
 
 const userList = [
-  new User(1, 'Anna', 'Anna', 'Anna', 'Borisova', '', false),
+  new User(1, 'Kristina', 'Kristina', 'Kristina', 'Kostyuk', 'ul. Mogilyovskaya, 32-37', false),
   new User(2, 'Boris', 'Boris', 'Boris', 'Vlasov', '', false),
   new User(3, 'Gennadiy', 'Gennadiy', 'Gennadiy', 'Dmitriev', '', false),
   new User(4, 'Admin', 'Admin', 'Admin', 'Admin', '', true)
@@ -29,8 +29,12 @@ export class UserArrayService {
       .catch(() => Promise.reject('Error in getUserByLogin method'));
   }
 
-  addUser(user: User): void {
-    userList.push(user);
+  getNewId(): number {
+    return userList[userList.length - 1].id + 1;
+  }
+
+  async addUser(user: User) {
+    await userList.push(user);
   }
 
   updateUser(user: User): void {

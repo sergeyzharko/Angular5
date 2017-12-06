@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
-import { CartService } from './services/';
+import { CartService, AuthService } from './services/';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private titleService: Title,
-    public cartService: CartService
+    public cartService: CartService,
+    public authService: AuthService
   ) { }
 
   ngOnInit() {
