@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 
+import { User } from '../../models/';
+
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -9,6 +11,8 @@ import { AuthService } from './../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   message: string;
+
+  user = new User(1, '', '', '', '', '', false);
 
   constructor(
     public authService: AuthService,
@@ -21,16 +25,25 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.message = 'Trying to log in ...';
-    this.authService.login().subscribe(() => {
-      this.setMessage();
-      if (this.authService.isLoggedIn) {
+    this.setMessage();
+    this.authService.login(this.user).then(() => {
+      if (this.authService.isLoggedIn && this.authService.isAdmin) {
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
+        console.log('Login: User');
         const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/admin';
         // Redirect the user
         this.router.navigate([redirect]);
+      } else if (this.authService.isLoggedIn) {
+        console.log('2');
+        const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/products';
+        this.router.navigate([redirect]);
       }
-    });
+      console.log('Login: Admin');
+    }
+    );
+
+
   }
 
   logout() {

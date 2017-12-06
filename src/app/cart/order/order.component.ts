@@ -6,8 +6,7 @@ import { CartService } from '../../services/';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
   values;

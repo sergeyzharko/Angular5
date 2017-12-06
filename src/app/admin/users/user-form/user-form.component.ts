@@ -23,7 +23,7 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   ) { }
 
   ngOnInit(): void {
-    this.user = new User(null, '', '');
+    this.user = new User(1, '', '', '', '', '', false);
 
     this.route.data.subscribe(data => {
       this.user = Object.assign({}, data.user);
@@ -37,8 +37,12 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   saveUser() {
     const user = new User(
       this.user.id,
+      this.user.password,
+      this.user.login,
       this.user.firstName,
-      this.user.lastName
+      this.user.lastName,
+      this.user.address,
+      this.user.isAdmin
     );
 
     if (user.id) {

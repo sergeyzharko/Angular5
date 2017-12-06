@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 import { User } from './../models';
 
 const userList = [
-  new User(1, 'Anna', 'Borisova'),
-  new User(2, 'Boris', 'Vlasov'),
-  new User(3, 'Gennadiy', 'Dmitriev')
+  new User(1, 'Anna', 'Anna', 'Anna', 'Borisova', '', false),
+  new User(2, 'Boris', 'Boris', 'Boris', 'Vlasov', '', false),
+  new User(3, 'Gennadiy', 'Gennadiy', 'Gennadiy', 'Dmitriev', '', false),
+  new User(4, 'Admin', 'Admin', 'Admin', 'Admin', '', true)
 ];
 
 const userListPromise = Promise.resolve(userList);
@@ -20,6 +21,12 @@ export class UserArrayService {
     return this.getUsers()
       .then(users => users.find(user => user.id === +id))
       .catch(() => Promise.reject('Error in getUser method'));
+  }
+
+  getUserByLogin(login: string): Promise<User> {
+    return this.getUsers()
+      .then(users => users.find(user => user.login === login))
+      .catch(() => Promise.reject('Error in getUserByLogin method'));
   }
 
   addUser(user: User): void {
