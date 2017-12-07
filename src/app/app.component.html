@@ -35,13 +35,13 @@
                     <li routerLinkActive="active">
                         <a routerLink="/about">About</a>
                     </li>
-                    <li *ngIf="authService.isLoggedIn">
+                    <li routerLinkActive="active" *ngIf="authService.isLoggedIn">
                       <a routerLink="/myorders">My Orders</a>
                     </li>
-                    <li *ngIf="!authService.isLoggedIn" routerLinkActive="active">
+                    <li routerLinkActive="active" *ngIf="!authService.isLoggedIn" routerLinkActive="active">
                         <a routerLink="/login">Login</a>
                     </li>
-                    <li *ngIf="authService.isLoggedIn" routerLinkActive="active">
+                    <li routerLinkActive="active" *ngIf="authService.isLoggedIn" routerLinkActive="active">
                         <a routerLink="/login" (click)="authService.logout()">Logout: {{authService.currentUser.login}}</a>
                     </li>
                   </ul>
