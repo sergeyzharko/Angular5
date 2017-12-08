@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule, appRouterComponents } from './app.routing.module';
 
@@ -35,9 +36,10 @@ const TaskManager = new ConstantsService();
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     CartModule,
-    MyOrdersModule
+    HttpClientModule,
+    MyOrdersModule,
+    AppRoutingModule
   ],
   exports: [
     AppComponent

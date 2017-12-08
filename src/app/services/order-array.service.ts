@@ -12,6 +12,8 @@ const orderList = [
   )
 ];
 
+// console.log(JSON.stringify(userList));
+
 const orderListPromise = Promise.resolve(orderList);
 
 @Injectable()

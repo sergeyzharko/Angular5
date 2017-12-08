@@ -29,16 +29,19 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.getProducts();
 
-    this.route.paramMap
-    .switchMap((params: Params) => this.productsService.getProduct(+params.get('id')))
-    .subscribe(
-      (product: Product) => {
-        this.editedProduct = Object.assign({}, product);
-        console.log(`Last time you edit product ${JSON.stringify(this.editedProduct)}`);
-      },
-      (err) => console.log(err)
-    );
-
+    let id;
+    this.route.paramMap.subscribe( params => { id = params.get('id'); });
+    if (id) {
+      this.route.paramMap
+      .switchMap((params: Params) => this.productsService.getProduct(+params.get('id')))
+      .subscribe(
+        (product: Product) => {
+          this.editedProduct = Object.assign({}, product);
+          console.log(`Last time you edit product ${JSON.stringify(this.editedProduct)}`);
+        },
+        (err) => console.log(err)
+      );
+    }
   }
 
   getProducts(): void {
@@ -63,7 +66,8 @@ export class ProductListComponent implements OnInit {
   }
 
   onNew(): void {
-    this.onEdit({id: 0});
+    const link = ['new'];
+    this.router.navigate(link, {relativeTo: this.route});
   }
 
   onOrder() {

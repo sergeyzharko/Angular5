@@ -46,10 +46,15 @@ export class ProductComponent implements OnInit, CanComponentDeactivate {
   saveProduct() {
     this.product.updateDate = new Date();
     if (this.product.id) {
-      this.productsService.updateProduct(this.product);
-      this.router.navigate(['/admin/products', {id: this.product.id}]);
+      this.productsService.updateProduct(this.product).then(
+        () => {
+          this.router.navigate(['/admin/products', {id: this.product.id}]);
+          this.originalProduct = Object.assign({}, this.product);
+        }
+      );
     } else {
       this.productsService.addProduct(this.product);
+      this.originalProduct = Object.assign({}, this.product);
       this.goBack();
     }
   }

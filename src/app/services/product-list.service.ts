@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Product, Category } from '../models/product.model';
 
@@ -13,15 +14,34 @@ const productListPromise = Promise.resolve(productList);
 @Injectable() // decorator tells Angular that this service might itself have injected dependencies
 export class ProductsService {
   products: Array<Product>;
+  private productsUrl = 'http://localhost:3000/productsShop';
+
+  // getProducts(): Promise<Product[]> {
+  //   return productListPromise;
+  // }
+
+  constructor(
+    private http: HttpClient
+  ) {}
 
   getProducts(): Promise<Product[]> {
-    return productListPromise;
+    return this.http.get(this.productsUrl)
+            .toPromise()
+            .then( response => <Product[]>response)
+            .catch(this.handleError);
   }
 
+  // getProduct(id: number | string): Promise<Product> {
+  //   return this.getProducts()
+  //     .then(products => products.find(product => product.id === +id))
+  //     .catch(() => Promise.reject('Error in getProduct method'));
+  // }
+
   getProduct(id: number | string): Promise<Product> {
-    return this.getProducts()
-      .then(products => products.find(product => product.id === +id))
-      .catch(() => Promise.reject('Error in getProduct method'));
+    return this.http.get(`${this.productsUrl}/${id}`)
+            .toPromise()
+            .then( response => <Product>response)
+            .catch(this.handleError);
   }
 
   addProduct(product: Product): void {
@@ -43,22 +63,40 @@ export class ProductsService {
     productList.splice(productList.indexOf(product), 1);
   }
 
-  updateProduct(product: Product): void {
-    let i = -1;
+  // updateProduct(product: Product): void {
+  //   let i = -1;
 
-    productList.forEach((item, index) => {
-      if (item.id === product.id ) {
-        i = index;
-        return false;
-      }
-    });
+  //   productList.forEach((item, index) => {
+  //     if (item.id === product.id ) {
+  //       i = index;
+  //       return false;
+  //     }
+  //   });
 
-    if (i > -1) {
-      productList.splice(i, 1, product);
-    }
+  //   if (i > -1) {
+  //     productList.splice(i, 1, product);
+  //   }
+  // }
+
+  updateProduct(product: Product): Promise<Product> {
+    const url = `${this.productsUrl}/${product.id}`,
+      body = JSON.stringify(product),
+      options = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      };
+
+    return this.http.put(url, body, options)
+            .toPromise()
+            .then( response => <Product>response )
+            .catch( this.handleError );
   }
 
   outOfStock(product: Product): void {
     product.isAvailable = false;
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
   }
 }
