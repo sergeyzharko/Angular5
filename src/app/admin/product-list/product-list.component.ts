@@ -29,6 +29,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit() {
     this.getProducts();
 
+    // Последний отредактированный
     let id;
     this.route.paramMap.subscribe( params => { id = params.get('id'); });
     if (id) {
@@ -53,7 +54,10 @@ export class ProductListComponent implements OnInit {
   }
 
   onRemove(product): void {
-    this.productsService.removeProduct(product);
+    this.productsService.removeProduct(product)
+      // Обновление списка:
+      .then(() => this.products = this.products.filter(t => t !== product))
+      .catch(err => console.log(err));
   }
 
   onEdit(product): void {
@@ -62,7 +66,6 @@ export class ProductListComponent implements OnInit {
 
     const link = ['edit', product.id];
     this.router.navigate(link, {relativeTo: this.route});
-
   }
 
   onNew(): void {

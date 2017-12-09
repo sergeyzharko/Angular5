@@ -3,13 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Product, Category } from '../models/product.model';
 
-const productList = [
-  new Product(1, 'Bread', 'This is my first bread', 0.32, 12, Category.A, true, ['flour', 'water'], ['bun', 'sandwich'], false),
-  new Product(2, 'Milk', 'Very tasty milk', 0.51, 8, Category.B, true, ['cow'], ['kefir', 'ryazhenka'], false),
-  new Product(3, 'Candies', 'Sweet candies', 2, 5, Category.A, false, ['chocolate', 'milk'], ['marshmallows', 'wafers'], false)
-];
+// const productList = [
+//   new Product(1, 'Bread', 'This is my first bread', 0.32, 12, Category.A, true, ['flour', 'water'], ['bun', 'sandwich'], false),
+//   new Product(2, 'Milk', 'Very tasty milk', 0.51, 8, Category.B, true, ['cow'], ['kefir', 'ryazhenka'], false),
+//   new Product(3, 'Candies', 'Sweet candies', 2, 5, Category.A, false, ['chocolate', 'milk'], ['marshmallows', 'wafers'], false)
+// ];
 
-const productListPromise = Promise.resolve(productList);
+// const productListPromise = Promise.resolve(productList);
 
 @Injectable() // decorator tells Angular that this service might itself have injected dependencies
 export class ProductsService {
@@ -44,8 +44,8 @@ export class ProductsService {
             .catch(this.handleError);
   }
 
-  addProduct(product: Product): void {
-    let maxId;
+  newId(): number {
+    let maxId, newId;
     this.getProducts()
     .then(products => {
       this.products = products;
@@ -53,15 +53,36 @@ export class ProductsService {
       for ( let i = 0; i < this.products.length; i++ ) {
         if ( this.products[i].id > maxId ) { maxId = this.products[i].id; }
       }
-      product.id = maxId + 1;
-      productList.push(product);
-    })
-    .catch(() => Promise.reject('Error in getProducts method'));
+      newId = maxId + 1;
+    }).catch(() => Promise.reject('Error in getProducts method'));
+    return newId;
   }
 
-  removeProduct(product: Product): void {
-    productList.splice(productList.indexOf(product), 1);
+  addProduct(product: Product): Promise<any> {
+    product.id = this.newId();
+  //    productList.push(product);
+    const url = this.productsUrl,
+    body = JSON.stringify(product),
+    options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    return this.http.post(url, body, options)
+        .toPromise()
+        .then( response => <Product>response )
+        .catch( this.handleError );
   }
+
+  removeProduct(product: Product): Promise<Product[]> {
+    // productList.splice(productList.indexOf(product), 1);
+
+    const url = `${this.productsUrl}/${product.id}`;
+
+    return this.http.delete(url)
+            .toPromise()
+            .then( response => <Product>response)
+            .catch( this.handleError );
+    }
 
   // updateProduct(product: Product): void {
   //   let i = -1;
@@ -89,10 +110,6 @@ export class ProductsService {
             .toPromise()
             .then( response => <Product>response )
             .catch( this.handleError );
-  }
-
-  outOfStock(product: Product): void {
-    product.isAvailable = false;
   }
 
   private handleError(error: any): Promise<any> {
