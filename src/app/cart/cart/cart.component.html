@@ -1,5 +1,5 @@
 <div class="row">
-    <h4 class="col-md-10">Shopping Cart</h4>
+    <h4 class="col-md-8">Shopping Cart</h4>
     <span class="col-md-2">
       <a class="btn btn-default" (click)="close()">x</a>
     </span>
@@ -7,21 +7,20 @@
 
 <table>
     <thead>
-      <tr>
         <th>Name</th>
         <th>Quantity</th>
         <th>Control</th>
-      </tr>
     </thead>
-    <tbody *ngFor="let item of items">
-        <app-cart-item
+    <tbody>
+        <tr *ngFor="let item of items"
           [item] = "item"
           (remove)="onRemove($event)"
           (increment)="onIncrement($event)"
           (decrement)="onDecrement($event)">
-        </app-cart-item>
+        </tr>
     </tbody>
 </table>
 
+<br>
 <button class="btn btn-primary" (click)="clear()">Clear</button>
 <button class="btn btn-primary" routerLink="/cart/order">Order</button>

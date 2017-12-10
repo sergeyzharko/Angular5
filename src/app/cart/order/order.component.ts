@@ -44,13 +44,10 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   buy() {
     if ( !this.isLoggedIn ) {
-
-      const sub = this.userArrayService.getUser(this.order.userId)
-      .subscribe(
-        (saveCustomer) => {
-          if (saveCustomer && this.customer.login === saveCustomer.login) { alert('This login is already taken'); } else {
-
-
+      const sub = this.userArrayService.getUsers().subscribe(
+        users => {
+          const correctUser = users.find( sourceUser => this.customer.login === sourceUser.login);
+          if (correctUser && this.customer.login === correctUser.login) { alert('This login is already taken'); } else {
             const sub1 = this.userArrayService.addUser(this.customer)
             .subscribe(
               () => {
@@ -61,9 +58,8 @@ export class OrderComponent implements OnInit, OnDestroy {
             );
             this.subscription.push(sub1);
           }
-        }
-      );
-      this.subscription.push(sub);
+        });
+        this.subscription.push(sub);
 
       // this.userArrayService.getUser(this.customer.id).then(
       //   (saveCustomer) => {
@@ -81,11 +77,13 @@ export class OrderComponent implements OnInit, OnDestroy {
     const date = new Date().toString();
     this.orderStatus.date = date;
     this.order = new Order(this.newLoginId, this.customer.id, date, [this.orderStatus], this.cartService.boughtProducts);
-    this.orderArrayService.addOrder(this.order);
-
-    alert('Congratulations! Your order is formed!');
-    this.router.navigate(['/products']);
-    this.cartService.onClear();
+    this.orderArrayService.addOrder(this.order).subscribe(
+      () => {
+        alert('Congratulations! Your order is formed!');
+        this.router.navigate(['/products']);
+        this.cartService.onClear();
+      }
+    );
   }
 
   ngOnDestroy() {

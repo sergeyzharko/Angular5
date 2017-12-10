@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output, HostBinding, HostListener, Rend
 import { Item } from '../../models/';
 
 @Component({
-  selector: 'app-cart-item',
+  selector: 'tr',
   templateUrl: './cart-item.component.html',
   styleUrls: ['../cart/cart.component.css']
 })

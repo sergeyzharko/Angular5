@@ -47,14 +47,14 @@
 </nav>
 
 <div class="container">
-    <div class="col-md-6">
+    <div [ngClass]="setColumn('main')">
           <router-outlet
               (activate)='onActivate($event)'
               (deactivate)='onDeactivate($event)'>
           </router-outlet>
           <!-- Routed views go here -->
     </div>
-    <div class="col-md-4" *ngIf="!authService.isAdmin">
+    <div [ngClass]="setColumn()" *ngIf="!authService.isAdmin">
       <div [ngClass]="setClasses(0)">Your cart is empty</div>
       <div [ngClass]="setClasses(1)">
         <button class="btn btn-success"
@@ -66,4 +66,4 @@
     </div>
 </div>
 
-<footer></footer>
+<footer><div class="text">Kristina Shop, 2017</div></footer>
