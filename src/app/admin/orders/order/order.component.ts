@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserArrayService, OrderArrayService } from '../../../services/';
 import { Subscription } from 'rxjs/Subscription';
@@ -12,6 +12,7 @@ import { Order, User } from './../../../models';
 })
 export class OrderComponent implements OnInit, OnDestroy {
   @Input() order: Order;
+  @Output() onDelete = new EventEmitter<Order>();
   errorMessage: string;
   private subscription: Subscription[] = [];
 
@@ -37,6 +38,10 @@ export class OrderComponent implements OnInit, OnDestroy {
   nextStatus() {
     this.orderArrayService.nextStatus(this.order);
     console.log(this.order);
+  }
+
+  deleteOrder() {
+    this.onDelete.emit(this.order);
   }
 
   ngOnDestroy() {

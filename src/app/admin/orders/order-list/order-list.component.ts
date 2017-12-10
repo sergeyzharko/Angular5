@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Order } from './../../../models';
 import { OrderArrayService } from './../../../services';
@@ -12,6 +13,8 @@ import { OrderArrayService } from './../../../services';
 export class OrderListComponent implements OnInit, OnDestroy {
   orders: Array<Order>;
   private editedOrder: Order;
+  errorMessage: string;
+  private subscription: Subscription[] = [];
 
   constructor(
     private orderArrayService: OrderArrayService,
@@ -19,24 +22,31 @@ export class OrderListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.orderArrayService.getOrders()
-      .then(orders => this.orders = orders)
-      .catch((err) => console.log(err));
+    const sub = this.orderArrayService.getOrders()
+      .subscribe(
+        users => this.orders = users,
+        error => this.errorMessage = <any>error
+      );
+    this.subscription.push(sub);
 
     // listen id from OrderFormComponent
-    this.route.paramMap
-    .switchMap((params: Params) => this.orderArrayService.getOrder(+params.get('id')))
-    .subscribe(
-      (order: Order) => {
-        this.editedOrder = Object.assign({}, order);
-        console.log(`Last time you edit order ${JSON.stringify(this.editedOrder)}`);
-      },
-      (err) => console.log(err)
-    );
-
+    let id;
+    this.route.paramMap.subscribe( params => { id = params.get('id'); });
+    if (id) {
+      this.route.paramMap
+      .switchMap((params: Params) => this.orderArrayService.getOrder(+params.get('id')))
+      .subscribe(
+        (user: Order) => {
+          this.editedOrder = Object.assign({}, user);
+          console.log(`Last time you edit user ${JSON.stringify(this.editedOrder)}`);
+        },
+        (err) => console.log(err)
+      );
+    }
   }
 
   ngOnDestroy() {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   isEdited(order: Order) {
@@ -44,6 +54,14 @@ export class OrderListComponent implements OnInit, OnDestroy {
       return order.id === this.editedOrder.id;
     }
     return false;
+  }
+
+  deleteOrder(order: Order) {
+    this.orderArrayService.deleteOrder(order)
+    .subscribe(
+      () => this.orders = this.orders.filter(u => u !== order),
+      err => console.log(err)
+    );
   }
 
 }

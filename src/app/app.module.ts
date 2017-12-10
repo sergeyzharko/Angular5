@@ -9,7 +9,8 @@ import { AppRoutingModule, appRouterComponents } from './app.routing.module';
 import { AppComponent } from './app.component';
 import { HelloComponent } from './components/hello/hello.component';
 import { GeneratorService, LocalStorageService, ConfigOptionsService, ConstantsService,
-  Random5, RandomN, UserArrayService, AuthService, CartService, ProductsService, DialogService, OrderArrayService, UsersAPI, usersBaseUrl } from './services/';
+  Random5, RandomN, UserArrayService, AuthService, CartService, ProductsService, DialogService,
+  OrderArrayService, UsersAPI, usersBaseUrl, OrdersAPI, ordersBaseUrl } from './services/';
 import { ConfigOptionsComponent } from './components/config-options/config-options.component';
 import { ConstantsComponent } from './components/constants/constants.component';
 import { GeneratorComponent } from './components/generator/generator.component';
@@ -57,7 +58,8 @@ const TaskManager = new ConstantsService();
     { provide: Random5, useFactory:  RandomN(5), deps: [ GeneratorService ] },
     UserArrayService,
     OrderArrayService,
-    {provide: UsersAPI, useValue: usersBaseUrl}
+    {provide: UsersAPI, useValue: usersBaseUrl},
+    {provide: OrdersAPI, useValue: ordersBaseUrl}
   ],
   bootstrap: [AppComponent]
 })
