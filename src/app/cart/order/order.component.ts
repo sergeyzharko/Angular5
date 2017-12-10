@@ -1,16 +1,19 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, OnDestroy } from '@angular/core';
 
 import { Order, User, Status, OrderStatus } from '../../models/';
 import { CartService, UserArrayService, AuthService, OrderArrayService } from '../../services/';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css']
 })
-export class OrderComponent implements OnInit {
+export class OrderComponent implements OnInit, OnDestroy {
   values;
+  errorMessage: string;
+  private subscription: Subscription[] = [];
 
   constructor(
     public cartService: CartService,
@@ -41,13 +44,34 @@ export class OrderComponent implements OnInit {
 
   buy() {
     if ( !this.isLoggedIn ) {
-      this.userArrayService.getUserByLogin(this.customer.login).then(
+
+      const sub = this.userArrayService.getUser(this.order.userId)
+      .subscribe(
         (saveCustomer) => {
           if (saveCustomer && this.customer.login === saveCustomer.login) { alert('This login is already taken'); } else {
-            this.userArrayService.addUser(this.customer).then(() => this.authService.login(this.customer)).then(() => this.newOrder());
+
+
+            const sub1 = this.userArrayService.addUser(this.customer)
+            .subscribe(
+              () => {
+                this.authService.login(this.customer);
+                this.newOrder();
+              },
+              error => console.log(error)
+            );
+            this.subscription.push(sub1);
           }
         }
       );
+      this.subscription.push(sub);
+
+      // this.userArrayService.getUser(this.customer.id).then(
+      //   (saveCustomer) => {
+      //     if (saveCustomer && this.customer.login === saveCustomer.login) { alert('This login is already taken'); } else {
+      //       this.userArrayService.addUser(this.customer).then(() => this.authService.login(this.customer)).then(() => this.newOrder());
+      //     }
+      //   }
+      // );
     } else {
       this.newOrder();
     }
@@ -62,6 +86,10 @@ export class OrderComponent implements OnInit {
     alert('Congratulations! Your order is formed!');
     this.router.navigate(['/products']);
     this.cartService.onClear();
+  }
+
+  ngOnDestroy() {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
 }

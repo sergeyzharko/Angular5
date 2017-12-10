@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.message = 'Trying to log in ...';
     this.setMessage();
-    this.authService.login(this.user).then(() => {
+    this.authService.login(this.user).then( () => {
       let redirect = '/login';
       if (this.authService.isLoggedIn && this.authService.isAdmin) {
         // Get the redirect URL from our auth service
@@ -40,9 +40,7 @@ export class LoginComponent implements OnInit {
         alert('Incorrect login/password');
       }
       this.router.navigate([redirect]);
-    }
-    );
-
+    });
 
   }
 

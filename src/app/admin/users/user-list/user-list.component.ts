@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import { Subscription } from 'rxjs/Subscription';
 
 import { User } from './../../../models';
 import { UserArrayService } from './../../../services';
@@ -12,6 +13,8 @@ import { UserArrayService } from './../../../services';
 export class UserListComponent implements OnInit, OnDestroy {
   users: Array<User>;
   private editedUser: User;
+  errorMessage: string;
+  private subscription: Subscription[] = [];
 
   constructor(
     private userArrayService: UserArrayService,
@@ -19,24 +22,37 @@ export class UserListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.userArrayService.getUsers()
-      .then(users => this.users = users)
-      .catch((err) => console.log(err));
+    // this.userArrayService.getUsers()
+    //   .then(users => this.users = users)
+    //   .catch((err) => console.log(err));
+
+    const sub = this.userArrayService.getUsers()
+      .subscribe(
+        users => this.users = users,
+        error => this.errorMessage = <any>error
+      );
+    this.subscription.push(sub);
+
 
     // listen id from UserFormComponent
-    this.route.paramMap
-    .switchMap((params: Params) => this.userArrayService.getUser(+params.get('id')))
-    .subscribe(
-      (user: User) => {
-        this.editedUser = Object.assign({}, user);
-        console.log(`Last time you edit user ${JSON.stringify(this.editedUser)}`);
-      },
-      (err) => console.log(err)
-    );
-
+    // Последний отредактированный
+    let id;
+    this.route.paramMap.subscribe( params => { id = params.get('id'); });
+    if (id) {
+      this.route.paramMap
+      .switchMap((params: Params) => this.userArrayService.getUser(+params.get('id')))
+      .subscribe(
+        (user: User) => {
+          this.editedUser = Object.assign({}, user);
+          console.log(`Last time you edit user ${JSON.stringify(this.editedUser)}`);
+        },
+        (err) => console.log(err)
+      );
+    }
   }
 
   ngOnDestroy() {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
   isEdited(user: User) {
@@ -44,6 +60,14 @@ export class UserListComponent implements OnInit, OnDestroy {
       return user.id === this.editedUser.id;
     }
     return false;
+  }
+
+  deleteUser(user: User) {
+    this.userArrayService.deleteUser(user)
+    .subscribe(
+      () => this.users = this.users.filter(u => u !== user),
+      err => console.log(err)
+    );
   }
 
 }
