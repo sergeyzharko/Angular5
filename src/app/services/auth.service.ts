@@ -1,4 +1,5 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 import './rxjs-extensions';
@@ -20,7 +21,8 @@ export class AuthService implements OnInit, OnDestroy {
   currentUser: User;
 
   constructor(
-    public userArrayService: UserArrayService
+    public userArrayService: UserArrayService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -32,9 +34,10 @@ export class AuthService implements OnInit, OnDestroy {
     this.subscription.push(sub);
   }
 
-  async login(user) {
+  login(user) {
+    let redirect = '/login';
 
-    await this.userArrayService.getUsers()
+    this.userArrayService.getUsers()
     .subscribe(
       users => {
     // return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
@@ -45,13 +48,19 @@ export class AuthService implements OnInit, OnDestroy {
       if ( correctUser.isAdmin ) {
         this.isAdmin = true;
         console.log(this.isAdmin);
+        console.log('Login: Admin');
+        redirect = this.redirectUrl ? this.redirectUrl : '/admin';
+      } else {
+        console.log('Login: User');
+        redirect = this.redirectUrl ? this.redirectUrl : '/products';
       }
       this.isLoggedIn = true;
       this.currentUser = correctUser;
       console.log(`Login: ${this.currentUser.login}, isAdmin: ${this.isAdmin}`);
     } else {
-      console.log('incorrect login/password');
+      alert('Incorrect login/password');
     }
+    this.router.navigate([redirect]);
 
       });
 
