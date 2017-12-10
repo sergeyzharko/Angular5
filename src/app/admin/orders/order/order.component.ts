@@ -26,8 +26,6 @@ export class OrderComponent implements OnInit, OnDestroy {
   user: User = new User(null, '', '', '', '', '', false);
 
   ngOnInit() {
-    // this.userArrayService.getUser(this.order.userId).then( currentUser => this.user = currentUser );
-
     const sub = this.userArrayService.getUser(this.order.userId)
     .subscribe(
       currentUser => this.user = currentUser
@@ -37,7 +35,6 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   nextStatus() {
     this.orderArrayService.nextStatus(this.order);
-    console.log(this.order);
   }
 
   deleteOrder() {

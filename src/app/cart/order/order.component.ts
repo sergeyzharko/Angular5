@@ -86,6 +86,16 @@ export class OrderComponent implements OnInit, OnDestroy {
     );
   }
 
+  login() {
+    this.authService.redirectUrl = '/cart/order';
+    this.router.navigate(['/login']);
+  }
+
+  register() {
+    this.authService.redirectUrl = '/cart/order';
+    this.router.navigate(['/register']);
+  }
+
   ngOnDestroy() {
     this.subscription.forEach(sub => sub.unsubscribe());
   }

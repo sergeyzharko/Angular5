@@ -1,0 +1,14 @@
+<div class="form-group">
+  <label>Login:</label>
+  <input [(ngModel)]="customer.login" class="form-control" #login>
+  <label>Password:</label>
+  <input [(ngModel)]="customer.password" class="form-control" #password>
+  <label>First Name:</label>
+  <input [(ngModel)]="customer.firstName" class="form-control" #firstname>
+  <label>Last Name:</label>
+  <input [(ngModel)]="customer.lastName" class="form-control" #lasttname>
+  <label>Adress:</label>
+  <input [(ngModel)]="customer.address" class="form-control" #address>
+</div>
+<button (click)="register()" *ngIf="!authService.isLoggedIn">Register</button>
+<button (click)="update()" *ngIf="authService.isLoggedIn">Update</button>

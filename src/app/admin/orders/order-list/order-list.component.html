@@ -1,5 +1,6 @@
 <order 
   *ngFor="let order of orders" 
   [order]="order"
-  [class.edited]="isEdited(order)">
+  [class.edited]="isEdited(order)"
+  (onDelete)="deleteOrder($event)">
 </order>

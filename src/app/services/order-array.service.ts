@@ -76,12 +76,13 @@ export class OrderArrayService {
   nextStatus(order: Order) {
 
     let maxId = 0;
+    let element = 0;
+
     for (let i = 0; i < order.status.length; i++) {
-      if (order.status[i].id > maxId) { maxId = order.status[i].id; }
+      if (order.status[i].id > maxId) { maxId = order.status[i].id; element = i; }
     }
 
-    const currentStatus = order.status[maxId].status;
-    console.log(order.status);
+    const currentStatus = order.status[element].status;
 
     if (currentStatus === Status.D) { alert('Max status'); return; }
 
@@ -99,8 +100,8 @@ export class OrderArrayService {
 
   }
 
-  deleteOrder(user: Order): Observable<Order> {
-    const url = `${this.ordersUrl}/${user.id}`;
+  deleteOrder(order: Order): Observable<Order> {
+    const url = `${this.ordersUrl}/${order.id}`;
 
     return this.http.delete(url)
       .map( this.handleData )

@@ -1,16 +1,8 @@
 <p class="information">Total quantity: {{values.totalQuantity}}</p>
 <p class="information">Total amount: {{values.amount | currency:'USD':'symbol':'1.2-2'}}</p>
 <div class="form-group" *ngIf="!isLoggedIn">
-  <label>Login:</label>
-  <input [(ngModel)]="customer.login" class="form-control" #login>
-  <label>Password:</label>
-  <input [(ngModel)]="customer.password" class="form-control" #password>
-  <label>First Name:</label>
-  <input [(ngModel)]="customer.firstName" class="form-control" #firstname>
-  <label>Last Name:</label>
-  <input [(ngModel)]="customer.lastName" class="form-control" #lasttname>
-  <label>Adress:</label>
-  <input [(ngModel)]="customer.address" class="form-control" #address>
+  <button (click)="login()">Login</button>
+  <button (click)="register()">Register</button>
 </div>
 <div *ngIf="customer.login.length && customer.password.length && customer.firstName.length && customer.lastName.length && customer.address.length">
   <p>Delivery address: {{customer.address}}, {{customer.firstName}} {{customer.lastName}}</p>

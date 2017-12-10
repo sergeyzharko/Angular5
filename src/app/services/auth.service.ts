@@ -61,6 +61,7 @@ export class AuthService implements OnInit, OnDestroy {
       alert('Incorrect login/password');
     }
     this.router.navigate([redirect]);
+    this.redirectUrl = undefined;
 
       });
 
@@ -75,5 +76,6 @@ export class AuthService implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.forEach(sub => sub.unsubscribe());
+    this.redirectUrl = undefined;
   }
 }
