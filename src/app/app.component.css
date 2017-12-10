@@ -5,3 +5,17 @@
 .empty {
     visibility: hidden;
 }
+
+nav {
+    margin-left: 30px;
+}
+
+footer {
+	width: 100%;
+	min-height: 60px;
+	position: fixed; 
+	left: 0;
+	bottom: 0;
+	background: rgb(140, 198, 63); 
+	clear: left; 
+}

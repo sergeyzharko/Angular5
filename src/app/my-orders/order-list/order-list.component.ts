@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Order } from './../../models';
 import { OrderArrayService, AuthService } from './../../services';
@@ -9,8 +10,10 @@ import { OrderArrayService, AuthService } from './../../services';
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.css']
 })
-export class OrderListComponent implements OnInit {
+export class OrderListComponent implements OnInit, OnDestroy {
   orders: Array<Order>;
+  errorMessage: string;
+  private subscription: Subscription[] = [];
 
   constructor(
     private orderArrayService: OrderArrayService,
@@ -19,10 +22,17 @@ export class OrderListComponent implements OnInit {
 
   ngOnInit() {
     if (this.authService.isLoggedIn) {
-      this.orderArrayService.getOrders()
-      .then(orders => this.orders = orders.filter((order) => order.userId === this.authService.currentUser.id))
-      .catch((err) => console.log(err));
+      const sub = this.orderArrayService.getOrders()
+        .subscribe(
+          orders => this.orders = orders.filter((order) => order.userId === this.authService.currentUser.id),
+          error => this.errorMessage = <any>error
+        );
+      this.subscription.push(sub);
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.forEach(sub => sub.unsubscribe());
   }
 
 }

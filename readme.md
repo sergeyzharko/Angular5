@@ -27,3 +27,9 @@ Task4:
 
 1. В компоненте product применены currency, date и uppercase пайпы.
 2. В компоненте order применён currency пайп.
+
+
+
+Task6:
+
+1. Сервис по схеме Promise: ProductsService; по схеме Observable: UserArrayService, OrderArrayService.

@@ -4,7 +4,8 @@ import { Item } from '../../models/';
 
 @Component({
   selector: 'app-cart-item',
-  templateUrl: './cart-item.component.html'
+  templateUrl: './cart-item.component.html',
+  styleUrls: ['../cart/cart.component.css']
 })
 export class CartItemComponent implements OnDestroy {
     @Input() item: Item;
