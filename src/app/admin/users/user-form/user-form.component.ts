@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AutoUnsubscribe } from './../../../decorators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { DialogService } from './../../../services';
@@ -12,7 +13,8 @@ import { UserArrayService } from './../../../services';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css'],
 })
-export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactivate {
+@AutoUnsubscribe()
+export class UserFormComponent implements OnInit, CanComponentDeactivate {
   user: User;
   originalUser: User;
   private sub: Subscription[] = [];
@@ -31,10 +33,6 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
       this.user = Object.assign({}, data.user);
       this.originalUser = Object.assign({}, data.user);
     });
-  }
-
-  ngOnDestroy(): void {
-    this.sub.forEach(sub => sub.unsubscribe());
   }
 
   saveUser() {
