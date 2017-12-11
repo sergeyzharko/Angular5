@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
+import { ConstantsService } from './constants.service';
 
 let TimeStart;
 
@@ -41,8 +42,8 @@ export class MyInterceptor implements HttpInterceptor {
 export class TimingInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-// http://localhost:3000/usersShop
-    if (req.url.endsWith('usersShop')) {
+// http://localhost:3000/users
+    if (req.url.endsWith('users')) {
       TimeStart = Date.now();
     }
 
@@ -50,10 +51,26 @@ export class TimingInterceptor implements HttpInterceptor {
     // response interceptor
     .map((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse ) {
-        if ( event.url.endsWith('usersShop') ) { console.log(`Users HTTP Request time, ms: ${Date.now() - TimeStart}` ); }
+        if ( event.url.endsWith('users') ) { console.log(`Users HTTP Request time, ms: ${Date.now() - TimeStart}` ); }
         return event;
       }
     });
 
+  }
+}
+
+@Injectable()
+export class ServerAddressInterceptor implements HttpInterceptor {
+
+  constructor( public constantsService: ConstantsService ) { }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let clonedRequest;
+
+    clonedRequest = req.clone({
+      url: this.constantsService.getDataServer() + req.url
+    });
+
+    return next.handle(clonedRequest);
   }
 }

@@ -11,9 +11,10 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit, OnDestroy {
-  values;
   errorMessage: string;
   private subscription: Subscription[] = [];
+  isLoggedIn: boolean;
+  repeatedPassword: string;
 
   constructor(
     public userArrayService: UserArrayService,
@@ -24,7 +25,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   newUserId = this.userArrayService.getNewId();
 
   customer = new User(this.newUserId, '', '', '', '', '', false);
-  isLoggedIn: boolean;
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn;
@@ -37,10 +37,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   register() {
+    this.errorMessage = '';
     const sub = this.userArrayService.getUsers().subscribe(
       users => {
         const correctUser = users.find( sourceUser => this.customer.login === sourceUser.login);
-        if (correctUser && this.customer.login === correctUser.login) { alert('This login is already taken'); } else {
+        if (correctUser) { this.errorMessage = 'This login is already taken'; } else {
           const sub1 = this.userArrayService.addUser(this.customer)
           .subscribe(
             () => {

@@ -14,7 +14,7 @@ export function AutoUnsubscribe(subName: string = 'sub', isArray: boolean = true
         original
           && typeof original === 'function'
           && original.apply(this, arguments);
-        console.log(`Unsibscribe decorator is called. Subscription name is: ${subName}. Subscription is array: ${isArray}`);
+        // console.log(`Unsibscribe decorator is called. Subscription name is: ${subName}. Subscription is array: ${isArray}`);
       };
     };
   }

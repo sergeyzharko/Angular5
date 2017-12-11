@@ -14,7 +14,7 @@ import { Product, Category } from '../models/product.model';
 @Injectable() // decorator tells Angular that this service might itself have injected dependencies
 export class ProductsService {
   products: Array<Product>;
-  private productsUrl = 'http://localhost:3000/productsShop';
+  private productsUrl = 'products';
 
   // getProducts(): Promise<Product[]> {
   //   return productListPromise;

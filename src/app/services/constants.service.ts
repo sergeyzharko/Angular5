@@ -9,4 +9,8 @@ export class ConstantsService {
     return { App: 'TaskManager', Ver: '1.0' };
   }
 
+  getDataServer(): string {
+    return 'http://localhost:3000/';
+  }
+
 }

@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { HelloComponent } from './components/hello/hello.component';
 import { GeneratorService, LocalStorageService, ConfigOptionsService, ConstantsService,
   Random5, RandomN, UserArrayService, AuthService, CartService, ProductsService, DialogService,
-  OrderArrayService, UsersAPI, usersBaseUrl, OrdersAPI, ordersBaseUrl, TimingInterceptor } from './services/';
+  OrderArrayService, UsersAPI, usersBaseUrl, OrdersAPI, ordersBaseUrl, TimingInterceptor, ServerAddressInterceptor } from './services/';
 import { ConfigOptionsComponent } from './components/config-options/config-options.component';
 import { ConstantsComponent } from './components/constants/constants.component';
 import { GeneratorComponent } from './components/generator/generator.component';
@@ -63,6 +63,11 @@ const TaskManager = new ConstantsService();
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TimingInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerAddressInterceptor,
       multi: true,
     }
 

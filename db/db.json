@@ -1,0 +1,143 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "login": "Kristina",
+      "password": "Kristina",
+      "firstName": "Kristina",
+      "lastName": "Kostyuk",
+      "address": "ul. Mogilyovskaya, 32-37",
+      "isAdmin": false
+    },
+    {
+      "id": 2,
+      "login": "Boris",
+      "password": "Boris",
+      "firstName": "Boris",
+      "lastName": "Vlasov",
+      "address": "",
+      "isAdmin": false
+    },
+    {
+      "id": 3,
+      "login": "Gennadiy",
+      "password": "Gennadiy",
+      "firstName": "Gennadiy",
+      "lastName": "Dmitriev",
+      "address": "",
+      "isAdmin": false
+    },
+    {
+      "id": 4,
+      "login": "Admin",
+      "password": "Admin",
+      "firstName": "Admin",
+      "lastName": "ul. Voronyanskogo",
+      "address": "Admin",
+      "isAdmin": true
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Bread",
+      "description": "This is my first bread",
+      "price": 0.32,
+      "quantity": 12,
+      "category": "food",
+      "isAvailable": true,
+      "ingredients": [
+        "flour",
+        "water"
+      ],
+      "equivalents": [
+        "bun",
+        "sandwich"
+      ],
+      "bought": false,
+      "updateDate": "2017-12-07T14:14:55.198Z"
+    },
+    {
+      "id": 2,
+      "name": "Milk",
+      "description": "Very tasty milk",
+      "price": 0.51,
+      "quantity": 8,
+      "category": "drink",
+      "isAvailable": true,
+      "ingredients": [
+        "cow"
+      ],
+      "equivalents": [
+        "kefir",
+        "ryazhenka"
+      ],
+      "bought": false,
+      "updateDate": "2017-12-07T14:14:55.198Z"
+    },
+    {
+      "id": 3,
+      "name": "Candies",
+      "description": "Sweet candies",
+      "price": 2,
+      "quantity": 5,
+      "category": "food",
+      "isAvailable": false,
+      "ingredients": [
+        "chocolate",
+        "milk"
+      ],
+      "equivalents": [
+        "marshmallows",
+        "wafers"
+      ],
+      "bought": false,
+      "updateDate": "2017-12-07T14:14:55.198Z"
+    },
+    {
+      "id": 4,
+      "name": "Sausage",
+      "description": "Sausage of pork",
+      "price": 6,
+      "quantity": 3,
+      "category": "food",
+      "isAvailable": true,
+      "ingredients": [
+        "pork",
+        "water"
+      ],
+      "equivalents": [
+        "cutlet",
+        "frankfurter"
+      ],
+      "bought": false,
+      "updateDate": "2017-12-09T22:32:54.121Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 1,
+      "createDate": "Thu Dec 07 2017 17:31:32 GMT+0300 (RTZ 2 (зима))",
+      "status": [
+        {
+          "id": 0,
+          "date": "Thu Dec 07 2017 17:31:32 GMT+0300 (RTZ 2 (зима))",
+          "status": "New"
+        }
+      ],
+      "boughtProducts": [
+        {
+          "name": "Milk",
+          "quantity": 4,
+          "price": 0.51
+        },
+        {
+          "name": "Bread",
+          "quantity": 1,
+          "price": 0.32
+        }
+      ]
+    }
+  ]
+}
