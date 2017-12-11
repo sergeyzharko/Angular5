@@ -42,16 +42,12 @@ export class AuthService implements OnInit, OnDestroy {
       users => {
     // return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
     // await this.userArrayService.getUserByLogin(user.login).then(
-      console.log(users);
     const correctUser = users.find( sourceUser => user.login === sourceUser.login);
     if ( correctUser && (correctUser.password === user.password) ) {
       if ( correctUser.isAdmin ) {
         this.isAdmin = true;
-        console.log(this.isAdmin);
-        console.log('Login: Admin');
         redirect = this.redirectUrl ? this.redirectUrl : '/admin';
       } else {
-        console.log('Login: User');
         redirect = this.redirectUrl ? this.redirectUrl : '/products';
       }
       this.isLoggedIn = true;

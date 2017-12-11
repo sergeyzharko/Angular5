@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule, appRouterComponents } from './app.routing.module';
 
@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { HelloComponent } from './components/hello/hello.component';
 import { GeneratorService, LocalStorageService, ConfigOptionsService, ConstantsService,
   Random5, RandomN, UserArrayService, AuthService, CartService, ProductsService, DialogService,
-  OrderArrayService, UsersAPI, usersBaseUrl, OrdersAPI, ordersBaseUrl } from './services/';
+  OrderArrayService, UsersAPI, usersBaseUrl, OrdersAPI, ordersBaseUrl, TimingInterceptor } from './services/';
 import { ConfigOptionsComponent } from './components/config-options/config-options.component';
 import { ConstantsComponent } from './components/constants/constants.component';
 import { GeneratorComponent } from './components/generator/generator.component';
@@ -59,7 +59,13 @@ const TaskManager = new ConstantsService();
     UserArrayService,
     OrderArrayService,
     {provide: UsersAPI, useValue: usersBaseUrl},
-    {provide: OrdersAPI, useValue: ordersBaseUrl}
+    {provide: OrdersAPI, useValue: ordersBaseUrl},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TimingInterceptor,
+      multi: true,
+    }
+
   ],
   bootstrap: [AppComponent]
 })

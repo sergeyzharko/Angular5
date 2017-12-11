@@ -13,3 +13,4 @@ export * from './user-array.service';
 export * from './order-array.service';
 export * from './users.config';
 export * from './orders.config';
+export * from './interceptors.service';
