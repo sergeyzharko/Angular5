@@ -1,0 +1,9 @@
+<div class="panel panel-default">
+  <div *ngFor="let product of products"><div class="panel-heading" (click)="onSelect(product)">{{product.name}}</div>
+    <app-product
+      *ngIf="selectedName == product.name"
+      [product]="product"
+      (buy)="onBuy($event)"> <!-- [product] Input parameter of app-product, property binding -->
+    </app-product>
+  </div>
+</div>

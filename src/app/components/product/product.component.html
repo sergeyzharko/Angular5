@@ -1,0 +1,25 @@
+  <div class="panel-body">
+      <ul class="list-group col-sm-6">
+          <li class="list-group-item list-group-item-warning">Description: {{product.description}}</li>
+          <li class="list-group-item list-group-item-info">Price: {{product.price}}</li>
+          <li class="list-group-item list-group-item-success">Category: {{product.category}}</li>
+          <li class="list-group-item list-group-item-danger">Is Available: {{product.isAvailable}}</li>
+          <li class="list-group-item list-group-item-warning">Ingredients:
+              <ul>
+                  <li *ngFor="let ingredient of product.ingredients">
+                    {{ingredient}}
+                  </li>
+              </ul>
+          </li>
+          <li class="list-group-item list-group-item-info">Equivalents:
+              <ul>
+                  <li *ngFor="let equivalent of product.equivalents">
+                    {{equivalent}}
+                  </li>
+              </ul>
+          </li>
+          <li class="list-group-item list-group-item-success">Bought: {{product.bought}}</li>
+          <br>
+          <button class="btn btn-primary" (click)="onBuy()" >Buy</button>
+      </ul>
+  </div>

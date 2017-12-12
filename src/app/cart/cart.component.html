@@ -1,0 +1,20 @@
+<div class="block" *ngIf="names.length">
+<h5 class="list-group-item list-group-item-dark col-sm-6 width">Cart:</h5>
+<ul class="list-group col-sm-6">
+  <li *ngFor="let name of names" class="list-group-item list-group-item-warning">
+      {{name}}
+      <button class="btn btn-primary left" (click)="onRemove(name)" >Remove</button>
+  </li>
+</ul>
+<div class="form-group">
+  <label>Name:</label>
+  <input [(ngModel)]="customer.name" class="form-control">
+  <label>City:</label>
+  <input [(ngModel)]="customer.city" class="form-control">
+  <label>Adress:</label>
+  <input [(ngModel)]="customer.address" class="form-control">
+</div>
+<p *ngIf="customer.name.length && customer.city.length && customer.address.length">
+  Delivery address: {{customer.name}}, {{customer.city}}, {{customer.address}}
+</p>
+</div>
