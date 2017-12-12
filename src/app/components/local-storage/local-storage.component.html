@@ -1,0 +1,7 @@
+<h4>2. LocalStorageService</h4>
+<ul appHighlight="thick solid green">
+  <li>Stored Value: {{value}} <button (click)="remove()">Remove value</button></li>
+  <li>New value: <input #lsvalue
+    (keyup.enter)="update(lsvalue.value)"
+    (blur)="update(lsvalue.value)"></li>
+</ul>

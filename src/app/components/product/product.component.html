@@ -20,6 +20,7 @@
           </li>
           <li class="list-group-item list-group-item-success">Bought: {{product.bought}}</li>
           <br>
-          <button class="btn btn-primary" (click)="onBuy()" >Buy</button>
+          <button *ngIf="product.isAvailable" class="btn btn-primary" (click)="onBuy()" >Add to cart</button>
+          <button *ngIf="!product.isAvailable" class="btn btn-primary" (click)="outOfStock()" >Out of stock</button>
       </ul>
   </div>

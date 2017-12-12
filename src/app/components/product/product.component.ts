@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, HostBinding, HostListener } from '@angular/core';
+import { Component, EventEmitter, Input, Output, HostBinding, HostListener, SimpleChanges, OnChanges } from '@angular/core';
 
 import { Product, Category } from './product.model';
 
@@ -7,7 +7,7 @@ import { Product, Category } from './product.model';
   templateUrl: './product.component.html',
     styleUrls: ['./product.component.css']
 })
-export class ProductComponent {
+export class ProductComponent implements OnChanges {
     @Input() product: Product;
     @Output() buy: EventEmitter<Product> = new EventEmitter<Product>();
 
@@ -18,6 +18,14 @@ export class ProductComponent {
     onBuy() {
       console.log(`Item bought`);
       this.buy.emit(this.product);
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        console.log(`Selected Product: ${changes.product.currentValue.name}`);
+    }
+
+    outOfStock() {
+        alert('Sorry, product is out of stock...');
     }
 
 }
