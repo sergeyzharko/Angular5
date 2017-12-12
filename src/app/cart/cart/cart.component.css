@@ -1,0 +1,19 @@
+.block {
+    width: 30%;
+  }
+.left {
+    margin-left: 170px;
+}
+.width {
+  margin: 0px;
+  padding: 20px;
+}
+.label {
+  margin-left: 20px;
+}
+.information, .form-control {
+  margin: 0px 0px 0px 10px;
+}
+label {
+  margin: 20px 0px 0px 10px;
+}

@@ -1,0 +1,32 @@
+    <form #myForm="ngForm">
+      <label>Sort Name: </label>
+      <input type="radio" id="ascending" name="order" value="1" [(ngModel)]="direction" (ngModelChange)="onOrder()"><label for="ascending">Ascending</label>
+      <input type="radio" id="descending" name="order" value="" [(ngModel)]="direction" (ngModelChange)="onOrder()"><label for="descending">Descending</label>
+    </form>
+    
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Category</th>
+            <th>Update Date</th>
+            <th>Control</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let product of products">
+          <tr [class.edited]="isEdited(product)">
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.quantity}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.updateDate | date}}</td>
+            <td><button class="btn btn-primary" (click)="onRemove(product)" >Remove</button><button class="btn btn-primary" (click)="onEdit(product)" >Edit</button></td>
+          </tr>
+        </tbody>
+    <table>
+
+<button class="btn btn-primary" (click)="onNew()" >New Product</button>

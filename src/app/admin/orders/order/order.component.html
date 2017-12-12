@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Order</div>
+    <div class="panel-body">
+      <ul>
+        <li>ID: {{order.id}}</li>
+        <li>Name: {{user.firstName}} {{user.lastName}}</li>
+        <li>Address: {{user.address}}</li>
+        <li>Create Date: {{order.createDate | date}}</li>
+        <li>Products:
+          <uL *ngFor="let product of order.boughtProducts">
+              <li>{{product.name}}</li>
+              <ul>
+                <li>Quantity: {{product.quantity}}</li>
+                <li>Price: {{product.price}}</li>
+              </ul>
+          </uL>
+        </li>
+        <li>Statuses:
+          <uL *ngFor="let status of order.status">
+              <li>{{status.date | date}}: {{status.status}}</li>
+          </uL>
+        </li>
+      </ul>
+      <button class="btn btn-warning btn-sm"
+        (click)="nextStatus()">
+        Next Status
+      </button>
+    </div>
+  </div>
+  

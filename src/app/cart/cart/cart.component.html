@@ -1,0 +1,22 @@
+<div class="row">
+    <h4 class="col-md-10">Shopping Cart</h4>
+    <span class="col-md-2">
+      <a class="btn btn-default" (click)="close()">x</a>
+    </span>
+</div>
+  
+<div class="block">
+<h4 class="list-group-item list-group-item-dark col-sm-6 width">Cart:</h4>
+<ul class="list-group col-sm-6">
+  <li *ngFor="let item of items" class="list-group-item list-group-item-warning">
+    <app-cart-item
+      [item] = "item"
+      (remove)="onRemove($event)"
+      (increment)="onIncrement($event)"
+      (decrement)="onDecrement($event)">
+    </app-cart-item>
+  </li>
+</ul>
+<button class="btn btn-primary" (click)="clear()">Clear</button>
+<button class="btn btn-primary" routerLink="/cart/order">Order</button>
+</div>

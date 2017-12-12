@@ -1,60 +1,66 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { AppRoutingModule, appRouterComponents } from './app.routing.module';
 
 import { AppComponent } from './app.component';
-
-import { ProductComponent } from './components/product/product.component';
-import { ProductListComponent, ProductsService } from './components/product-list';
-import { CartService, CartComponent } from './components/cart';
-import { OrderComponent } from './components/order';
-import { Product, Category } from './components/product/';
-import { Item, CartItemComponent} from './components/cart-item/';
 import { HelloComponent } from './components/hello/hello.component';
-import { GeneratorService, LocalStorageService, ConfigOptionsService, ConstantsService, Random5, RandomN } from './services/';
+import { GeneratorService, LocalStorageService, ConfigOptionsService, ConstantsService,
+  Random5, RandomN, UserArrayService, AuthService, CartService, ProductsService, DialogService, OrderArrayService } from './services/';
 import { ConfigOptionsComponent } from './components/config-options/config-options.component';
 import { ConstantsComponent } from './components/constants/constants.component';
 import { GeneratorComponent } from './components/generator/generator.component';
 import { LocalStorageComponent } from './components/local-storage/local-storage.component';
 import { HighlightDirective } from './directives/highlight.directive';
+import { AuthGuard } from './guards/auth.guard';
+import { CartModule } from './cart/cart.module';
+import { MyOrdersModule } from './my-orders/my-orders.module';
+
 
 const TaskManager = new ConstantsService();
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent,
-    ProductListComponent,
-    CartComponent,
-    OrderComponent,
-    CartItemComponent,
     HelloComponent,
     ConfigOptionsComponent,
     ConstantsComponent,
     GeneratorComponent,
     LocalStorageComponent,
-    HighlightDirective
+    HighlightDirective,
+    appRouterComponents
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    AppRoutingModule,
+    CartModule,
+    MyOrdersModule
   ],
   exports: [
-    AppComponent,
-    ProductComponent,
-    ProductListComponent,
-    CartComponent
+    AppComponent
   ],
   providers: [
-    ProductsService,
-    CartService,
+    AuthGuard,
+    AuthService,
+    DialogService,
     LocalStorageService,
+    CartService,
+    ProductsService,
     ConfigOptionsService,
     { provide: ConstantsService, useValue: TaskManager },
     GeneratorService,
-    { provide: Random5, useFactory:  RandomN(5), deps: [ GeneratorService ] }
+    { provide: Random5, useFactory:  RandomN(5), deps: [ GeneratorService ] },
+    UserArrayService,
+    OrderArrayService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(router: Router) {
+    // Отображение структуры роутинга:
+    // console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+  }
+}
