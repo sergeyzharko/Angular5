@@ -1,6 +1,17 @@
-{{item.name}} - {{item.quantity}}
-<div>
-    <button type="button" class="btn btn-primary" (click)="onRemove()" >Remove</button>
-<button type="button" class="btn btn-primary" (click)="onIncrement()" >Plus</button>
-<button type="button" class="btn btn-primary" (click)="onDecrement()" >Minus</button>
-</div>
+
+    <td>{{item.name}}</td>
+    <td>{{item.quantity}}</td>
+    <td>
+        <button class="btn btn-primary btn-sm"
+            (click)="onIncrement()">
+            +
+        </button>
+        <button class="btn btn-primary btn-sm"
+            (click)="onDecrement()">
+            -
+        </button>
+        <button class="btn btn-danger btn-sm"
+            (click)="onRemove()">
+            X
+        </button>
+    </td>

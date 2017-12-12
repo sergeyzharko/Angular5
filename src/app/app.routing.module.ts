@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules, ExtraOptions } from '@angular/router';
 
 import { CustomPreloadingStrategyService } from './services';
-import { AboutComponent, HomeComponent, LoginComponent, PageNotFoundComponent } from './components';
+import { AboutComponent, HomeComponent, LoginComponent, RegisterComponent, PageNotFoundComponent } from './components';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -19,6 +19,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     data: { preload: true, title: 'Login' }
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    data: { preload: true, title: 'Register' }
   },
   {
     path: 'admin',
@@ -43,7 +48,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/products',
     pathMatch: 'full'
   },
   {
@@ -55,7 +60,7 @@ const routes: Routes = [
   }
 ];
 
-export let appRouterComponents = [AboutComponent, HomeComponent, LoginComponent, PageNotFoundComponent];
+export let appRouterComponents = [AboutComponent, HomeComponent, LoginComponent, RegisterComponent, PageNotFoundComponent];
 
 const extraOptions: ExtraOptions = {
   preloadingStrategy: PreloadAllModules // PreloadAllModules, // Загружать все модули сразу

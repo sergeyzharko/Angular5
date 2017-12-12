@@ -5,3 +5,26 @@
 .empty {
     visibility: hidden;
 }
+
+nav {
+    margin-left: 30px;
+}
+
+footer {
+	width: 100%;
+	min-height: 60px;
+	position: fixed; 
+	left: 0;
+	bottom: 0;
+	background: rgb(140, 198, 63); 
+	clear: left;
+	
+}
+
+.text {
+	position: absolute; 
+	left: 50%; 
+	top: 50%;
+	margin-left: -30px; 
+	margin-top: -10px; 
+}

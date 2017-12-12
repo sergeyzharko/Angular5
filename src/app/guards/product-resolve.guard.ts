@@ -16,9 +16,6 @@ export class ProductResolveGuard implements Resolve<Product> {
     const id = +route.paramMap.get('id');
 
     return this.productsService.getProduct(id).then(product => {
-      if (id === 0) {
-        return new Product(null, null, null, null, null, null, null, null, null, null);
-      }
       if (product) {
         return product;
       } else { // id not found

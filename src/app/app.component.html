@@ -3,70 +3,67 @@
 <app-constants></app-constants>
 <app-generator></app-generator> -->
 
-<!-- <h1 class="h1">{{title}}</h1> -->
-<!-- <app-hello></app-hello> -->
-<!-- <h4 class="h4">Products</h4> -->
-<!-- <app-product-list></app-product-list> -->
-<!-- <app-cart></app-cart> -->
-
-
-<div>
-        <div>
-            <nav class="navbar navbar-default">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" routerLink="/home">Shop</a>
-                </div>
-    
-                <div>
-                  <ul class="nav navbar-nav">
-                    <li routerLinkActive="active">
-                        <a routerLink="/products">Products</a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a routerLink="/admin">Admin</a>
-                    </li>
-                    <li routerLinkActive="active">
-                        <a routerLink="/about">About</a>
-                    </li>
-                    <li routerLinkActive="active" *ngIf="authService.isLoggedIn">
-                      <a routerLink="/myorders">My Orders</a>
-                    </li>
-                    <li routerLinkActive="active" *ngIf="!authService.isLoggedIn" routerLinkActive="active">
-                        <a routerLink="/login">Login</a>
-                    </li>
-                    <li routerLinkActive="active" *ngIf="authService.isLoggedIn" routerLinkActive="active">
-                        <a routerLink="/login" (click)="authService.logout()">Logout: {{authService.currentUser.login}}</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </nav>
-    
-            <div class="container">
-                <div class="col-md-8">
-                     <router-outlet
-                         (activate)='onActivate($event)'
-                         (deactivate)='onDeactivate($event)'>
-                     </router-outlet>
-                     <!-- Routed views go here -->
-                </div>
-                <div class="col-md-4">
-                  <div [ngClass]="setClasses(0)">Your cart is empty</div>
-                  <div [ngClass]="setClasses(1)">
-                    <button class="btn btn-success"
-                      *ngIf="!cartService.isDisplayed"
-                      (click)="displayCart()">Show Cart
-                    </button>
-                  </div>
-                  <router-outlet name="popup" *ngIf="cartService.isDisplayed"></router-outlet>
-                </div>
-            </div>           
-        </div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/home">Shop</a>
     </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+            <a routerLink="/products">Products</a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/admin">Admin</a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/about">About</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="authService.isLoggedIn && !authService.isAdmin">
+          <a routerLink="/myorders">My Orders</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="!authService.isLoggedIn">
+            <a routerLink="/login">Login</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="authService.isLoggedIn">
+            <a routerLink="/login" (click)="authService.logout()">Logout: {{authService.currentUser.login}}</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="!authService.isLoggedIn">
+            <a routerLink="/register">Register</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="authService.isLoggedIn">
+            <a routerLink="/register">Update Profile</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+    <div [ngClass]="setColumn('main')">
+          <router-outlet
+              (activate)='onActivate($event)'
+              (deactivate)='onDeactivate($event)'>
+          </router-outlet>
+          <!-- Routed views go here -->
+    </div>
+    <div [ngClass]="setColumn()" *ngIf="!authService.isAdmin">
+      <div [ngClass]="setClasses(0)">Your cart is empty</div>
+      <div [ngClass]="setClasses(1)">
+        <button class="btn btn-success"
+          *ngIf="!cartService.isDisplayed"
+          (click)="displayCart()">Show Cart
+        </button>
+      </div>
+      <router-outlet name="popup" *ngIf="cartService.isDisplayed"></router-outlet>
+    </div>
+</div>
+
+<footer><div class="text">Kristina Shop, 2017</div></footer>

@@ -24,6 +24,12 @@ const routes: Routes = [
             data: { title: 'Edit Product' }
           },
           {
+            path: 'products/new',
+            component: ProductComponent,
+            canDeactivate: [CanDeactivateGuard],
+            data: { title: 'Edit Product' }
+          },
+          {
             path: 'products',
             component: ProductListComponent,
             data: { title: 'Products' }

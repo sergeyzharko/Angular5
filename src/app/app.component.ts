@@ -71,5 +71,21 @@ export class AppComponent implements OnInit, OnDestroy {
     return classes;
   }
 
+  setColumn(block) {
+    const flag = this.cartService.isDisplayed;
+    let classes;
+    if ( block === 'main' ) {
+      classes = {
+        'col-md-8': flag,
+        'col-md-10': !flag
+      };
+    } else {
+      classes = {
+        'col-md-4': flag,
+        'col-md-2': !flag
+      };
+    }
+    return classes;
+  }
 
 }

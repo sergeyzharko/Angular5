@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserArrayService, OrderArrayService } from '../../../services/';
+import { Subscription } from 'rxjs/Subscription';
 
 import { Order, User } from './../../../models';
 
@@ -9,8 +10,11 @@ import { Order, User } from './../../../models';
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css']
 })
-export class OrderComponent implements OnInit {
+export class OrderComponent implements OnInit, OnDestroy {
   @Input() order: Order;
+  @Output() onDelete = new EventEmitter<Order>();
+  errorMessage: string;
+  private subscription: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -22,11 +26,23 @@ export class OrderComponent implements OnInit {
   user: User = new User(null, '', '', '', '', '', false);
 
   ngOnInit() {
-    this.userArrayService.getUser(this.order.userId).then( currentUser => this.user = currentUser );
+    const sub = this.userArrayService.getUser(this.order.userId)
+    .subscribe(
+      currentUser => this.user = currentUser
+    );
+    this.subscription.push(sub);
   }
 
   nextStatus() {
     this.orderArrayService.nextStatus(this.order);
-    console.log(this.order);
   }
+
+  deleteOrder() {
+    this.onDelete.emit(this.order);
+  }
+
+  ngOnDestroy() {
+    this.subscription.forEach(sub => sub.unsubscribe());
+  }
+
 }

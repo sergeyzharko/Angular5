@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AutoUnsubscribe } from './../../../decorators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { DialogService } from './../../../services';
+import { Subscription } from 'rxjs/Subscription';
 
 import { CanComponentDeactivate } from './../../../guards/can-component-deactivate.interface';
 import { User } from './../../../models';
@@ -11,9 +13,11 @@ import { UserArrayService } from './../../../services';
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css'],
 })
-export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactivate {
+@AutoUnsubscribe()
+export class UserFormComponent implements OnInit, CanComponentDeactivate {
   user: User;
   originalUser: User;
+  private sub: Subscription[] = [];
 
   constructor(
     private userArrayService: UserArrayService,
@@ -31,9 +35,6 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     });
   }
 
-  ngOnDestroy(): void {
-  }
-
   saveUser() {
     const user = new User(
       this.user.id,
@@ -45,18 +46,33 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
       this.user.isAdmin
     );
 
-    if (user.id) {
-      this.userArrayService.updateUser(user);
-      this.router.navigate(['/users', {id: user.id}]);
-    } else {
-      this.userArrayService.addUser(user);
-      this.goBack();
-    }
-    this.originalUser = Object.assign({}, this.user);
+    // if (user.id) {
+    //   this.userArrayService.updateUser(user);
+    //   this.router.navigate(['/users', {id: user.id}]);
+    // } else {
+    //   this.userArrayService.addUser(user);
+    //   this.goBack();
+    // }
+    // this.originalUser = Object.assign({}, this.user);
+
+    const method = user.id ? 'updateUser' : 'addUser';
+    const sub = this.userArrayService[method](user)
+      .subscribe(
+        () => {
+          this.originalUser = Object.assign({}, this.user);
+          user.id
+            // optional parameter: http://localhost:4200/users;id=2
+            ? this.router.navigate(['admin/users', { id: user.id }])
+            : this.router.navigate(['admin/users']);
+        },
+        error => console.log(error)
+      );
+    this.sub.push(sub);
+
   }
 
   goBack() {
-    this.router.navigate(['./../../'], { relativeTo: this.route});
+    this.router.navigate(['../../'], { relativeTo: this.route});
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -76,5 +92,4 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     return this.dialogService.confirm('Discard changes?');
   }
 
-  
 }

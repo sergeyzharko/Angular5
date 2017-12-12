@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MyOrdersComponent, OrderListComponent } from '.';
-import { CanDeactivateGuard, OrderResolveGuard } from './../guards';
+import { CanDeactivateGuard } from './../guards';
 
 const routes: Routes = [
   {
@@ -19,8 +19,7 @@ export let myOrdersRouterComponents = [MyOrdersComponent, OrderListComponent];
   ],
   exports: [RouterModule],
   providers: [
-    CanDeactivateGuard,
-    OrderResolveGuard
+    CanDeactivateGuard
   ]
 })
 export class MyOrdersRoutingModule { }

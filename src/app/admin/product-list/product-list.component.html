@@ -24,7 +24,16 @@
             <td>{{product.quantity}}</td>
             <td>{{product.category}}</td>
             <td>{{product.updateDate | date}}</td>
-            <td><button class="btn btn-primary" (click)="onRemove(product)" >Remove</button><button class="btn btn-primary" (click)="onEdit(product)" >Edit</button></td>
+            <td>
+              <button class="btn btn-danger btn-sm"
+                (click)="onRemove(product)">
+                Remove
+              </button>
+              <button class="btn btn-warning btn-sm"
+                (click)="onEdit(product)"
+                >Edit
+              </button>
+            </td>
           </tr>
         </tbody>
     <table>

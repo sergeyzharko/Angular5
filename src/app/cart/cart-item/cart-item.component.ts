@@ -3,8 +3,9 @@ import { Component, EventEmitter, Input, Output, HostBinding, HostListener, Rend
 import { Item } from '../../models/';
 
 @Component({
-  selector: 'app-cart-item',
-  templateUrl: './cart-item.component.html'
+  selector: 'tr',
+  templateUrl: './cart-item.component.html',
+  styleUrls: ['../cart/cart.component.css']
 })
 export class CartItemComponent implements OnDestroy {
     @Input() item: Item;

@@ -37,6 +37,7 @@ export class ProductComponent implements OnInit, CanComponentDeactivate {
 
     this.product = new Product(null, null, null, null, null, null, null, null, null, null);
 
+    // Был ли отредактирован (для гуарда)
     this.route.data.subscribe(data => {
       this.product = Object.assign({}, data.product);
       this.originalProduct = Object.assign({}, data.product);
@@ -46,10 +47,16 @@ export class ProductComponent implements OnInit, CanComponentDeactivate {
   saveProduct() {
     this.product.updateDate = new Date();
     if (this.product.id) {
-      this.productsService.updateProduct(this.product);
-      this.router.navigate(['/admin/products', {id: this.product.id}]);
+      this.productsService.updateProduct(this.product).then(
+        () => {
+          // Последний отредактированный
+          this.router.navigate(['/admin/products', {id: this.product.id}]);
+          this.originalProduct = Object.assign({}, this.product);
+        }
+      );
     } else {
       this.productsService.addProduct(this.product);
+      this.originalProduct = Object.assign({}, this.product);
       this.goBack();
     }
   }
@@ -58,6 +65,7 @@ export class ProductComponent implements OnInit, CanComponentDeactivate {
     this.router.navigate(['/admin/products']);
   }
 
+  // Для гуарда
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     const flags = [];
     for (const key in this.originalProduct) {

@@ -2,13 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule, appRouterComponents } from './app.routing.module';
 
 import { AppComponent } from './app.component';
 import { HelloComponent } from './components/hello/hello.component';
 import { GeneratorService, LocalStorageService, ConfigOptionsService, ConstantsService,
-  Random5, RandomN, UserArrayService, AuthService, CartService, ProductsService, DialogService, OrderArrayService } from './services/';
+  Random5, RandomN, UserArrayService, AuthService, CartService, ProductsService, DialogService,
+  OrderArrayService, UsersAPI, usersBaseUrl, OrdersAPI, ordersBaseUrl, TimingInterceptor, ServerAddressInterceptor } from './services/';
 import { ConfigOptionsComponent } from './components/config-options/config-options.component';
 import { ConstantsComponent } from './components/constants/constants.component';
 import { GeneratorComponent } from './components/generator/generator.component';
@@ -35,9 +37,10 @@ const TaskManager = new ConstantsService();
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     CartModule,
-    MyOrdersModule
+    HttpClientModule,
+    MyOrdersModule,
+    AppRoutingModule
   ],
   exports: [
     AppComponent
@@ -54,7 +57,20 @@ const TaskManager = new ConstantsService();
     GeneratorService,
     { provide: Random5, useFactory:  RandomN(5), deps: [ GeneratorService ] },
     UserArrayService,
-    OrderArrayService
+    OrderArrayService,
+    {provide: UsersAPI, useValue: usersBaseUrl},
+    {provide: OrdersAPI, useValue: ordersBaseUrl},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TimingInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerAddressInterceptor,
+      multi: true,
+    }
+
   ],
   bootstrap: [AppComponent]
 })
