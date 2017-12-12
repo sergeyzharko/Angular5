@@ -20,3 +20,10 @@ Task2:
 4. ngOnChanges в product.component.ts
 5. ngOnDestroy в cart-item.component.ts
 6. События keyup.enter и blur в hello.component.ts
+
+
+
+Task4:
+
+1. В компоненте product применены currency, date и uppercase пайпы.
+2. В компоненте order применён currency пайп.

@@ -3,24 +3,30 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Product, Category } from '../product/';
 import { ProductsService } from './product-list.service';
 import { CartService } from './../cart/';
+import { OrderPipe } from './order-by.pipe';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
+  providers: [OrderPipe]
 })
 export class ProductListComponent implements OnInit {
   products: Array<Product>;
 
   selectedName: string;
+  orderField = 'name';
+  direction: boolean;
 
   constructor( // Reserve the constructor for simple initialization such as wiring constructor parameters to properties.
     public productsService: ProductsService,
-    public cartService: CartService
+    public cartService: CartService,
+    private orderPipe: OrderPipe
   ) { }
 
   ngOnInit() {
     this.getProducts();
+    this.onOrder();
   }
 
   getProducts(): void {
@@ -59,6 +65,10 @@ export class ProductListComponent implements OnInit {
         margin: '0px 0px 0px 10px'
       };
     }
+  }
+
+  onOrder() {
+    this.products = this.orderPipe.transform(this.products, this.orderField, Boolean(this.direction));
   }
 
 }

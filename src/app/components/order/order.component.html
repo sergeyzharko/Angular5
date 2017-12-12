@@ -1,5 +1,5 @@
 <p class="information">Total quantity: {{values.totalQuantity}}</p>
-<p class="information">Total amount: {{values.amount}}</p>
+<p class="information">Total amount: {{values.amount | currency:'USD':'symbol':'1.2-2'}}</p>
 <div class="form-group">
   <label>Name:</label>
   <input [(ngModel)]="customer.name" class="form-control" #name>
