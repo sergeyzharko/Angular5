@@ -27,3 +27,15 @@ Task4:
 
 1. В компоненте product применены currency, date и uppercase пайпы.
 2. В компоненте order применён currency пайп.
+
+
+
+Task5:
+
+1. Корзина реализована в виде Secondary Router Outlet
+2. В модуле Admin применён Child Route Configuration
+3. Внедрена относительная навигация
+4. Модули Products и Admin вынесены в асинхронную загрузку
+5. В модуле Admin, компоненте ProductComponent и ProductListComponent используются CanActivate, CanActivateChild, CanLoad, CanDeactivate, Resolve
+6. В app.routing ализованы Custom Preloading Strategy, Title Service
+7. localstorage реализован в корзине (модуль cart)
