@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   newUserId = this.userArrayService.getNewId();
 
-  customer = new User(this.newUserId, '', '', '', '', '', false);
+  customer = new User(this.newUserId, '', '', '', '', '', '', '', false);
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn;
@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if ( this.isLoggedIn ) {
       this.customer = this.authService.currentUser;
     } else {
-      this.customer = new User(this.newUserId, '', '', '', '', '', false);
+      this.customer = new User(this.newUserId, '', '', '', '', '', '', '', false);
     }
   }
 

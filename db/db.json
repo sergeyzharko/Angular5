@@ -6,6 +6,8 @@
       "password": "Kristina",
       "firstName": "Kristina",
       "lastName": "Kostyuk",
+      "email": "kristina.evzrezova@gmail.com",
+      "phone": "+375296358333",
       "address": "ul. Mogilyovskaya, 32-37",
       "isAdmin": false
     },
@@ -32,8 +34,10 @@
       "login": "Admin",
       "password": "Admin",
       "firstName": "Admin",
-      "lastName": "ul. Voronyanskogo",
-      "address": "Admin",
+      "lastName": "Admin",
+      "email": "admin@admin.com",
+      "phone": "+375296111111",
+      "address": "ul. Voronyanskogo",
       "isAdmin": true
     }
   ],
