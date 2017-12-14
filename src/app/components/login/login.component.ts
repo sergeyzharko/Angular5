@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   message: string;
 
-  user = new User(1, '', '', '', '', '', false);
+  user = new User();
 
   constructor(
     public authService: AuthService,

@@ -26,7 +26,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   newUserId = this.userArrayService.getNewId();
   newLoginId = this.orderArrayService.getNewId();
 
-  customer = new User(this.newUserId, '', '', '', '', '', false);
+  customer = new User(this.newUserId);
   isLoggedIn: boolean;
   order: Order;
   orderStatus = new OrderStatus(1, '', Status.A);
@@ -37,8 +37,6 @@ export class OrderComponent implements OnInit, OnDestroy {
 
     if ( this.isLoggedIn ) {
       this.customer = this.authService.currentUser;
-    } else {
-      this.customer = new User(this.newUserId, '', '', '', '', '', false);
     }
   }
 

@@ -19,6 +19,7 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { AuthGuard } from './guards/auth.guard';
 import { CartModule } from './cart/cart.module';
 import { MyOrdersModule } from './my-orders/my-orders.module';
+import { UserFormModule } from './user-form/user-form.module';
 
 
 const TaskManager = new ConstantsService();
@@ -40,6 +41,7 @@ const TaskManager = new ConstantsService();
     CartModule,
     HttpClientModule,
     MyOrdersModule,
+    UserFormModule,
     AppRoutingModule
   ],
   exports: [
@@ -60,11 +62,11 @@ const TaskManager = new ConstantsService();
     OrderArrayService,
     {provide: UsersAPI, useValue: usersBaseUrl},
     {provide: OrdersAPI, useValue: ordersBaseUrl},
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TimingInterceptor,
-      multi: true,
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TimingInterceptor,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ServerAddressInterceptor,

@@ -39,6 +39,26 @@
       "phone": "+375296111111",
       "address": "ul. Voronyanskogo",
       "isAdmin": true
+    },
+    {
+      "id": 5,
+      "login": "qaz",
+      "password": "qaz",
+      "firstName": "qaz",
+      "lastName": "qaz",
+      "email": "qaz",
+      "phone": "qaz",
+      "address": "qaz11",
+      "isAdmin": false
+    },
+    {
+      "login": "wsx11",
+      "firstName": "wsx",
+      "lastName": "wsx",
+      "email": "wsx",
+      "phone": "wsx",
+      "address": "wsx",
+      "id": 6
     }
   ],
   "products": [

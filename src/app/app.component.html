@@ -39,7 +39,7 @@
             <a routerLink="/register">Register</a>
         </li>
         <li routerLinkActive="active" *ngIf="authService.isLoggedIn">
-            <a routerLink="/register">Update Profile</a>
+            <a routerLink="/update">Update Profile</a>
         </li>
       </ul>
     </div>
@@ -55,7 +55,7 @@
           <!-- Routed views go here -->
     </div>
     <div [ngClass]="setColumn()" *ngIf="!authService.isAdmin">
-      <div [ngClass]="setClasses(0)">Your cart is empty</div>
+      <!-- <div [ngClass]="setClasses(0)">Your cart is empty</div> -->
       <div [ngClass]="setClasses(1)">
         <button class="btn btn-success"
           *ngIf="!cartService.isDisplayed"
