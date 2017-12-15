@@ -1,6 +1,6 @@
 <form *ngIf="product" (ngSubmit)="saveProduct()" id="product-form" class="form-horizontal" role="form">
     <div class="form-group">
-        <label for="name" class="col-md-2 control-label">Name:</label>
+        <label for="name" class="col-md-2 control-label">Name</label>
         <div class="col-md-4">
             <input type="text"
                 class="form-control"
@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="description" class="col-md-2 control-label">Description:</label>
+        <label for="description" class="col-md-2 control-label">Description</label>
         <div class="col-md-4">
             <input type="text"
                 class="form-control"
@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="price" class="col-md-2 control-label">Price:</label>
+        <label for="price" class="col-md-2 control-label">Price</label>
         <div class="col-md-4">
             <input type="text"
                 class="form-control"
@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="quantity" class="col-md-2 control-label">Quantity:</label>
+        <label for="quantity" class="col-md-2 control-label">Quantity</label>
         <div class="col-md-4">
             <input type="number"
                 min="1" max="100"
@@ -43,7 +43,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="category" class="col-md-2 control-label">Category:</label>
+        <label for="category" class="col-md-2 control-label">Category</label>
         <div class="col-md-4">
             <select class="form-control" id="category" name="category" [(ngModel)]="product.category">
                 <option>food</option>
@@ -53,20 +53,22 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="isAvailable" class="col-md-2 control-label">Is Available:</label>
+        <label for="isAvailable" class="col-md-2 control-label">Is Available</label>
         <div class="col-md-4">
             <input type="checkbox" class="form-check-input" id="isAvailable" name="isAvailable" [(ngModel)]="product.isAvailable">
         </div>
     </div>
     <div class="form-group">
-        <button
-            type="submit"
-            class="btn btn-primary" form="product-form"
-            form="product-form">Save
-        </button>
-        <button
-            class="btn btn-primary" form="product-form"
-            (click)="goBack()">Back
-        </button>
+        <div class="col-md-8 col-md-offset-2">
+            <button
+                type="submit"
+                class="btn btn-primary" form="product-form"
+                form="product-form">Save
+            </button>
+            <button
+                class="btn btn-primary" form="product-form"
+                (click)="goBack()">Back
+            </button>
+        </div>
     </div>
 </form>
