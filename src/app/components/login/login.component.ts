@@ -11,6 +11,7 @@ import { User } from '../../models/';
 export class LoginComponent implements OnInit {
 
   message: string;
+  rememberFlag = true;
 
   user = new User();
 
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.user);
+    this.authService.login(this.user, this.rememberFlag);
   }
 
 }

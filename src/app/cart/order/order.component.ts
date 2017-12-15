@@ -41,37 +41,6 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   buy() {
-    if ( !this.isLoggedIn ) {
-      const sub = this.userArrayService.getUsers().subscribe(
-        users => {
-          const correctUser = users.find( sourceUser => this.customer.login === sourceUser.login);
-          if (correctUser && this.customer.login === correctUser.login) { alert('This login is already taken'); } else {
-            const sub1 = this.userArrayService.addUser(this.customer)
-            .subscribe(
-              () => {
-                this.authService.login(this.customer);
-                this.newOrder();
-              },
-              error => console.log(error)
-            );
-            this.subscription.push(sub1);
-          }
-        });
-        this.subscription.push(sub);
-
-      // this.userArrayService.getUser(this.customer.id).then(
-      //   (saveCustomer) => {
-      //     if (saveCustomer && this.customer.login === saveCustomer.login) { alert('This login is already taken'); } else {
-      //       this.userArrayService.addUser(this.customer).then(() => this.authService.login(this.customer)).then(() => this.newOrder());
-      //     }
-      //   }
-      // );
-    } else {
-      this.newOrder();
-    }
-  }
-
-  newOrder() {
     const date = new Date().toString();
     this.orderStatus.date = date;
     this.order = new Order(this.newLoginId, this.customer.id, date, [this.orderStatus], this.cartService.boughtProducts);

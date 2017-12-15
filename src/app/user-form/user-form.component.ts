@@ -82,7 +82,7 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
           const sub1 = this.userArrayService.addUser(this.user)
           .subscribe(
             () => {
-              if (this.admin) { this.navigate(); } else { this.authService.login(this.user); }
+              if (this.admin) { this.navigate(); } else { this.authService.login(this.user, false); }
             },
             error => console.log(error)
           );
