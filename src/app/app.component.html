@@ -20,7 +20,7 @@
         <li routerLinkActive="active">
             <a routerLink="/products">Products</a>
         </li>
-        <li routerLinkActive="active">
+        <li routerLinkActive="active" *ngIf="authService.isAdmin">
             <a routerLink="/admin">Admin</a>
         </li>
         <li routerLinkActive="active">

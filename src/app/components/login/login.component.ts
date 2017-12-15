@@ -20,23 +20,10 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.setMessage();
   }
 
   login() {
-    this.message = 'Trying to log in ...';
-    this.setMessage();
     this.authService.login(this.user);
-
-  }
-
-  logout() {
-    this.authService.logout();
-    this.setMessage();
-  }
-
-  private setMessage() {
-    this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
   }
 
 }
