@@ -1,60 +1,72 @@
-        <form *ngIf="product" (ngSubmit)="saveProduct()" id="product-form">
-          <div class="form-group">
-            <label for="name">Name</label>
+<form *ngIf="product" (ngSubmit)="saveProduct()" id="product-form" class="form-horizontal" role="form">
+    <div class="form-group">
+        <label for="name" class="col-md-2 control-label">Name:</label>
+        <div class="col-md-4">
             <input type="text"
                 class="form-control"
                 id="name" name="name"
                 placeholder="Name"
                 required
                 [(ngModel)]="product.name">
-          </div>
-          <div class="form-group">
-              <label for="description">Description</label>
-              <input type="text"
-                  class="form-control"
-                  id="description" name="description"
-                  placeholder="Description"
-                  required
-                  [(ngModel)]="product.description">
-          </div>
-          <div class="form-group">
-              <label for="price">Price</label>
-              <input type="text"
-                  class="form-control"
-                  id="price" name="price"
-                  placeholder="Price"
-                  [(ngModel)]="product.price">
-          </div>
-          <div class="form-group">
-              <label for="quantity">Quantity</label>
-              <input type="number"
-                  min="1" max="100"
-                  class="form-control"
-                  id="quantity" name="quantity"
-                  placeholder="Quantity"
-                  [(ngModel)]="product.quantity">
-          </div>
-          <div class="form-group">
-              <label for="category">Category</label>
-              <select class="form-control" id="category" name="category" [(ngModel)]="product.category">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="description" class="col-md-2 control-label">Description:</label>
+        <div class="col-md-4">
+            <input type="text"
+                class="form-control"
+                id="description" name="description"
+                placeholder="Description"
+                required
+                [(ngModel)]="product.description">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="price" class="col-md-2 control-label">Price:</label>
+        <div class="col-md-4">
+            <input type="text"
+                class="form-control"
+                id="price" name="price"
+                placeholder="Price"
+                [(ngModel)]="product.price">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="quantity" class="col-md-2 control-label">Quantity:</label>
+        <div class="col-md-4">
+            <input type="number"
+                min="1" max="100"
+                class="form-control"
+                id="quantity" name="quantity"
+                placeholder="Quantity"
+                [(ngModel)]="product.quantity">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="category" class="col-md-2 control-label">Category:</label>
+        <div class="col-md-4">
+            <select class="form-control" id="category" name="category" [(ngModel)]="product.category">
                 <option>food</option>
                 <option>drink</option>
                 <option>other</option>
-              </select>
-          </div>
-          <div class="form-check">
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" id="isAvailable" name="isAvailable" [(ngModel)]="product.isAvailable">
-                Is Available
-              </label>
-          </div>
-          <button
-              type="submit"
-              class="btn btn-primary"
-              form="product-form">Save
-          </button>
-          <button
-              class="btn btn-primary"
-              (click)="goBack()">Back
-          </button>
-        </form>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="isAvailable" class="col-md-2 control-label">Is Available:</label>
+        <div class="col-md-4">
+            <input type="checkbox" class="form-check-input" id="isAvailable" name="isAvailable" [(ngModel)]="product.isAvailable">
+        </div>
+    </div>
+    <div class="form-group">
+        <button
+            type="submit"
+            class="btn btn-primary" form="product-form"
+            form="product-form">Save
+        </button>
+        <button
+            class="btn btn-primary" form="product-form"
+            (click)="goBack()">Back
+        </button>
+    </div>
+</form>
