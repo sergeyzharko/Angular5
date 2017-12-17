@@ -1,9 +1,7 @@
-<form novalidate #productForm="ngForm" *ngIf="product" (ngSubmit)="saveProduct(productForm)" id="product-form" class="form-horizontal" role="form" #productForm="ngForm">
+<form novalidate #productForm="ngForm" *ngIf="product" (ngSubmit)="saveProduct(productForm)" id="product-form" class="form-horizontal" role="form">
 
-    <div class="form-group"
-        [ngClass]="{'has-error': (nameVar.touched || nameVar.dirty) && !nameVar.valid }">
-        <label class="col-md-2 control-label"
-            for="nameId">Name</label>
+    <div class="form-group" [ngClass]="{'has-error': (nameVar.touched || nameVar.dirty) && !nameVar.valid }">
+        <label class="col-md-2 control-label" for="nameId">Name</label>
         <div class="col-md-4">
             <input class="form-control"
                 id="nameId"
@@ -25,10 +23,8 @@
         </div>
     </div>
 
-    <div class="form-group"
-        [ngClass]="{'has-error': (descriptionVar.touched || descriptionVar.dirty) && !descriptionVar.valid }">
-        <label class="col-md-2 control-label"
-            for="descriptionId">Description</label>
+    <div class="form-group" [ngClass]="{'has-error': (descriptionVar.touched || descriptionVar.dirty) && !descriptionVar.valid }">
+        <label class="col-md-2 control-label" for="descriptionId">Description</label>
         <div class="col-md-4">
             <input class="form-control"
                 id="descriptionId"
@@ -51,8 +47,7 @@
     </div>
 
     <div class="form-group" [ngClass]="{'has-error': (priceVar.touched || priceVar.dirty) && !priceVar.valid }">
-        <label class="col-md-2 control-label"
-            for="priceId">Price</label>
+        <label class="col-md-2 control-label" for="priceId">Price</label>
         <div class="col-md-4">
             <input class="form-control"
                 id="priceId"
@@ -71,8 +66,7 @@
     </div>
 
     <div class="form-group" [ngClass]="{'has-error': (quantityVar.touched || quantityVar.dirty) && !quantityVar.valid }">
-        <label class="col-md-2 control-label"
-            for="quantityId">Quantity</label>
+        <label class="col-md-2 control-label" for="quantityId">Quantity</label>
         <div class="col-md-4">
             <input class="form-control"
                 id="quantityId"
@@ -190,13 +184,10 @@
     <div class="form-group">
         <div class="col-md-8 col-md-offset-2">
             <button
-                type="submit"
-                class="btn btn-primary" form="product-form" [disabled]="!productForm.valid"
-                form="product-form">Save
+                type="submit" class="btn btn-primary" [disabled]="!productForm.valid">Save
             </button>
             <button
-                class="btn btn-primary" form="product-form"
-                (click)="goBack()">Back
+                class="btn btn-primary" (click)="goBack()">Back
             </button>
         </div>
     </div>
