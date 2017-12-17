@@ -25,6 +25,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    console.log(this.user);
+    console.log(this.rememberFlag);
     this.authService.login(this.user, this.rememberFlag);
   }
 

@@ -1,4 +1,4 @@
-<form novalidate #loginForm="ngForm" class="form-horizontal" (ngSubmit)="login(loginForm)" role="form">
+<form novalidate #loginForm="ngForm" class="form-horizontal" (ngSubmit)="login()" role="form">
         
             <div class="form-group" [ngClass]="{'has-error': !loginVar.valid }">
                 <label class="col-md-2 control-label" for="loginId">Login</label>
@@ -48,7 +48,7 @@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-8 checkbox" >
                     <label>
-                        <input id="isAvailable"
+                        <input id="isAvailable" name="isAvailable"
                             type="checkbox"
                             [(ngModel)]="rememberFlag">
                         Remember me
