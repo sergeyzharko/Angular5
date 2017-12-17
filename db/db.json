@@ -66,7 +66,7 @@
       "id": 1,
       "name": "Bread",
       "description": "This is my first bread",
-      "price": 0.32,
+      "price": 0.31,
       "quantity": 12,
       "category": "food",
       "isAvailable": true,
@@ -78,8 +78,17 @@
         "bun",
         "sandwich"
       ],
+      "producerInfo": true,
+      "producer": {
+        "name": "Hlebozavod №2",
+        "city": "Minsk",
+        "country": "Belarus"
+      },
       "bought": false,
-      "updateDate": "2017-12-07T14:14:55.198Z"
+      "updateDate": "2017-12-17T18:11:43.763Z",
+      "producerName": "Hlebozavod №2",
+      "producerCity": "Minsk",
+      "producerCountry": "Belarus"
     },
     {
       "id": 2,
@@ -96,6 +105,7 @@
         "kefir",
         "ryazhenka"
       ],
+      "producerInfo": false,
       "bought": false,
       "updateDate": "2017-12-07T14:14:55.198Z"
     },
@@ -115,12 +125,13 @@
         "marshmallows",
         "wafers"
       ],
+      "producerInfo": false,
       "bought": false,
       "updateDate": "2017-12-07T14:14:55.198Z"
     },
     {
       "id": 4,
-      "name": "Sausage1",
+      "name": "Sausage12",
       "description": "Sausage of pork",
       "price": 6,
       "quantity": 3,
@@ -134,8 +145,75 @@
         "cutlet",
         "frankfurter"
       ],
+      "producerInfo": false,
       "bought": false,
-      "updateDate": "2017-12-15T12:41:21.711Z"
+      "updateDate": "2017-12-17T14:24:29.299Z"
+    },
+    {
+      "name": "qaz",
+      "description": "zzz",
+      "price": 11,
+      "quantity": 1,
+      "category": "food",
+      "isAvailable": false,
+      "ingredients": [],
+      "equivalents": [],
+      "producerInfo": true,
+      "producer": {
+        "name": "dfs",
+        "city": "fdgdf",
+        "country": "123"
+      },
+      "bought": true,
+      "updateDate": "2017-12-17T18:12:23.436Z",
+      "producerName": "dfs",
+      "producerCity": "fdgdf",
+      "producerCountry": "123",
+      "id": 5
+    },
+    {
+      "name": "www",
+      "description": "www",
+      "price": 111,
+      "quantity": 1,
+      "category": "food",
+      "isAvailable": true,
+      "ingredients": [],
+      "equivalents": [],
+      "producerInfo": true,
+      "producer": {
+        "name": "sdsd",
+        "city": "sdfsd",
+        "country": "sdfsd"
+      },
+      "bought": true,
+      "updateDate": "2017-12-17T18:17:34.732Z",
+      "producerName": "sdsd",
+      "producerCity": "sdfsd",
+      "producerCountry": "sdfsd",
+      "id": 6
+    },
+    {
+      "name": "123",
+      "description": "sdfdf",
+      "price": 232,
+      "quantity": 232,
+      "category": "food",
+      "isAvailable": null,
+      "ingredients": [],
+      "equivalents": [],
+      "producerInfo": true,
+      "producer": {
+        "name": "dfgdf",
+        "city": "sfd",
+        "country": "sdfsdf"
+      },
+      "bought": true,
+      "updateDate": "2017-12-17T18:23:41.241Z",
+      "producerName": "dfgdf",
+      "producerCity": "sfd",
+      "producerCountry": "sdfsdf",
+      "id": 7
     }
   ],
   "orders": [
