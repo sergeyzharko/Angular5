@@ -1,3 +1,6 @@
+import { Phone } from './phone.model';
+export enum Notification { A = 'Email', B = 'Phone' }
+
 export class User {
     constructor(
         public id: number = null,
@@ -5,8 +8,9 @@ export class User {
         public password: string = '',
         public firstName: string = '',
         public lastName: string = '',
-        public email: string = '',
-        public phone?: string,
+        public notification: Notification = Notification.A,
+        public email?: string,
+        public phones?: Array<Phone>,
         public address?: string,
         public isAdmin: boolean = false
     ) {}

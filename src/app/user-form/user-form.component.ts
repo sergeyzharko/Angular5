@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AutoUnsubscribe } from './../decorators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { DialogService } from './../services';
 import { Subscription } from 'rxjs/Subscription';
@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { CanComponentDeactivate } from './../guards/can-component-deactivate.interface';
 import { User } from './../models';
 import { UserArrayService, AuthService } from './../services';
+import { CustomValidators } from './../validators';
 
 @Component({
   templateUrl: './user-form.component.html',
@@ -22,13 +23,19 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   admin = false;
   errorMessage: string;
   userForm: FormGroup;
+  passwordMessage: string;
+  private validationMessages = {
+    required: 'Please enter your email address.',
+    pattern: 'Please enter a valid email address.'
+  };
 
   constructor(
     private userArrayService: UserArrayService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -36,18 +43,20 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
 
     this.admin = this.router.url.includes('admin') ? true : false;
 
+    this.buildForm();
+    this.setFormValues(this.user);
+
     if (this.admin) {
       // UserResolveGuard
       this.route.data.subscribe(data => {
         this.user = Object.assign(this.user, data.user);
         this.originalUser = Object.assign(this.user, data.user);
+        this.setFormValues(this.user);
       });
     } else if (this.authService.isLoggedIn) {
       this.user = this.authService.currentUser;
+      this.setFormValues(this.user);
     }
-
-    this.createForm();
-    this.setFormValues(this.user);
 
   }
 
@@ -86,31 +95,62 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     );
   }
 
-  private createForm() {
-    this.userForm = new FormGroup({
+  private buildForm() {
+    this.userForm = this.fb.group({
       id: new FormControl(),
-      login: new FormControl(),
-      password: new FormControl(),
-      repeatedPassword: new FormControl(),
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      email: new FormControl(),
-      phone: new FormControl(),
-      address: new FormControl(),
-      isAdmin: new FormControl(false)
+      login: new FormControl('', {validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)], updateOn: 'blur'}),
+      passwordGroup: this.fb.group({
+        password:
+          new FormControl('', {validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)], updateOn: 'blur'}),
+        repeatedPassword:
+          new FormControl('', {validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)], updateOn: 'blur'})
+      },
+    ),
+      firstName: new FormControl('', {validators: [
+        Validators.required, Validators.minLength(3), Validators.maxLength(20)
+      ], updateOn: 'blur'}),
+      lastName: new FormControl('', {validators: [
+        Validators.required, Validators.minLength(3), Validators.maxLength(20)
+      ], updateOn: 'blur'}),
+      // notification: 'email',
+      email: new FormControl('', {validators: [
+        Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+'), Validators.maxLength(30)
+      ], updateOn: 'blur'}),
+      phones: this.fb.array([this.buildPhone()]),
+      address: new FormControl('', {validators: [
+        Validators.required, Validators.minLength(3), Validators.maxLength(30)
+      ], updateOn: 'blur'}),
+      isAdmin: false
     });
   }
+
+  // private createForm() {
+  //   this.userForm = new FormGroup({
+  //     id: new FormControl(),
+  //     login: new FormControl(),
+  //     password: new FormControl(),
+  //     repeatedPassword: new FormControl(),
+  //     firstName: new FormControl(),
+  //     lastName: new FormControl(),
+  //     email: new FormControl(),
+  //     phone: new FormControl(),
+  //     address: new FormControl(),
+  //     isAdmin: new FormControl(false)
+  //   });
+  // }
 
   private setFormValues(user) {
     this.userForm.setValue({
       id: user.id,
       login: user.login,
-      password: user.password,
-      repeatedPassword: user.password,
+      passwordGroup: {
+        password: user.password || '',
+        repeatedPassword: user.password || ''
+      },
       firstName: user.firstName,
       lastName: user.lastName,
-      email: user.email,
-      phone: user.phone || '',
+      email: user.email || '',
+      phones: user.phones || [{ number: '', type: 'Home' }],
       address: user.address || '',
       isAdmin: user.isAdmin
     });
@@ -126,6 +166,58 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     } else {
       this.router.navigate(['products']);
     }
+  }
+
+  private watchValueChanges() {
+    const sub1 = this.userForm.get('notification').valueChanges
+      .subscribe(value => this.setNotification(value));
+    this.subscription.push(sub1);
+
+    const emailControl = this.userForm.get('emailGroup.email');
+    const sub2 = emailControl.valueChanges
+      .debounceTime(1000)
+      .subscribe(value => this.setMessage(emailControl));
+    this.subscription.push(sub2);
+  }
+
+  private setMessage(c: AbstractControl) {
+    this.passwordMessage = '';
+    if ((c.touched || c.dirty) && c.errors) {
+      this.passwordMessage = Object
+        .keys(c.errors)
+        .map(key => this.validationMessages[key])
+        .join(' ');
+    }
+  }
+
+  private setNotification(notifyVia: string) {
+    const phoneControl = this.userForm.get('phone');
+    const emailControl = this.userForm.get('emailGroup.email');
+
+    if (notifyVia === 'text') {
+      phoneControl.setValidators(Validators.required);
+      emailControl.clearValidators();
+    } else {
+      emailControl.setValidators( [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+      phoneControl.clearValidators();
+    }
+    phoneControl.updateValueAndValidity();
+    emailControl.updateValueAndValidity();
+  }
+
+  private buildPhone(): FormGroup {
+    return this.fb.group({
+      number: '',
+      type: 'Home'
+    });
+  }
+
+  get phones(): FormArray {
+    return <FormArray>this.userForm.get('phones');
+  }
+
+  addPhone(): void {
+    this.phones.push(this.buildPhone());
   }
 
   goBack() {

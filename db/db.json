@@ -4,10 +4,20 @@
       "id": 1,
       "login": "Kristina",
       "password": "Kristina",
-      "firstName": "Kristina",
+      "firstName": "Kristina1",
       "lastName": "Kostyuk",
+      "notification": "Email",
       "email": "kristina.evzrezova@gmail.com",
-      "phone": "+375296358333",
+      "phones": [
+        {
+          "number": "+375296358333",
+          "type": "Home"
+        },
+        {
+          "number": "+375296111111",
+          "type": "Work"
+        }
+      ],
       "address": "ul. Mogilyovskaya, 32-37",
       "isAdmin": false,
       "repeatedPassword": "Kristina"
@@ -44,27 +54,13 @@
     },
     {
       "id": 5,
-      "login": "ewq",
+      "login": "qwe",
       "password": "",
-      "firstName": "ewq",
-      "lastName": "ewq",
-      "email": "ewq",
-      "phone": "ewq",
-      "address": "ewq",
-      "isAdmin": false,
-      "repeatedPassword": ""
-    },
-    {
-      "id": 6,
-      "login": "qaz",
-      "password": "qaz",
-      "firstName": "qaz",
-      "lastName": "qaz",
-      "email": "qaz",
-      "phone": "qaz",
-      "address": "qaz",
-      "isAdmin": false,
-      "repeatedPassword": "qaz"
+      "firstName": "qwe",
+      "lastName": "qwe",
+      "notification": "Email",
+      "address": "qwe",
+      "isAdmin": false
     }
   ],
   "products": [
