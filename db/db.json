@@ -9,7 +9,8 @@
       "email": "kristina.evzrezova@gmail.com",
       "phone": "+375296358333",
       "address": "ul. Mogilyovskaya, 32-37",
-      "isAdmin": false
+      "isAdmin": false,
+      "repeatedPassword": "Kristina"
     },
     {
       "id": 2,
@@ -37,28 +38,33 @@
       "lastName": "Admin",
       "email": "admin@admin.com",
       "phone": "+375296111111",
-      "address": "ul. Voronyanskogo",
-      "isAdmin": true
+      "address": "ul. Voronyanskogo, d. 3",
+      "isAdmin": true,
+      "repeatedPassword": "Admin"
     },
     {
       "id": 5,
+      "login": "ewq",
+      "password": "",
+      "firstName": "ewq",
+      "lastName": "ewq",
+      "email": "ewq",
+      "phone": "ewq",
+      "address": "ewq",
+      "isAdmin": false,
+      "repeatedPassword": ""
+    },
+    {
+      "id": 6,
       "login": "qaz",
       "password": "qaz",
       "firstName": "qaz",
       "lastName": "qaz",
       "email": "qaz",
       "phone": "qaz",
-      "address": "qaz11",
-      "isAdmin": false
-    },
-    {
-      "login": "wsx11",
-      "firstName": "wsx",
-      "lastName": "wsx",
-      "email": "wsx",
-      "phone": "wsx",
-      "address": "wsx",
-      "id": 6
+      "address": "qaz",
+      "isAdmin": false,
+      "repeatedPassword": "qaz"
     }
   ],
   "products": [

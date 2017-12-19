@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AutoUnsubscribe } from './../decorators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { DialogService } from './../services';
 import { Subscription } from 'rxjs/Subscription';
@@ -20,6 +21,7 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   private subscription: Subscription[] = [];
   admin = false;
   errorMessage: string;
+  userForm: FormGroup;
 
   constructor(
     private userArrayService: UserArrayService,
@@ -37,39 +39,22 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     if (this.admin) {
       // UserResolveGuard
       this.route.data.subscribe(data => {
-        this.user = Object.assign({}, data.user);
-        this.originalUser = Object.assign({}, data.user);
+        this.user = Object.assign(this.user, data.user);
+        this.originalUser = Object.assign(this.user, data.user);
       });
     } else if (this.authService.isLoggedIn) {
       this.user = this.authService.currentUser;
     }
 
+    this.createForm();
+    this.setFormValues(this.user);
+
   }
 
-  // saveUser() {
-
-  //   const method = this.user.id ? 'updateUser' : 'addUser';
-  //   const sub = this.userArrayService[method](this.user)
-  //     .subscribe(
-  //       () => {
-  //         if (this.admin) {
-  //           this.originalUser = Object.assign({}, this.user);
-  //           this.user.id
-  //             // optional parameter: http://localhost:4200/users;id=2
-  //             ? this.router.navigate(['admin/users', { id: this.user.id }])
-  //             : this.router.navigate(['admin/users']);
-  //         } else {
-  //           this.router.navigate(['products']);
-  //         }
-
-  //       },
-  //       error => console.log(error)
-  //     );
-  //   this.subscription.push(sub);
-
-  // }
-
   saveUser() {
+    console.log(this.userForm);
+    console.log(`Saved: ${JSON.stringify(this.userForm.value)}`);
+    Object.assign(this.user, this.userForm.value);
     this.user.id ? this.update() : this.register();
   }
 
@@ -99,6 +84,36 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
         this.navigate();
       }
     );
+  }
+
+  private createForm() {
+    this.userForm = new FormGroup({
+      id: new FormControl(),
+      login: new FormControl(),
+      password: new FormControl(),
+      repeatedPassword: new FormControl(),
+      firstName: new FormControl(),
+      lastName: new FormControl(),
+      email: new FormControl(),
+      phone: new FormControl(),
+      address: new FormControl(),
+      isAdmin: new FormControl(false)
+    });
+  }
+
+  private setFormValues(user) {
+    this.userForm.setValue({
+      id: user.id,
+      login: user.login,
+      password: user.password,
+      repeatedPassword: user.password,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      phone: user.phone || '',
+      address: user.address || '',
+      isAdmin: user.isAdmin
+    });
   }
 
   navigate() {

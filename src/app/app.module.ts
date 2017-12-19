@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -38,6 +38,7 @@ const TaskManager = new ConstantsService();
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     CartModule,
     HttpClientModule,
     MyOrdersModule,
