@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { CanComponentDeactivate } from './../guards/can-component-deactivate.interface';
 import { User } from './../models';
 import { UserArrayService, AuthService } from './../services';
-import { CustomValidators } from './../validators';
+import { CustomValidators } from './../validators/custom.validators';
 
 @Component({
   templateUrl: './user-form.component.html',
@@ -44,7 +44,6 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     this.admin = this.router.url.includes('admin') ? true : false;
 
     this.buildForm();
-    this.setFormValues(this.user);
 
     if (this.admin) {
       // UserResolveGuard
@@ -104,7 +103,7 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
           new FormControl('', {validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)], updateOn: 'blur'}),
         repeatedPassword:
           new FormControl('', {validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)], updateOn: 'blur'})
-      },
+      }, {validator: CustomValidators.passwordMatcher}
     ),
       firstName: new FormControl('', {validators: [
         Validators.required, Validators.minLength(3), Validators.maxLength(20)
@@ -112,7 +111,7 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
       lastName: new FormControl('', {validators: [
         Validators.required, Validators.minLength(3), Validators.maxLength(20)
       ], updateOn: 'blur'}),
-      // notification: 'email',
+      notification: 'Email',
       email: new FormControl('', {validators: [
         Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+'), Validators.maxLength(30)
       ], updateOn: 'blur'}),
@@ -140,6 +139,9 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   // }
 
   private setFormValues(user) {
+    for ( let i = 1; i < user.phones.length; i++ ) {
+      this.addPhone();
+    }
     this.userForm.setValue({
       id: user.id,
       login: user.login,
@@ -149,6 +151,7 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
       },
       firstName: user.firstName,
       lastName: user.lastName,
+      notification: user.notification || 'email',
       email: user.email || '',
       phones: user.phones || [{ number: '', type: 'Home' }],
       address: user.address || '',
