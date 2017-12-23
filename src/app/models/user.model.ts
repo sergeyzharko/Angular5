@@ -11,7 +11,11 @@ export class User {
         public notification: Notification = Notification.A,
         public email?: string,
         public phones?: Array<Phone>,
-        public address?: string,
+        public street1?: string,
+        public street2?: string,
+        public country = '',
+        public city?: string,
+        public zip?: string,
         public isAdmin: boolean = false
     ) {}
 }

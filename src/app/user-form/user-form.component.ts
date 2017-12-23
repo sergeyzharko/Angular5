@@ -17,16 +17,18 @@ import { CustomValidators } from './../validators/custom.validators';
 })
 @AutoUnsubscribe()
 export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactivate {
+  countries: Array<string> = ['Ukraine', 'Armenia', 'Belarus', 'Hungary', 'Kazakhstan', 'Poland', 'Russia'];
   user: User;
   originalUser: User;
   private subscription: Subscription[] = [];
   admin = false;
   errorMessage: string;
   userForm: FormGroup;
-  passwordMessage: string;
+  emailMessage: string;
   private validationMessages = {
     required: 'Please enter your email address.',
-    pattern: 'Please enter a valid email address.'
+    pattern: 'Please enter a valid email address.',
+    maxlength: 'Email is too long.'
   };
 
   constructor(
@@ -44,6 +46,7 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     this.admin = this.router.url.includes('admin') ? true : false;
 
     this.buildForm();
+    this.watchValueChanges();
 
     if (this.admin) {
       // UserResolveGuard
@@ -60,7 +63,7 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   }
 
   saveUser() {
-    console.log(this.userForm);
+    delete this.userForm.value.repeatedPassword;
     console.log(`Saved: ${JSON.stringify(this.userForm.value)}`);
     Object.assign(this.user, this.userForm.value);
     this.user.id ? this.update() : this.register();
@@ -95,31 +98,27 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   }
 
   private buildForm() {
+    const myValidators = [ Validators.required, Validators.minLength(3), Validators.maxLength(30) ];
+
     this.userForm = this.fb.group({
-      id: new FormControl(),
-      login: new FormControl('', {validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)], updateOn: 'blur'}),
+      id:                 new FormControl(),
+      login:              new FormControl('', {validators: myValidators, updateOn: 'blur'}),
       passwordGroup: this.fb.group({
-        password:
-          new FormControl('', {validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)], updateOn: 'blur'}),
-        repeatedPassword:
-          new FormControl('', {validators: [Validators.required, Validators.minLength(3), Validators.maxLength(20)], updateOn: 'blur'})
-      }, {validator: CustomValidators.passwordMatcher}
-    ),
-      firstName: new FormControl('', {validators: [
-        Validators.required, Validators.minLength(3), Validators.maxLength(20)
-      ], updateOn: 'blur'}),
-      lastName: new FormControl('', {validators: [
-        Validators.required, Validators.minLength(3), Validators.maxLength(20)
-      ], updateOn: 'blur'}),
-      notification: 'Email',
-      email: new FormControl('', {validators: [
-        Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+'), Validators.maxLength(30)
-      ], updateOn: 'blur'}),
-      phones: this.fb.array([this.buildPhone()]),
-      address: new FormControl('', {validators: [
-        Validators.required, Validators.minLength(3), Validators.maxLength(30)
-      ], updateOn: 'blur'}),
-      isAdmin: false
+          password:         new FormControl('', {validators: myValidators, updateOn: 'blur'}),
+          repeatedPassword: new FormControl('', {validators: myValidators, updateOn: 'blur'})
+        }, {validator: CustomValidators.passwordMatcher}
+      ),
+      firstName:          new FormControl('', {validators: myValidators, updateOn: 'blur'}),
+      lastName:           new FormControl('', {validators: myValidators, updateOn: 'blur'}),
+      notification:       new FormControl('Email'),
+      email:              new FormControl(''),
+      phones:             this.fb.array([this.buildPhone()]),
+      street1:            new FormControl('', {validators: myValidators, updateOn: 'blur'}),
+      street2:            new FormControl('', {validators: myValidators, updateOn: 'blur'}),
+      country:            new FormControl('', {validators: myValidators, updateOn: 'blur'}),
+      city:               new FormControl('', {validators: myValidators, updateOn: 'blur'}),
+      zip:                new FormControl('', {validators: myValidators, updateOn: 'blur'}),
+      isAdmin:            new FormControl(false)
     });
   }
 
@@ -154,7 +153,11 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
       notification: user.notification || 'email',
       email: user.email || '',
       phones: user.phones || [{ number: '', type: 'Home' }],
-      address: user.address || '',
+      street1: user.street1 || '',
+      street2: user.street2 || '',
+      country: user.country || '',
+      city: user.city || '',
+      zip: user.zip || '',
       isAdmin: user.isAdmin
     });
   }
@@ -172,11 +175,11 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   }
 
   private watchValueChanges() {
-    const sub1 = this.userForm.get('notification').valueChanges
-      .subscribe(value => this.setNotification(value));
+    this.setNotification('Email');
+    const sub1 = this.userForm.get('notification').valueChanges.subscribe(value => this.setNotification(value));
     this.subscription.push(sub1);
 
-    const emailControl = this.userForm.get('emailGroup.email');
+    const emailControl = this.userForm.get('email');
     const sub2 = emailControl.valueChanges
       .debounceTime(1000)
       .subscribe(value => this.setMessage(emailControl));
@@ -184,9 +187,9 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   }
 
   private setMessage(c: AbstractControl) {
-    this.passwordMessage = '';
+    this.emailMessage = '';
     if ((c.touched || c.dirty) && c.errors) {
-      this.passwordMessage = Object
+      this.emailMessage = Object
         .keys(c.errors)
         .map(key => this.validationMessages[key])
         .join(' ');
@@ -194,17 +197,24 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   }
 
   private setNotification(notifyVia: string) {
-    const phoneControl = this.userForm.get('phone');
-    const emailControl = this.userForm.get('emailGroup.email');
+    console.log(this.phones.controls[0].get('number'));
+    // this.phones.controls == this.userForm.get('phones').controls
+    // if (!this.userForm.get('phones').controls) {this.userForm.get('phones').controls = []};
+    // console.log(this.userForm.get('phones').controls);
+    // const phoneControl = this.phones.controls[0];
+    const emailControl = this.userForm.get('email');
 
-    if (notifyVia === 'text') {
-      phoneControl.setValidators(Validators.required);
+    if (notifyVia === 'Phone') {
+      this.phones.controls.forEach( value => value.get('number').setValidators(Validators.required) );
+      // phoneControl.setValidators(Validators.required);
       emailControl.clearValidators();
     } else {
-      emailControl.setValidators( [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
-      phoneControl.clearValidators();
+      emailControl.setValidators([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+'), Validators.maxLength(10)]);
+      this.phones.controls.forEach( value => value.get('number').clearValidators() );
+      // phoneControl.clearValidators();
     }
-    phoneControl.updateValueAndValidity();
+    // phoneControl.updateValueAndValidity();
+    this.phones.controls.forEach( value => value.get('number').updateValueAndValidity() );
     emailControl.updateValueAndValidity();
   }
 

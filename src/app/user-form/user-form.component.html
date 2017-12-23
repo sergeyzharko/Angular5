@@ -6,8 +6,6 @@
                     class="form-control"
                     id="login"
                     placeholder="Login"
-                    required
-                    minlength="3"
                     formControlName="login">
                 <span class="help-block" *ngIf="(userForm.get('login').touched || userForm.get('login').dirty) && userForm.get('login').errors">
                     <span *ngIf="userForm.get('login').errors.required">
@@ -20,34 +18,37 @@
             </div>
         </div>
         <div formGroupName="passwordGroup" *ngIf="!admin" [ngClass]="{'has-error': userForm.get('passwordGroup').errors}">
-            <div class="form-group" [ngClass]="{'has-error': passwordMessage}">
+            <div class="form-group">
                 <label for="password" class="col-md-2 control-label">Password</label>
-                <div class="col-md-4">
+                <div class="col-md-4" [ngClass]="{'has-error': (userForm.get('passwordGroup.password').touched ||
+                userForm.get('passwordGroup.password').dirty) && !userForm.get('passwordGroup.password').valid }">
                     <input type="password" class="form-control col-md-3"
                         id="password"
                         placeholder="Password"
                         formControlName="password">
-                        <span class="help-block" *ngIf="passwordMessage">
-                            {{passwordMessage}}
+                        <span class="help-block" *ngIf="(userForm.get('passwordGroup.password').touched || userForm.get('passwordGroup.password').dirty) && 
+                            (userForm.get('passwordGroup.password').errors || userForm.get('passwordGroup').errors)">
+                            <span *ngIf="userForm.get('passwordGroup.password').errors?.required">
+                                Please enter your password.
+                            </span>
+                            <span *ngIf="userForm.get('passwordGroup.password').errors?.minlength">
+                                The password must be longer than 3 characters.
+                            </span>
                         </span>
                 </div>
             <!-- </div>
             <div class="form-group"> -->
                 <label for="repeatedPassword" class="col-md-2 control-label">Confirm password</label>
                 <div class="col-md-4" [ngClass]="{'has-error': (userForm.get('passwordGroup.repeatedPassword').touched ||
-                userForm.get('passwordGroup.repeatedPassword').dirty) &&
-                !userForm.get('passwordGroup.repeatedPassword').valid }">
+                userForm.get('passwordGroup.repeatedPassword').dirty) && !userForm.get('passwordGroup.repeatedPassword').valid }">
                     <input type="password" class="form-control col-md-3"
                         id="repeatedPassword"
                         placeholder="Password"
                         formControlName="repeatedPassword">
                         <span class="help-block" *ngIf="(userForm.get('passwordGroup.repeatedPassword').touched || userForm.get('passwordGroup.repeatedPassword').dirty) && 
-                        (userForm.get('passwordGroup.repeatedPassword').errors || userForm.get('passwordGroup').errors)">
+                            (userForm.get('passwordGroup.repeatedPassword').errors || userForm.get('passwordGroup').errors)">
                             <span *ngIf="userForm.get('passwordGroup.repeatedPassword').errors?.required">
                                 Please repeat your password.
-                            </span>
-                            <span *ngIf="userForm.get('passwordGroup.repeatedPassword').errors?.minlength">
-                                The repeated password must be longer than 3 characters.
                             </span>
                             <span *ngIf="userForm.get('passwordGroup').errors?.passwordMatch">
                                 The confirmation does not match the password.
@@ -66,8 +67,6 @@
                     class="form-control" 
                     id="firstName"
                     placeholder="First Name"
-                    required
-                    minlength="3"
                     formControlName="firstName">
                     <span class="help-block" *ngIf="(userForm.get('firstName').touched || userForm.get('firstName').dirty) && userForm.get('firstName').errors">
                         <span *ngIf="userForm.get('firstName').errors.required">
@@ -84,8 +83,6 @@
                     class="form-control" 
                     id="lastName"
                     placeholder="Last Name"
-                    required
-                    minlength="3"
                     formControlName="lastName">
                     <span class="help-block" *ngIf="(userForm.get('lastName').touched || userForm.get('lastName').dirty) && userForm.get('lastName').errors">
                         <span *ngIf="userForm.get('lastName').errors.required">
@@ -119,16 +116,9 @@
                     class="form-control" 
                     id="email"
                     placeholder="Email"
-                    required
-                    minlength="3"
                     formControlName="email">
-                    <span class="help-block" *ngIf="(userForm.get('email').touched || userForm.get('email').dirty) && userForm.get('email').errors">
-                        <span *ngIf="userForm.get('email').errors.required">
-                                Please enter your email.
-                        </span>
-                        <span *ngIf="userForm.get('email').errors.minlength">
-                                The email must be longer than 3 characters.
-                        </span>
+                    <span class="help-block" *ngIf="emailMessage">
+                        {{emailMessage}}
                     </span>
             </div>
         </div>
@@ -152,12 +142,17 @@
                         </div>
                         <label class="col-md-2 control-label"
                             attr.for="{{'number1Id' + i}}">Number</label>
-                        <div class="col-md-4">
+                        <div class="col-md-4" [ngClass]="{'has-error': (phones.controls[i].get('number').touched || phones.controls[i].get('number').dirty) && !phones.controls[i].get('number').valid }">
                             <input type="text"
                                     class="form-control"
                                     id="{{'number1Id' + i}}"
                                     placeholder="Number"
                                     formControlName="number">
+                            <span class="help-block" *ngIf="(phones.controls[i].get('number').touched || phones.controls[i].get('number').dirty) && phones.controls[i].get('number').errors">
+                                <span *ngIf="phones.controls[i].get('number').errors.required">
+                                        Please enter your number.
+                                </span>
+                            </span>
                         </div>
                     </div>
             </div>
@@ -170,22 +165,79 @@
                 Add Another Phone
                 </button>
             </div>
-        </div> 
+        </div>
         <div class="form-group">
-            <label for="address" class="col-md-2 control-label">Address</label>
-            <div class="col-md-10" [ngClass]="{'has-error': (userForm.get('address').touched || userForm.get('address').dirty) && !userForm.get('address').valid }">
+            <label attr.for="country" class="col-md-2 control-label">Country</label>
+            <div class="col-md-2" [ngClass]="{'has-error': (userForm.get('country').touched || userForm.get('country').dirty) && !userForm.get('country').valid }">
+                <select class="form-control"
+                    id="country"
+                    formControlName="country">
+                <option value="">Select...</option>
+                <option *ngFor="let country of countries" value="{{country}}">{{country}}</option>           
+            </select>
+            </div>
+            <label attr.for="city" class="col-md-2 control-label">City</label>
+            <div class="col-md-2" [ngClass]="{'has-error': (userForm.get('city').touched || userForm.get('city').dirty) && !userForm.get('city').valid }">
                 <input type="text" 
                     class="form-control" 
-                    id="address"
-                    placeholder="Address"
-                    required
-                    minlength="3"
-                    formControlName="address">
-                    <span class="help-block" *ngIf="(userForm.get('address').touched || userForm.get('address').dirty) && userForm.get('address').errors">
-                        <span *ngIf="userForm.get('address').errors.required">
+                    id="city"
+                    placeholder="City"
+                    formControlName="city">
+                    <span class="help-block" *ngIf="(userForm.get('city').touched || userForm.get('city').dirty) && userForm.get('city').errors">
+                        <span *ngIf="userForm.get('city').errors.required">
+                                Please enter your city.
+                        </span>
+                        <span *ngIf="userForm.get('city').errors.minlength">
+                                The city must be longer than 3 characters.
+                        </span>
+                    </span>
+            </div>
+            <label attr.for="zip" class="col-md-2 control-label">ZIP</label>
+            <div class="col-md-2" [ngClass]="{'has-error': (userForm.get('zip').touched || userForm.get('zip').dirty) && !userForm.get('zip').valid }">
+                <input type="text" 
+                    class="form-control" 
+                    id="zip"
+                    placeholder="ZIP"
+                    formControlName="zip">
+                    <span class="help-block" *ngIf="(userForm.get('zip').touched || userForm.get('zip').dirty) && userForm.get('zip').errors">
+                        <span *ngIf="userForm.get('zip').errors.required">
+                                Please enter your ZIP.
+                        </span>
+                        <span *ngIf="userForm.get('zip').errors.minlength">
+                                The ZIP must be longer than 3 characters.
+                        </span>
+                    </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label attr.for="street1" class="col-md-2 control-label">Street Address 1</label>
+            <div class="col-md-4" [ngClass]="{'has-error': (userForm.get('street1').touched || userForm.get('street1').dirty) && !userForm.get('street1').valid }">
+                <input type="text" 
+                    class="form-control" 
+                    id="street1"
+                    placeholder="Street address"
+                    formControlName="street1">
+                    <span class="help-block" *ngIf="(userForm.get('street1').touched || userForm.get('street1').dirty) && userForm.get('street1').errors">
+                        <span *ngIf="userForm.get('street1').errors.required">
                                 Please enter your address.
                         </span>
-                        <span *ngIf="userForm.get('address').errors.minlength">
+                        <span *ngIf="userForm.get('street1').errors.minlength">
+                                The address must be longer than 3 characters.
+                        </span>
+                    </span>
+            </div>
+            <label attr.for="street2" class="col-md-2 control-label">Street Address 2</label>
+            <div class="col-md-4" [ngClass]="{'has-error': (userForm.get('street2').touched || userForm.get('street2').dirty) && !userForm.get('street2').valid }">
+                <input type="text" 
+                    class="form-control" 
+                    id="street2"
+                    placeholder="Street address (second line)"
+                    formControlName="street2">
+                    <span class="help-block" *ngIf="(userForm.get('street2').touched || userForm.get('street2').dirty) && userForm.get('street2').errors">
+                        <span *ngIf="userForm.get('street2').errors.required">
+                                Please enter your address.
+                        </span>
+                        <span *ngIf="userForm.get('street2').errors.minlength">
                                 The address must be longer than 3 characters.
                         </span>
                     </span>
@@ -211,17 +263,15 @@
                     <button [disabled]="!userForm.valid" (click)="saveUser()" type="submit" class="btn btn-primary" form="user-form" *ngIf="!user.id">Register</button>
                     <button [disabled]="!userForm.valid" (click)="saveUser()" type="submit" class="btn btn-primary" form="user-form" *ngIf="user.id">Update</button>
                 </div>
-                <button *ngIf="admin"
-                [disabled]="!userForm.valid" (click)="saveUser()" type="submit" class="btn btn-primary" form="user-form">Update</button>
-                
+                <button *ngIf="admin" [disabled]="!userForm.valid" (click)="saveUser()" type="submit" class="btn btn-primary" form="user-form">Update</button>
                 <button *ngIf="admin" class="btn btn-primary" type="button" form="user-form" (click)="goBack()">Back</button>
             </div>
         </div>
     
     </form>
     
-    <br>Dirty: {{ userForm.dirty }}
+    <!-- <br>Dirty: {{ userForm.dirty }}
     <br>Touched: {{ userForm.touched }}
     <br>Valid: {{ userForm.valid }}
-    <br>Value: {{ userForm.value | json }}
+    <br>Value: {{ userForm.value | json }} -->
     
