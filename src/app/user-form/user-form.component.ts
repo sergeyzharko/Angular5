@@ -197,6 +197,9 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
   }
 
   private setNotification(notifyVia: string) {
+    const phonePattern =
+    `\\+(9[976]\\d|8[987530]\\d|6[987]\\d|5[90]\\d|42\\d|3[875]\\d|2[98654321]\\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\\d{1,14}$`;
+
     console.log(this.phones.controls[0].get('number'));
     // this.phones.controls == this.userForm.get('phones').controls
     // if (!this.userForm.get('phones').controls) {this.userForm.get('phones').controls = []};
@@ -205,15 +208,14 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     const emailControl = this.userForm.get('email');
 
     if (notifyVia === 'Phone') {
-      this.phones.controls.forEach( value => value.get('number').setValidators(Validators.required) );
-      // phoneControl.setValidators(Validators.required);
+      this.phones.controls.forEach(
+        value => value.get('number').setValidators([Validators.required, Validators.pattern(phonePattern), Validators.maxLength(15)])
+      );
       emailControl.clearValidators();
     } else {
       emailControl.setValidators([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+'), Validators.maxLength(10)]);
       this.phones.controls.forEach( value => value.get('number').clearValidators() );
-      // phoneControl.clearValidators();
     }
-    // phoneControl.updateValueAndValidity();
     this.phones.controls.forEach( value => value.get('number').updateValueAndValidity() );
     emailControl.updateValueAndValidity();
   }

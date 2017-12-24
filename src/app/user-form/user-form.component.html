@@ -154,7 +154,10 @@
                                     formControlName="number">
                             <span class="help-block" *ngIf="(phones.controls[i].get('number').touched || phones.controls[i].get('number').dirty) && phones.controls[i].get('number').errors">
                                 <span *ngIf="phones.controls[i].get('number').errors.required">
-                                        Please enter your number.
+                                        Please enter your phone number.
+                                </span>
+                                <span *ngIf="phones.controls[i].get('number').errors.pattern">
+                                        Please enter a valid phone number.
                                 </span>
                             </span>
                         </div>
