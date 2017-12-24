@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class OrderComponent implements OnInit, OnDestroy {
   values;
-  errorMessage: string;
   private subscription: Subscription[] = [];
 
   constructor(

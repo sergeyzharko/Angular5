@@ -1,6 +1,6 @@
 <form novalidate #productForm="ngForm" *ngIf="product" (ngSubmit)="saveProduct(productForm)" id="product-form" class="form-horizontal" role="form">
 
-    <div class="form-group" [ngClass]="{'has-error': (nameVar.touched || nameVar.dirty) && !nameVar.valid }">
+    <div class="form-group" [ngClass]="{'has-error': (nameVar.touched || nameVar.dirty) && (!nameVar.valid || existError) }">
         <label class="col-md-2 control-label" for="nameId">Name</label>
         <div class="col-md-4">
             <input class="form-control"
@@ -10,16 +10,20 @@
                 required
                 minlength="3"
                 [(ngModel)]= "product.name"
+                (ngModelChange)="productNameExists(product.name)"
                 name="name"
                 #nameVar="ngModel" />
-            <span class="help-block" *ngIf="(nameVar.touched || nameVar.dirty) && nameVar.errors">
+            <span class="help-block" *ngIf="(nameVar.touched || nameVar.dirty) && (nameVar.errors)">
                 <span *ngIf="nameVar.errors.required">
                     Please enter your name.
                 </span>
                 <span *ngIf="nameVar.errors.minlength">
                     The name must be longer than 3 characters.
                 </span>
-            </span>    
+            </span>
+            <span class="help-block" *ngIf="(nameVar.touched || nameVar.dirty) && (existError)">
+                {{existError}}
+            </span>  
         </div>
     </div>
 
@@ -184,7 +188,7 @@
     <div class="form-group">
         <div class="col-md-8 col-md-offset-2">
             <button
-                type="submit" class="btn btn-primary" [disabled]="!productForm.valid">Save
+                type="submit" class="btn btn-primary" [disabled]="!productForm.valid || existError">Save
             </button>
             <button
                 class="btn btn-primary" (click)="goBack()">Back

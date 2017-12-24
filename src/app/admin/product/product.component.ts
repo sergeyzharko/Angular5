@@ -19,6 +19,7 @@ export class ProductComponent implements OnInit, CanComponentDeactivate {
   product: Product;
   originalProduct: Product;
   categories = ['food', 'drink', 'other'];
+  existError: String;
 
   constructor(
     private route: ActivatedRoute,
@@ -66,6 +67,14 @@ export class ProductComponent implements OnInit, CanComponentDeactivate {
           this.goBack();
         }
       );
+    }
+  }
+
+  productNameExists(newName) {
+    if ( !this.product.id ) {
+      this.productsService.productNameExists(newName).then( flag => {
+        flag ? this.existError = 'Product name already exists' : this.existError = undefined;
+      });
     }
   }
 

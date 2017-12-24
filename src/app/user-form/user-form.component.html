@@ -6,13 +6,17 @@
                     class="form-control"
                     id="login"
                     placeholder="Login"
-                    formControlName="login">
+                    formControlName="login"
+                    asyncLoginValidator >
                 <span class="help-block" *ngIf="(userForm.get('login').touched || userForm.get('login').dirty) && userForm.get('login').errors">
                     <span *ngIf="userForm.get('login').errors.required">
                             Please enter your login.
                     </span>
                     <span *ngIf="userForm.get('login').errors.minlength">
                             The login must be longer than 3 characters.
+                    </span>
+                    <span *ngIf="userForm.get('login').errors.asyncLoginInvalid">
+                            The login already exists.
                     </span>
                 </span>
             </div>
