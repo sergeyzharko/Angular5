@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { ConstantsService } from './constants.service';
 
 let TimeStart;
 
@@ -62,13 +61,11 @@ export class TimingInterceptor implements HttpInterceptor {
 @Injectable()
 export class ServerAddressInterceptor implements HttpInterceptor {
 
-  constructor( public constantsService: ConstantsService ) { }
-
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let clonedRequest;
 
     clonedRequest = req.clone({
-      url: this.constantsService.getDataServer() + req.url
+      url: 'http://localhost:3000/' + req.url
     });
 
     return next.handle(clonedRequest);

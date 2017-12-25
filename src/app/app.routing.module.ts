@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules, ExtraOptions } from '@angular/router';
 
 import { CustomPreloadingStrategyService } from './services';
-import { AboutComponent, HomeComponent, LoginComponent, PageNotFoundComponent } from './components';
+import { AboutComponent, NewsComponent, LoginComponent, PageNotFoundComponent } from './pages';
 import { AuthGuard } from './guards/auth.guard';
 import { UserFormComponent } from './user-form/user-form.component';
 
 const routes: Routes = [
   {
-    path: 'home',
-    component: HomeComponent
+    path: 'news',
+    component: NewsComponent
   },
   {
     path: 'about',
@@ -66,10 +66,6 @@ const routes: Routes = [
     component: PageNotFoundComponent,
     data: { title: 'Page Not Found' }
   }
-];
-
-export let appRouterComponents = [
-  AboutComponent, HomeComponent, LoginComponent, PageNotFoundComponent
 ];
 
 const extraOptions: ExtraOptions = {
