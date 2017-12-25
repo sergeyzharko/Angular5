@@ -21,7 +21,7 @@ import { User } from './../models';
 export default class AsyncLoginValidatorDirective implements OnInit, OnDestroy, Validator {
 
     private subscription: Subscription[] = [];
-    users: Array<User>;
+    users: Array<User> = [];
 
     constructor(
         private userArrayService: UserArrayService

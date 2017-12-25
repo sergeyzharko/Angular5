@@ -51,7 +51,12 @@
       "firstName": "Admin",
       "lastName": "Admin",
       "email": "admin@admin.com",
-      "phone": "+375296111111",
+      "phones": [
+        {
+          "number": "+375296111111",
+          "type": "Work"
+        }
+      ],
       "street1": "ul. Voronyanskogo, d. 3",
       "isAdmin": true,
       "repeatedPassword": "Admin"

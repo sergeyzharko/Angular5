@@ -122,21 +122,6 @@ export class UserFormComponent implements OnInit, OnDestroy, CanComponentDeactiv
     });
   }
 
-  // private createForm() {
-  //   this.userForm = new FormGroup({
-  //     id: new FormControl(),
-  //     login: new FormControl(),
-  //     password: new FormControl(),
-  //     repeatedPassword: new FormControl(),
-  //     firstName: new FormControl(),
-  //     lastName: new FormControl(),
-  //     email: new FormControl(),
-  //     phone: new FormControl(),
-  //     address: new FormControl(),
-  //     isAdmin: new FormControl(false)
-  //   });
-  // }
-
   private setFormValues(user) {
     for ( let i = 1; i < user.phones.length; i++ ) {
       this.addPhone();
