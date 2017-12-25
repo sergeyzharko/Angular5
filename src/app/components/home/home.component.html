@@ -1,3 +1,4 @@
-<p>
-  home works!
-</p>
+<div *ngFor="let news of allNews" class="panel panel-default">
+  <div class="panel-heading">{{news.createDate | date}}</div>
+  <div class="panel-body">{{news.text}}</div>
+</div>

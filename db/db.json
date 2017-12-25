@@ -19,11 +19,11 @@
         }
       ],
       "street1": "ul. Mogilyovskaya",
-	  "street2": "32-37",
+      "street2": "32-37",
       "isAdmin": false,
-	  "country": "Belarus",
-	  "city": "Minsk",
-	  "zip": "220007",
+      "country": "Belarus",
+      "city": "Minsk",
+      "zip": "220007",
       "repeatedPassword": "Kristina"
     },
     {
@@ -246,6 +246,23 @@
           "price": 0.32
         }
       ]
+    }
+  ],
+  "news": [
+    {
+      "id": 1,
+      "createDate": "Thu Dec 07 2017 17:31:32 GMT+0300 (RTZ 2 (зима))",
+      "text": "New product was launched"
+    },
+    {
+      "id": 2,
+      "createDate": "Thu Dec 08 2017 17:31:32 GMT+0300 (RTZ 2 (зима))",
+      "text": "Milk was launched"
+    },
+    {
+      "text": "dfgdg1",
+      "createDate": "2017-12-25T11:33:14.625Z",
+      "id": 3
     }
   ]
 }

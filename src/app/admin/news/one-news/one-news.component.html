@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+    <div class="panel-heading">{{news.createDate | date}}</div>
+    <div class="panel-body"><div class="text">{{news.text}}</div>
+      <button class="btn btn-warning btn-sm"
+        (click)="editNews()">
+        Edit
+      </button>
+      <button class="btn btn-danger btn-sm"
+        (click)="deleteNews()">
+        Delete
+      </button>
+    </div>
+  </div>
+  

@@ -5,3 +5,4 @@ export * from './user.model';
 export * from './order.model';
 export * from './order-status.model';
 export * from './producer.model';
+export * from './news.model';

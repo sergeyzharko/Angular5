@@ -7,6 +7,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class AboutComponent implements OnInit {
+  title = 'Shop location';
+  lat = 53.884223;
+  lng = 27.553332;
 
   constructor() { }
 

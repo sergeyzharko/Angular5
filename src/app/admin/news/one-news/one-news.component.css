@@ -1,0 +1,7 @@
+:host.edited > div {
+    border: 2px dotted red;
+  }
+  
+.text {
+  margin-bottom: 10px;
+}

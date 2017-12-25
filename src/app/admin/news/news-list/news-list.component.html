@@ -1,0 +1,6 @@
+<app-one-news
+  *ngFor="let news of allNews" 
+  [news]="news"
+  [class.edited]="isEdited(news)"
+  (onDelete)="deleteNews($event)">
+</app-one-news>

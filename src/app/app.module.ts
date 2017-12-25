@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AgmCoreModule } from '@agm/core';
 
 import { AppRoutingModule, appRouterComponents } from './app.routing.module';
 
@@ -10,7 +11,9 @@ import { AppComponent } from './app.component';
 import { HelloComponent } from './components/hello/hello.component';
 import { GeneratorService, LocalStorageService, ConfigOptionsService, ConstantsService,
   Random5, RandomN, UserArrayService, AuthService, CartService, ProductsService, DialogService,
-  OrderArrayService, UsersAPI, usersBaseUrl, OrdersAPI, ordersBaseUrl, TimingInterceptor, ServerAddressInterceptor } from './services/';
+  OrderArrayService, UsersAPI, usersBaseUrl, OrdersAPI, ordersBaseUrl, TimingInterceptor,
+  ServerAddressInterceptor, NewsService } from './services/';
+import { NewsOrderPipe } from './pipes/order-by.pipe';
 import { ConfigOptionsComponent } from './components/config-options/config-options.component';
 import { ConstantsComponent } from './components/constants/constants.component';
 import { GeneratorComponent } from './components/generator/generator.component';
@@ -43,7 +46,10 @@ const TaskManager = new ConstantsService();
     HttpClientModule,
     MyOrdersModule,
     UserFormModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCt87xDw1zzoBOTzmSn6r8OdE220cn_MKc'
+    })
   ],
   exports: [
     AppComponent
@@ -61,6 +67,8 @@ const TaskManager = new ConstantsService();
     { provide: Random5, useFactory:  RandomN(5), deps: [ GeneratorService ] },
     UserArrayService,
     OrderArrayService,
+    NewsService,
+    NewsOrderPipe,
     {provide: UsersAPI, useValue: usersBaseUrl},
     {provide: OrdersAPI, useValue: ordersBaseUrl},
     // {
