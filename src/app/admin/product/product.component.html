@@ -1,70 +1,198 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h4 class="pannel-title">
-            Product Form
-        </h4>
-    </div>
-    <div class="panel-body">
-        <form *ngIf="product" (ngSubmit)="saveProduct()" id="product-form">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text"
-                class="form-control"
-                id="name" name="name"
-                placeholder="Name"
+<form novalidate #productForm="ngForm" *ngIf="product" (ngSubmit)="saveProduct(productForm)" id="product-form" class="form-horizontal" role="form">
+
+    <div class="form-group" [ngClass]="{'has-error': (nameVar.touched || nameVar.dirty) && (!nameVar.valid || existError) }">
+        <label class="col-md-2 control-label" for="nameId">Name</label>
+        <div class="col-md-4">
+            <input class="form-control"
+                id="nameId"
+                type="text"
+                placeholder="Name (required)"
                 required
-                [(ngModel)]="product.name">
-          </div>
-          <div class="form-group">
-              <label for="description">Description</label>
-              <input type="text"
-                  class="form-control"
-                  id="description" name="description"
-                  placeholder="Description"
-                  required
-                  [(ngModel)]="product.description">
-          </div>
-          <div class="form-group">
-              <label for="price">Price</label>
-              <input type="text"
-                  class="form-control"
-                  id="price" name="price"
-                  placeholder="Price"
-                  [(ngModel)]="product.price">
-          </div>
-          <div class="form-group">
-              <label for="quantity">Quantity</label>
-              <input type="number"
-                  min="1" max="100"
-                  class="form-control"
-                  id="quantity" name="quantity"
-                  placeholder="Quantity"
-                  [(ngModel)]="product.quantity">
-          </div>
-          <div class="form-group">
-              <label for="category">Category</label>
-              <select class="form-control" id="category" name="category" [(ngModel)]="product.category">
-                <option>food</option>
-                <option>drink</option>
-                <option>other</option>
-              </select>
-          </div>
-          <div class="form-check">
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" id="isAvailable" name="isAvailable" [(ngModel)]="product.isAvailable">
-                Is Available
-              </label>
-          </div>
-          <button
-              type="submit"
-              class="btn btn-primary"
-              form="product-form">Save
-          </button>
-          <button
-              class="btn btn-primary"
-              (click)="goBack()">Back
-          </button>
-        </form>
+                minlength="3"
+                [(ngModel)]= "product.name"
+                (ngModelChange)="productNameExists(product.name)"
+                name="name"
+                #nameVar="ngModel" />
+            <span class="help-block" *ngIf="(nameVar.touched || nameVar.dirty) && (nameVar.errors)">
+                <span *ngIf="nameVar.errors.required">
+                    Please enter your name.
+                </span>
+                <span *ngIf="nameVar.errors.minlength">
+                    The name must be longer than 3 characters.
+                </span>
+            </span>
+            <span class="help-block" *ngIf="(nameVar.touched || nameVar.dirty) && (existError)">
+                {{existError}}
+            </span>  
+        </div>
     </div>
-  </div>
-  
+
+    <div class="form-group" [ngClass]="{'has-error': (descriptionVar.touched || descriptionVar.dirty) && !descriptionVar.valid }">
+        <label class="col-md-2 control-label" for="descriptionId">Description</label>
+        <div class="col-md-4">
+            <input class="form-control"
+                id="descriptionId"
+                type="text"
+                placeholder="Description (required)"
+                required
+                minlength="3"
+                [(ngModel)]= "product.description"
+                name="description"
+                #descriptionVar="ngModel" />
+            <span class="help-block" *ngIf="(descriptionVar.touched || descriptionVar.dirty) && descriptionVar.errors">
+                <span *ngIf="descriptionVar.errors.required">
+                    Please enter your description.
+                </span>
+                <span *ngIf="descriptionVar.errors.minlength">
+                    The description must be longer than 3 characters.
+                </span>
+            </span>    
+        </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{'has-error': (priceVar.touched || priceVar.dirty) && !priceVar.valid }">
+        <label class="col-md-2 control-label" for="priceId">Price</label>
+        <div class="col-md-4">
+            <input class="form-control"
+                id="priceId"
+                type="number"
+                placeholder="Price (required)"
+                required
+                [(ngModel)]= "product.price"
+                name="price"
+                #priceVar="ngModel" />
+            <span class="help-block" *ngIf="(priceVar.touched || priceVar.dirty) && priceVar.errors">
+                <span *ngIf="priceVar.errors.required">
+                    Please enter price.
+                </span>
+            </span>    
+        </div>
+    </div>
+
+    <div class="form-group" [ngClass]="{'has-error': (quantityVar.touched || quantityVar.dirty) && !quantityVar.valid }">
+        <label class="col-md-2 control-label" for="quantityId">Quantity</label>
+        <div class="col-md-4">
+            <input class="form-control"
+                id="quantityId"
+                type="number"
+                placeholder="Quantity (required)"
+                required
+                [(ngModel)]= "product.quantity"
+                name="quantity"
+                #quantityVar="ngModel" />
+            <span class="help-block" *ngIf="(quantityVar.touched || quantityVar.dirty) && quantityVar.errors">
+                <span *ngIf="quantityVar.errors.required">
+                    Please enter quantity.
+                </span>
+            </span>    
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="category" class="col-md-2 control-label">Category</label>
+        <div class="col-md-4">
+            <select class="form-control" id="category" name="category" [(ngModel)]="product.category">
+                <option value="">Select a category...</option>
+                <option *ngFor="let category of categories" value="{{category}}">{{category}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-1 col-md-8 checkbox" >
+            <label>
+                <input id="isAvailable"
+                    type="checkbox"
+                    [(ngModel)]="product.isAvailable"
+                    name="isAvailable" >
+                Is Available
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-1 col-md-8 checkbox" >
+            <label>
+                <input id="producerInfo"
+                    type="checkbox"
+                    [(ngModel)]="product.producerInfo"
+                    name="producerInfo" >
+                Producer Info
+            </label>
+        </div>
+    </div>
+    <div *ngIf="product.producerInfo" class="form-group" [ngClass]="{'has-error': (producerNameVar.touched || producerNameVar.dirty) && !producerNameVar.valid }">
+        <label class="col-md-2 control-label" for="producerNameId">Producer Name</label>
+        <div class="col-md-4">
+            <input class="form-control"
+                id="producerNameId"
+                type="text"
+                placeholder="Producer Name (required)"
+                required
+                minlength="3"
+                [(ngModel)]= "product.producer.name"
+                name="producerName"
+                #producerNameVar="ngModel" />
+            <span class="help-block" *ngIf="(producerNameVar.touched || producerNameVar.dirty) && producerNameVar.errors">
+                <span *ngIf="producerNameVar.errors.required">
+                    Please enter producer name.
+                </span>
+                <span *ngIf="producerNameVar.errors.minlength">
+                    The producer name must be longer than 3 characters.
+                </span>
+            </span>    
+        </div>
+    </div>
+    <div *ngIf="product.producerInfo" class="form-group" [ngClass]="{'has-error': (producerCityVar.touched || producerCityVar.dirty) && !producerCityVar.valid }">
+        <label class="col-md-2 control-label" for="producerCityId">Producer City</label>
+        <div class="col-md-4">
+            <input class="form-control"
+                id="producerCityId"
+                type="text"
+                placeholder="Producer City (required)"
+                required
+                minlength="3"
+                [(ngModel)]= "product.producer.city"
+                name="producerCity"
+                #producerCityVar="ngModel" />
+            <span class="help-block" *ngIf="(producerCityVar.touched || producerCityVar.dirty) && producerCityVar.errors">
+                <span *ngIf="producerCityVar.errors.required">
+                    Please enter producer city.
+                </span>
+                <span *ngIf="producerCityVar.errors.minlength">
+                    The producer city must be longer than 3 characters.
+                </span>
+            </span>    
+        </div>
+    </div>
+    <div *ngIf="product.producerInfo" class="form-group" [ngClass]="{'has-error': (producerCountryVar.touched || producerCountryVar.dirty) && !producerCountryVar.valid }">
+        <label class="col-md-2 control-label" for="producerCountryId">Producer Country</label>
+        <div class="col-md-4">
+            <input class="form-control"
+                id="producerCountryId"
+                type="text"
+                placeholder="Producer Country (required)"
+                required
+                minlength="3"
+                [(ngModel)]= "product.producer.country"
+                name="producerCountry"
+                #producerCountryVar="ngModel" />
+            <span class="help-block" *ngIf="(producerCountryVar.touched || producerCountryVar.dirty) && producerCountryVar.errors">
+                <span *ngIf="producerCountryVar.errors.required">
+                    Please enter producer country.
+                </span>
+                <span *ngIf="producerCountryVar.errors.minlength">
+                    The producer country must be longer than 3 characters.
+                </span>
+            </span>    
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8 col-md-offset-2">
+            <button
+                type="submit" class="btn btn-primary" [disabled]="!productForm.valid || existError">Save
+            </button>
+            <button
+                class="btn btn-primary" (click)="goBack()">Back
+            </button>
+        </div>
+    </div>
+</form>

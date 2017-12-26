@@ -44,6 +44,14 @@ export class ProductsService {
             .catch(this.handleError);
   }
 
+  async productNameExists( newName: string ) {
+    let flag = false;
+    await this.getProducts().then( (products) => {
+      products.forEach( product => { if (product.name === newName) {flag = true; } } );
+    });
+    return flag;
+  }
+
   newId(): number {
     let maxId, newId;
     this.getProducts()

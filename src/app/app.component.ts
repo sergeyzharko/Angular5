@@ -24,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setPageTitles();
+    this.authService.checkCredentials();
   }
 
   ngOnDestroy() {

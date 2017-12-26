@@ -1,0 +1,7 @@
+.form-control {
+    width: 200px;
+}
+
+input.ng-valid.ng-touched{
+    border-color: lightgreen;
+}

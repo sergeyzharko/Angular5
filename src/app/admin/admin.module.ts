@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { AdminRoutingModule, adminRouterComponents } from './admin.routing.module';
-import { AdminComponent, UsersModule, OrdersModule } from '.';
+import { AdminComponent, UsersModule, OrdersModule, NewsModule } from '.';
 
 @NgModule({
   imports: [
@@ -12,7 +12,8 @@ import { AdminComponent, UsersModule, OrdersModule } from '.';
     FormsModule,
     AdminRoutingModule,
     UsersModule,
-    OrdersModule
+    OrdersModule,
+    NewsModule
   ],
   exports: [
     AdminComponent

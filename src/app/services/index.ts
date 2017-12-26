@@ -1,8 +1,4 @@
 export * from './local-storage.service';
-export * from './config-options.service';
-export * from './constants.service';
-export * from './generator.service';
-export * from './generator.factory';
 export * from './cart.service';
 export * from './product-list.service';
 export * from './auth.service';
@@ -14,3 +10,4 @@ export * from './order-array.service';
 export * from './users.config';
 export * from './orders.config';
 export * from './interceptors.service';
+export * from './news.service';

@@ -4,7 +4,7 @@
   <button (click)="login()">Login</button>
   <button (click)="register()">Register</button>
 </div>
-<div *ngIf="customer.login.length && customer.password.length && customer.firstName.length && customer.lastName.length && customer.address.length">
+<div *ngIf="isLoggedIn">
   <p>Delivery address: {{customer.address}}, {{customer.firstName}} {{customer.lastName}}</p>
   <button (click)="buy()">Buy</button>
 </div>

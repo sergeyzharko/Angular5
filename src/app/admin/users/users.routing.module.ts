@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { UsersComponent, UserListComponent, UserFormComponent } from '.';
+import { UsersComponent, UserListComponent } from '.';
 import { CanDeactivateGuard, UserResolveGuard } from './../../guards';
+import { UserFormComponent } from './../../user-form/user-form.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
     children: [
       {
         path: 'add',
-        component: UserFormComponent
+        component: UserFormComponent,
+        data: { title: 'Register' }
       },
       {
         path: 'edit/:id',
@@ -29,7 +31,7 @@ const routes: Routes = [
   }
 ];
 
-export let usersRouterComponents = [UsersComponent, UserListComponent, UserFormComponent];
+export let usersRouterComponents = [UsersComponent, UserListComponent];
 
 @NgModule({
   imports: [

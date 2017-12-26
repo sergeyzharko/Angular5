@@ -6,6 +6,7 @@ import './rxjs-extensions';
 import { Subscription } from 'rxjs/Subscription';
 
 import { UserArrayService } from '../services/user-array.service';
+import { LocalStorageService } from '../services/local-storage.service';
 import { User } from './../models';
 
 @Injectable()
@@ -22,7 +23,8 @@ export class AuthService implements OnInit, OnDestroy {
 
   constructor(
     public userArrayService: UserArrayService,
-    public router: Router
+    public router: Router,
+    public localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
@@ -34,7 +36,14 @@ export class AuthService implements OnInit, OnDestroy {
     this.subscription.push(sub);
   }
 
-  login(user) {
+  checkCredentials() {
+    const credentials = JSON.parse(this.localStorageService.getItem('Credentials'));
+    console.log(`Credentials from LocalStorage: ${credentials}`);
+
+    if (credentials) { this.login({login: credentials.login, password: credentials.password}, true); }
+  }
+
+  login(user, rememberFlag) {
     let redirect = '/login';
 
     this.userArrayService.getUsers()
@@ -53,7 +62,10 @@ export class AuthService implements OnInit, OnDestroy {
           }
           this.isLoggedIn = true;
           this.currentUser = correctUser;
-          console.log(`Login: ${this.currentUser.login}, isAdmin: ${this.isAdmin}`);
+          if ( rememberFlag ) {
+            this.localStorageService.setItem('Credentials', JSON.stringify({ login: correctUser.login, password: correctUser.password }));
+          }
+          console.log(`Login: ${this.currentUser.login}, isAdmin: ${this.isAdmin}, rememberFlag: ${rememberFlag}`);
           this.router.navigate([redirect]);
         } else if (correctUser) {
           console.log('Incorrect password');
@@ -70,6 +82,7 @@ export class AuthService implements OnInit, OnDestroy {
     this.isLoggedIn = false;
     this.isAdmin = false;
     this.currentUser = undefined;
+    this.localStorageService.removeItem('Credentials');
   }
 
   ngOnDestroy() {

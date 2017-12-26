@@ -30,6 +30,18 @@ Task4:
 
 
 
+Task5:
+
+1. Корзина реализована в виде Secondary Router Outlet
+2. В модуле Admin применён Child Route Configuration
+3. Внедрена относительная навигация
+4. Модули Products и Admin вынесены в асинхронную загрузку
+5. В модуле Admin, компоненте ProductComponent и ProductListComponent используются CanActivate, CanActivateChild, CanLoad, CanDeactivate, Resolve
+6. В app.routing ализованы Custom Preloading Strategy, Title Service
+7. localstorage реализован в корзине (модуль cart)
+
+
+
 Task6:
 
 1. Сервис по схеме Promise: ProductsService; по схеме Observable: UserArrayService, OrderArrayService.
@@ -37,6 +49,16 @@ Task6:
    В дальнейшем статус заказа можно изменить в панеле адимнистратора.
 3. Добавлена функциональность корзины. При добавлении нового продукта появляется кнопка открытия корзины. При нажатии оформления заказа
    запрашивается вход (перенаправления на страницу login) или регистрация (register). Затем заказ добавляется в список заказов.
-4. В качестве бэкэнда используется json-server: json-server --watch db.json
+4. В качестве бэкэнда используется json-server: json-server --watch db/db.json
 5. Добавлен ServerAddressInterceptor, который подставляет всем http запросам адрес сервера, прописанного в ConstantsService.
 6. Добавлены AutoUnsubscribe декоратор.
+
+
+
+Task7:
+
+1. Чтобы войти в панель администратора, нужно авторизовать с логином/паролем Admin/Admin
+2. Добавлена опция "Remember me" на странице авторизации. Реализовано через LocalStorage.
+3. В форме продукта добавлена проверка существования имени, а в форме пользователя - логина через Async Custom Validator Directive.
+4. Добавлен шаблон ввода телефонного номера при его выборе в Send Notifications.
+5. Переработаны страницы "News" и "About".

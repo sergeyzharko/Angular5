@@ -32,7 +32,7 @@ export class UserResolveGuard implements Resolve<User> {
           return Observable.of(null);
         });
     } else {
-      return Observable.of(new User(null, '', '', '', '', '', false));
+      return Observable.of(new User());
     }
 
 

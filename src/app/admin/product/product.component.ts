@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { DialogService } from './../../services/dialog.service';
 
 import { CanComponentDeactivate } from './../../guards/can-component-deactivate.interface';
-import { Product, Category } from '../../models/';
+import { Product, Category, Producer } from '../../models/';
 import { ProductsService } from '../../services/';
 
 @Component({
@@ -17,6 +18,8 @@ import { ProductsService } from '../../services/';
 export class ProductComponent implements OnInit, CanComponentDeactivate {
   product: Product;
   originalProduct: Product;
+  categories = ['food', 'drink', 'other'];
+  existError: String;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,29 +38,43 @@ export class ProductComponent implements OnInit, CanComponentDeactivate {
     //   this.product = new Product(null, null, null, null, null, null, null, null, null, null);
     // }
 
-    this.product = new Product(null, null, null, null, null, null, null, null, null, null);
+    this.product = new Product();
+    this.product.producer = new Producer();
 
     // Был ли отредактирован (для гуарда)
     this.route.data.subscribe(data => {
-      this.product = Object.assign({}, data.product);
-      this.originalProduct = Object.assign({}, data.product);
+      this.product = Object.assign(this.product, data.product);
+      this.originalProduct = Object.assign(this.product, data.product);
     });
   }
 
-  saveProduct() {
+  saveProduct(productForm: NgForm) {
+    Object.assign(this.product, productForm.form.value);
+    console.log(productForm.form.value);
     this.product.updateDate = new Date();
     if (this.product.id) {
       this.productsService.updateProduct(this.product).then(
         () => {
           // Последний отредактированный
-          this.router.navigate(['/admin/products', {id: this.product.id}]);
           this.originalProduct = Object.assign({}, this.product);
+          this.router.navigate(['/admin/products', {id: this.product.id}]);
         }
       );
     } else {
-      this.productsService.addProduct(this.product);
-      this.originalProduct = Object.assign({}, this.product);
-      this.goBack();
+      this.productsService.addProduct(this.product).then(
+        () => {
+          this.originalProduct = Object.assign({}, this.product);
+          this.goBack();
+        }
+      );
+    }
+  }
+
+  productNameExists(newName) {
+    if ( !this.product.id ) {
+      this.productsService.productNameExists(newName).then( flag => {
+        flag ? this.existError = 'Product name already exists' : this.existError = undefined;
+      });
     }
   }
 

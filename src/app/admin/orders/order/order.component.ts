@@ -23,7 +23,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     private orderArrayService: OrderArrayService
   ) { }
 
-  user: User = new User(null, '', '', '', '', '', false);
+  user: User = new User(null);
 
   ngOnInit() {
     const sub = this.userArrayService.getUser(this.order.userId)
