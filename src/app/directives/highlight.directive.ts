@@ -1,9 +1,12 @@
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appHighlight]'
+  selector: '[highlight]'
 })
 export class HighlightDirective {
+
+  default = 'thick solid red';
+
   @Input() border: string;
   private el: HTMLElement;
 
@@ -12,9 +15,9 @@ export class HighlightDirective {
   }
 
   @HostListener('click') onClick() {
-    this.highlight(this.border || 'thick solid red');
+    this.highlight(this.border || this.default);
   }
   private highlight(border: string) {
-    this.el.style.border = border;
+    this.el.style.borderStyle = border;
   }
 }
