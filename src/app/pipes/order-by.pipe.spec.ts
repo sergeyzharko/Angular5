@@ -1,11 +1,11 @@
 
-import { NewsOrderPipe } from './order-by.pipe';
+import { OrderPipe } from './order-by.pipe';
 import { News } from '../models/';
 
 describe('NewsOrderPipe', () => {
 
   // This pipe is a pure, stateless function so no need for BeforeEach
-  const pipe = new NewsOrderPipe();
+  const pipe = new OrderPipe();
 
   const news: Array<News> = [{
     id: 1,
@@ -42,8 +42,8 @@ describe('NewsOrderPipe', () => {
 
   it('order news array', () => {
     news2.forEach( (value, i) => {
-        expect(pipe.transform(news)[i].id).toBe(news2[i].id);
-        expect(pipe.transform(news)[i].text).toBe(news2[i].text);
+        expect(pipe.transform(news, 'createDate')[i].id).toBe(news2[i].id);
+        expect(pipe.transform(news, 'createDate')[i].text).toBe(news2[i].text);
     });
   });
 
