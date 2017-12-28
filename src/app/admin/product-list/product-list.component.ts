@@ -4,7 +4,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { Product, Category } from '../../models/';
 import { ProductsService } from '../../services/';
-import { OrderPipe } from '../../products/pipes/order-by.pipe';
+import { OrderPipe } from '../../pipes/order-by.pipe';
 
 @Component({
   selector: 'app-product-list',

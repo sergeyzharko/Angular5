@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { News } from '../../models/news.model';
 import { NewsService } from '../../services';
-import { NewsOrderPipe } from '../../pipes/order-by.pipe';
+import { OrderPipe } from '../../pipes/order-by.pipe';
 
 @Component({
   templateUrl: './news.component.html',
@@ -15,7 +15,7 @@ export class NewsComponent implements OnInit {
 
   constructor(
     private newsService: NewsService,
-    private orderPipe: NewsOrderPipe,
+    private orderPipe: OrderPipe,
     private router: Router
   ) { }
 
@@ -29,7 +29,7 @@ export class NewsComponent implements OnInit {
   }
 
   onOrder() {
-    this.allNews = this.orderPipe.transform(this.allNews);
+    this.allNews = this.orderPipe.transform(this.allNews, 'createDate');
   }
 
 }

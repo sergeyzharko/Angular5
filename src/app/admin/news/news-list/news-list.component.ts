@@ -4,7 +4,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { News } from '../../../models/';
 import { NewsService } from '../../../services/';
-import { NewsOrderPipe } from '../../../pipes/order-by.pipe';
+import { OrderPipe } from '../../../pipes/order-by.pipe';
 
 @Component({
   selector: 'app-news-list',
@@ -19,7 +19,7 @@ export class NewsListComponent implements OnInit {
 
   constructor( // Reserve the constructor for simple initialization such as wiring constructor parameters to properties.
     public newsService: NewsService,
-    private orderPipe: NewsOrderPipe,
+    private orderPipe: OrderPipe,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -77,7 +77,7 @@ export class NewsListComponent implements OnInit {
   }
 
   onOrder() {
-    this.allNews = this.orderPipe.transform(this.allNews);
+    this.allNews = this.orderPipe.transform(this.allNews, 'createDate');
   }
 
 }

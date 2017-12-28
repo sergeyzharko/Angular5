@@ -27,10 +27,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.checkCredentials();
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
-
   private setPageTitles() {
     this.sub = this.router.events
       .filter(event => event instanceof NavigationEnd)
@@ -87,6 +83,10 @@ export class AppComponent implements OnInit, OnDestroy {
       };
     }
     return classes;
+  }
+
+  ngOnDestroy() {
+    if (this.sub) { this.sub.unsubscribe(); }
   }
 
 }
