@@ -4,9 +4,10 @@
       <ul>
         <li>FirtsName: {{user.firstName}}</li>
         <li>LastName: {{user.lastName}}</li>
-        <li>Email: {{user.email}}</li>
-        <li>Phone: {{user.phone}}</li>
-        <li>Address: {{user.address}}</li>
+        <li *ngIf="user.email">Email: {{user.email}}</li>
+        <li *ngFor="let phone of user.phones">{{phone.type}} phone: {{phone.number}}</li>
+        <li *ngIf="user.street1">Street 1: {{user.street1}}</li>
+        <li *ngIf="user.street2">Street 2: {{user.street2}}</li>
         <li>Admin: {{user.isAdmin}}</li>
       </ul>
       <button class="btn btn-warning btn-sm"

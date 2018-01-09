@@ -4,7 +4,9 @@
       <ul>
         <li>ID: {{order.id}}</li>
         <li>Name: {{user.firstName}} {{user.lastName}}</li>
-        <li>Address: {{user.address}}</li>
+        <li *ngFor="let phone of user?.phones">{{phone.type}} phone: {{phone.number}}</li>
+        <li *ngIf="user.street1">Street 1: {{user.street1}}</li>
+        <li *ngIf="user.street2">Street 2: {{user.street2}}</li>
         <li>Create Date: {{order.createDate | date}}</li>
         <li>Products:
           <uL *ngFor="let product of order.boughtProducts">
