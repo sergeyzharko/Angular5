@@ -18,7 +18,8 @@ import { ServicesModule } from './services/services.module';
 @NgModule({
   declarations: [
     AppComponent,
-    HighlightDirective
+    HighlightDirective,
+    OrderPipe
   ],
   imports: [
     BrowserModule,
